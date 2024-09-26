@@ -1,55 +1,21 @@
-import { useState } from 'react';
-import { MovieCard } from '../movie-card/movie-card';
-import { MovieView } from '../movie-view/movie-view';
+import { useState, useEffect } from 'react'; 
+import MovieCard from '../movie-card/movie-card'; 
+import MovieView from '../movie-view/movie-view';
 
 export const MainView = () => {
-  const [movies, setMovies] = useState([
-    {
-      id: 1,
-      title: "Inception",
-      image: "https://c4.wallpaperflare.com/wallpaper/764/590/391/inception-leonardo-dicaprio-movie-posters-2400x3500-entertainment-movies-hd-art-wallpaper-preview.jpg",
-      director: "Christopher Nolan",
-      genre: "Sci-Fi"
-    },
-    {
-      id: 2,
-      title: "The Shawshank Redemption",
-      image: "https://w0.peakpx.com/wallpaper/546/10/HD-wallpaper-shawshank-redemption-robbins.jpg",
-      director: "Frank Darabont",
-      genre: "Drama"
-    },
-    {
-      id: 3,
-      title: "Gladiator",
-      image: "https://i.pinimg.com/736x/87/7b/a0/877ba0e8628f331632748e4dde000197.jpg",
-      director: "Ridley Scott",
-      genre: "Action"
-    },
-    {
-      id: 4,
-      title: "The Godfather",
-      image: "https://wallpapers.com/images/hd/the-godfather-marlon-brando-inpfsuan4nvq56xz.jpg",
-      director: "Francis Ford Coppola",
-      genre: "Crime"
-    },
-    {
-      id: 5,
-      title: "The Dark Knight",
-      image: "https://facts.net/wp-content/uploads/2023/06/49-facts-about-the-movie-the-dark-knight-1687243041.jpeg",
-      director: "Christopher Nolan",
-      genre: "Action"
-    }
-  ]);
-
+  const [movies, setMovies] = useState([]); // Replace hardcoded movies with state
   const [selectedMovie, setSelectedMovie] = useState(null);
 
+  useEffect(() => {
+    // Fetch movies data from the API
+    fetch('https://your-myflix-api.herokuapp.com/movies')
+      .then((response) => response.json())
+      .then((data) => setMovies(data))
+      .catch((error) => console.error('Error fetching movies:', error));
+  }, []); // Empty dependency array to run once on mount
+
   if (selectedMovie) {
-    return (
-      <MovieView 
-        movie={selectedMovie} 
-        onBackClick={() => setSelectedMovie(null)} 
-      />
-    );
+    return <MovieView movie={selectedMovie} onBackClick={() => setSelectedMovie(null)} />;
   }
 
   if (movies.length === 0) {
@@ -60,11 +26,9 @@ export const MainView = () => {
     <div>
       {movies.map((movie) => (
         <MovieCard
-          key={movie.id}
+          key={movie._id}
           movie={movie}
-          onMovieClick={(newSelectedMovie) => {
-            setSelectedMovie(newSelectedMovie);
-          }}
+          onMovieClick={(newSelectedMovie) => setSelectedMovie(newSelectedMovie)}
         />
       ))}
     </div>
