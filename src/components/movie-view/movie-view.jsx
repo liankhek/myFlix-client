@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import MovieCard from '../movie-card/movie-card';
+import MovieCard from '../movie-card/movie-card';  // Make sure to import MovieCard
 
-export const MovieView = ({ movie, onBackClick, similarMovies }) => {
+const MovieView = ({ movie, onBackClick, similarMovies }) => {
   return (
     <div>
       <div>
-        <img src={movie.image} alt={`${movie.title} poster`} />
+        <img src={movie.imagePath} alt={`${movie.title} poster`} />  {/* Ensure you're using the correct prop */}
       </div>
       <div>
         <span>Title: </span>
@@ -46,10 +46,12 @@ MovieView.propTypes = {
   movie: PropTypes.shape({
     _id: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
-    image: PropTypes.string,
+    imagePath: PropTypes.string,  // Ensure correct image prop name
     genre: PropTypes.string,
     director: PropTypes.string,
   }).isRequired,
   onBackClick: PropTypes.func.isRequired,
-  similarMovies: PropTypes.array.isRequired, // Ensure that similarMovies is required
+  similarMovies: PropTypes.array.isRequired,  // Ensure that similarMovies is required
 };
+
+export default MovieView;
