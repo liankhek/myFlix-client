@@ -16,11 +16,10 @@ export const LoginView = ({ onLoggedIn }) => {
       headers: {
         'Content-Type': 'application/json' 
       },
-      body: JSON.stringify(data),
+      body: JSON.stringify({ Username: username, Password: password }),
     })
       .then((response) => response.json())
-      .then((data) => {
-        console.log("Login response: ", data);
+      .then(data => {
         if (data.user) {
           localStorage.setItem('user', JSON.stringify(data.user));
           localStorage.setItem('token', data.token);
@@ -29,9 +28,9 @@ export const LoginView = ({ onLoggedIn }) => {
           alert('No such user');
         }
       })
-      .catch((e) => {
-        console.error("Login error: ", e, username, password);
-        alert("Something went wrong");
+      .catch(e => {
+        console.error('Login error:', e);
+        alert('Something went wrong');
       });
   };
 
