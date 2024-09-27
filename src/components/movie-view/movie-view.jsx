@@ -1,8 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
+import { MovieCard } from '../movie-card/movie-card';
 
 export const MovieView = ({ movie, onBackClick, similarMovies }) => {
+  if (!movie) return null;
+
   return (
     <div style={{ padding: '20px', maxWidth: '600px', margin: '0 auto' }}>
       <div style={{ marginBottom: '20px' }}>
@@ -20,24 +22,33 @@ export const MovieView = ({ movie, onBackClick, similarMovies }) => {
         <strong>Description:</strong> {movie.Description}
       </div>
       <div style={{ marginBottom: '10px' }}>
-        <strong>Genre:</strong> {movie.Genre.Name}
+        <strong>Genre:</strong> {movie.Genre || 'Unknown Genre'}
       </div>
       <div style={{ marginBottom: '10px' }}>
-        <strong>Director:</strong> {movie.Director.Name}
+        <strong>Director:</strong> {movie.Director || 'Unknown Director'}
       </div>
-      <div style={{ marginBottom: '10px' }}>
-        <strong>Bio:</strong> {movie.Director.Bio}
-      </div>
-      <div style={{ marginBottom: '10px' }}>
-        <strong>Birth:</strong> {movie.Director.Birth}
-      </div>
-      {movie.Director.Death && (
+
+      {/* Optional Director Details */}
+      {movie.DirectorBio && (
         <div style={{ marginBottom: '10px' }}>
-          <strong>Death:</strong> {movie.Director.Death}
+          <strong>Bio:</strong> {movie.DirectorBio}
+        </div>
+      )}
+      {movie.DirectorBirth && (
+        <div style={{ marginBottom: '10px' }}>
+          <strong>Birth:</strong> {movie.DirectorBirth}
+        </div>
+      )}
+      {movie.DirectorDeath && (
+        <div style={{ marginBottom: '10px' }}>
+          <strong>Death:</strong> {movie.DirectorDeath}
         </div>
       )}
 
-      <button onClick={onBackClick} style={{ padding: '10px 20px', cursor: 'pointer' }}>
+      <button
+        onClick={onBackClick}
+        style={{ padding: '10px 20px', cursor: 'pointer' }}
+      >
         Back
       </button>
 
@@ -48,10 +59,10 @@ export const MovieView = ({ movie, onBackClick, similarMovies }) => {
         {similarMovies.length === 0 ? (
           <div>No similar movies available</div>
         ) : (
-          similarMovies.map((movie) => (
-            <div key={movie._id} style={{ width: '150px' }}>
+          similarMovies.map((similarMovie) => (
+            <div key={similarMovie._id} style={{ width: '150px' }}>
               <MovieCard
-                movie={movie}
+                movie={similarMovie}
                 onMovieClick={() => console.log('Clicking similar movie')}
               />
             </div>
@@ -67,18 +78,20 @@ MovieView.propTypes = {
     _id: PropTypes.string.isRequired,
     Title: PropTypes.string.isRequired,
     Description: PropTypes.string.isRequired,
-    Genre: PropTypes.shape({
-      Name: PropTypes.string.isRequired,
-    }).isRequired,
-    Director: PropTypes.shape({
-      Name: PropTypes.string.isRequired,
-      Bio: PropTypes.string,
-      Birth: PropTypes.string,
-      Death: PropTypes.string,
-    }).isRequired,
+    Genre: PropTypes.string, // Now a string, since we adjusted it in main-view.jsx
+    Director: PropTypes.string, // Now a string
+    DirectorBio: PropTypes.string,
+    DirectorBirth: PropTypes.string,
+    DirectorDeath: PropTypes.string,
     ImagePath: PropTypes.string.isRequired,
-    Featured: PropTypes.bool.isRequired,
+    Featured: PropTypes.bool,
   }).isRequired,
   onBackClick: PropTypes.func.isRequired,
-  similarMovies: PropTypes.array.isRequired,
+  similarMovies: PropTypes.arrayOf(
+    PropTypes.shape({
+      _id: PropTypes.string.isRequired,
+      Title: PropTypes.string.isRequired,
+      ImagePath: PropTypes.string.isRequired,
+    })
+  ).isRequired,
 };

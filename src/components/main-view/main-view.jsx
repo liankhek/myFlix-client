@@ -31,8 +31,8 @@ export const MainView = () => {
           _id: movie._id,
           Title: movie.Title,
           Description: movie.Description,
-          genre: movie.genre?.name || "Unknown Genre",
-          directors: movie.directors?.[0]?.name || "Unknown Director",
+          Genre: movie.Genre?.Name || "Unknown Genre", // Adjusted
+          Director: movie.Director?.Name || "Unknown Director", // Adjusted
           ImagePath: movie.ImagePath,
           Featured: movie.Featured,
         }));
@@ -54,20 +54,20 @@ export const MainView = () => {
             setToken(token);
           }}
         />
-        or
+        <div style={{ textAlign: 'center', marginTop: '20px' }}>or</div>
         <SignupView />
       </>
     );
   }
 
   if (selectedMovie) {
+    // Filter similar movies by matching genre and excluding the selected movie itself
     const similarMovies = movies.filter(
       (movie) =>
-        movie.genre && // Check if genre exists
-        movie.genre === selectedMovie.genre && // Compare genre
+        movie.Genre === selectedMovie.Genre &&
         movie._id !== selectedMovie._id
     );
-  
+
     return (
       <MovieView
         movie={selectedMovie}
@@ -76,7 +76,7 @@ export const MainView = () => {
       />
     );
   }
-  
+
   if (movies.length === 0) {
     return <div>The list is empty!</div>;
   }
