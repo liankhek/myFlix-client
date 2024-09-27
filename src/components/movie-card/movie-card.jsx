@@ -10,7 +10,7 @@ export const MovieCard = ({ movie, onMovieClick }) => {
       style={{ border: '1px solid #ccc', padding: '16px', cursor: 'pointer' }}
     >
       <img
-        src={movie.ImagePath}
+        src={movie.ImagePath} 
         alt={movie.Title}
         style={{ width: '100%', height: 'auto' }}
       />
@@ -38,3 +38,5 @@ MovieCard.propTypes = {
   }).isRequired,
   onMovieClick: PropTypes.func.isRequired,
 };
+
+export default MovieCard;

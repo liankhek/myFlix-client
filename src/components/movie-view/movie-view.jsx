@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import MovieCard from '../movie-card/movie-card';
+
 
 export const MovieView = ({ movie, onBackClick, similarMovies }) => {
   return (
@@ -79,5 +81,7 @@ MovieView.propTypes = {
     Featured: PropTypes.bool.isRequired,
   }).isRequired,
   onBackClick: PropTypes.func.isRequired,
-  similarMovies: PropTypes.array.isRequired, // Ensure that similarMovies is required
+  similarMovies: PropTypes.array.isRequired,
 };
+
+export default MovieView;

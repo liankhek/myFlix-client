@@ -23,7 +23,8 @@ export const MainView = () => {
         setMovies(moviesFromApi);
       })
       .catch((error) => console.error('Error fetching movies:', error));
-  }, []);
+  }, []); // Empty dependency array to ensure it runs once
+  
 
   if (selectedMovie) {
     const similarMovies = movies.filter(
