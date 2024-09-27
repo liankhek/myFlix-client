@@ -1,55 +1,64 @@
-// Add form styling for login and signup forms
+// Define global variables
+$primary-color: steelblue;
+$secondary-color: lightgray;
+$font-stack: 'Arial', sans-serif;
+
+// Body styles
 body {
-  font-family: Arial, sans-serif;
-  background-color: #f0f0f0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
+  font-family: $font-stack;
+  background-color: $secondary-color;
   margin: 0;
+  padding: 0;
 }
 
-.container {
-  background-color: #fff;
-  padding: 30px;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  width: 400px;
+// App title styles
+.my-flix {
+  color: $primary-color;
+  text-align: center;
+  padding: 20px;
+  font-size: 24px;
 }
 
+// Form styles
 form {
   display: flex;
   flex-direction: column;
-  margin-bottom: 20px;
+  width: 300px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 label {
+  margin-bottom: 10px;
   font-weight: bold;
-  margin-bottom: 8px;
 }
 
 input {
   padding: 10px;
   margin-bottom: 20px;
-  border: 1px solid #ccc;
+  border: 1px solid $primary-color;
   border-radius: 4px;
 }
 
 button {
+  background-color: $primary-color;
+  color: white;
   padding: 10px;
-  background-color: #007bff;
-  color: #fff;
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: darken($primary-color, 10%);
+  }
 }
 
-button:hover {
-  background-color: #0056b3;
-}
-
-.or-separator {
+// Utility classes
+.center {
   text-align: center;
-  margin: 20px 0;
-  font-weight: bold;
 }
+
