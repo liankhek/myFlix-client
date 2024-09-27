@@ -1,4 +1,3 @@
-import React from 'react';
 import PropTypes from 'prop-types';
 
 export const MovieCard = ({ movie, onMovieClick }) => {
@@ -38,5 +37,3 @@ MovieCard.propTypes = {
   }).isRequired,
   onMovieClick: PropTypes.func.isRequired,
 };
-
-export default MovieCard;
