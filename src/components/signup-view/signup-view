@@ -20,20 +20,23 @@ export const SignupView = ({ onSignedUp }) => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data)
     })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        return response.json();
+    .then((response) => response.json().then(data => ({
+        status: response.status,
+        data
       })
-      .then((data) => {
+    ))
+    .then(({status, data}) => {
+      if (status === 201) {
         alert("Signup successful! Please login.");
         onSignedUp();
-      })
-      .catch((error) => {
-        console.error("Error during signup:", error);
-        alert("Something went wrong");
-      });
+      } else {
+        alert(`Signup failed: ${data.message}`);
+      }
+    })
+    .catch((error) => {
+      console.error("Error during signup:", error);
+      alert("Something went wrong");
+    });
   };
 
   return (
