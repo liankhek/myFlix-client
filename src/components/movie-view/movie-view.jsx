@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import MovieCard from '../movie-card/movie-card';
 
 
 export const MovieView = ({ movie, onBackClick, similarMovies }) => {
@@ -83,5 +82,3 @@ MovieView.propTypes = {
   onBackClick: PropTypes.func.isRequired,
   similarMovies: PropTypes.array.isRequired,
 };
-
-export default MovieView;
