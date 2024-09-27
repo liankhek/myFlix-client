@@ -79,26 +79,31 @@ export const MainView = () => {
   }
 
   return (
-    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '16px' }}>
-      {movies.map((movie) => (
-        <div key={movie._id} style={{ width: '200px' }}>
-          <MovieCard
-            movie={movie}
-            onMovieClick={(newSelectedMovie) => {
-              setSelectedMovie(newSelectedMovie);
-            }}
-          />
-        </div>
-      ))}
-      <button
-        onClick={() => {
-          setUser(null);
-          setToken(null);
-          localStorage.clear();
-        }}
-      >
-        Logout
-      </button>
-    </div>
+    <>
+      <div className="movies-container">
+        {movies.map((movie) => (
+          <div key={movie._id} className="movie-card">
+            <MovieCard
+              movie={movie}
+              onMovieClick={(newSelectedMovie) => {
+                setSelectedMovie(newSelectedMovie);
+              }}
+            />
+          </div>
+        ))}
+      </div>
+      <div className="logout-container">
+        <button
+          className="logout-button"
+          onClick={() => {
+            setUser(null);
+            setToken(null);
+            localStorage.clear();
+          }}
+        >
+          Logout
+        </button>
+      </div>
+    </>
   );
 };
