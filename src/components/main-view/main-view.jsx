@@ -62,9 +62,12 @@ export const MainView = () => {
 
   if (selectedMovie) {
     const similarMovies = movies.filter(
-      (movie) => movie.Genre.Name === selectedMovie.Genre.Name && movie._id !== selectedMovie._id
+      (movie) =>
+        movie.genre && // Check if genre exists
+        movie.genre === selectedMovie.genre && // Compare genre
+        movie._id !== selectedMovie._id
     );
-
+  
     return (
       <MovieView
         movie={selectedMovie}
@@ -73,7 +76,7 @@ export const MainView = () => {
       />
     );
   }
-
+  
   if (movies.length === 0) {
     return <div>The list is empty!</div>;
   }
