@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react'; 
-import MovieCard from '../movie-card/movie-card'; 
+import React, { useState, useEffect } from 'react';
+import MovieCard from '../movie-card/movie-card';
 import MovieView from '../movie-view/movie-view';
 
 export const MainView = () => {
@@ -10,21 +10,31 @@ export const MainView = () => {
     // Fetch movies data from the API
     fetch('https://da-flix-1a4fa4a29dcc.herokuapp.com/movies')
       .then((response) => response.json())
-      .then((data) => setMovies(data))
+      .then((data) => {
+        const moviesFromApi = data.map((movie) => ({
+          _id: movie._id,
+          Title: movie.Title,
+          Description: movie.Description,
+          Genre: movie.Genre,
+          Director: movie.Director,
+          ImagePath: movie.ImagePath,
+          Featured: movie.Featured,
+        }));
+        setMovies(moviesFromApi);
+      })
       .catch((error) => console.error('Error fetching movies:', error));
-  }, []); // Empty dependency array to run once on mount
-
-  // Filter similar movies based on genre
-  const similarMovies = selectedMovie
-    ? movies.filter((movie) => movie.genre === selectedMovie.genre && movie._id !== selectedMovie._id)
-    : [];
+  }, []);
 
   if (selectedMovie) {
+    const similarMovies = movies.filter(
+      (movie) => movie.Genre.Name === selectedMovie.Genre.Name && movie._id !== selectedMovie._id
+    );
+
     return (
-      <MovieView 
-        movie={selectedMovie} 
+      <MovieView
+        movie={selectedMovie}
         onBackClick={() => setSelectedMovie(null)}
-        similarMovies={similarMovies} // Pass the similar movies
+        similarMovies={similarMovies}
       />
     );
   }
@@ -34,13 +44,16 @@ export const MainView = () => {
   }
 
   return (
-    <div>
+    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '16px' }}>
       {movies.map((movie) => (
-        <MovieCard
-          key={movie._id}
-          movie={movie}
-          onMovieClick={(newSelectedMovie) => setSelectedMovie(newSelectedMovie)}
-        />
+        <div key={movie._id} style={{ width: '200px' }}>
+          <MovieCard
+            movie={movie}
+            onMovieClick={(newSelectedMovie) => {
+              setSelectedMovie(newSelectedMovie);
+            }}
+          />
+        </div>
       ))}
     </div>
   );
