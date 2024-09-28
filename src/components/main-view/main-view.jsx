@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { MovieCard } from '../movie-card/movie-card';
 import { MovieView } from '../movie-view/movie-view';
 import { LoginView } from '../login-view/login-view';
-import { SignupView } from '../signup-view/signup-view.jsx';
+import { SignupView } from '../signup-view/signup-view';
 import { Container, Col, Row } from 'react-bootstrap';
 
 export const MainView = () => {
@@ -10,12 +10,13 @@ export const MainView = () => {
   const storedToken = localStorage.getItem('token');
   const [movies, setMovies] = useState([]);
   const [selectedMovie, setSelectedMovie] = useState(null);
+  const [user, setUser] = useState(storedUser || null);  // Ensure default value is null
+  const [token, setToken] = useState(storedToken || null);  // Ensure default value is null
   const [error, setError] = useState(null);
-  const [user, setUser] = useState(storedUser);
-  const [token, setToken] = useState(storedToken);
 
   useEffect(() => {
-    if (!token) return;
+    if (!token) return; // Skip fetching if there's no token
+
     fetch('https://da-flix-1a4fa4a29dcc.herokuapp.com/movies', {
       headers: { Authorization: `Bearer ${token}` },
     })
@@ -34,8 +35,10 @@ export const MainView = () => {
       .catch((error) => setError(error.message));
   }, [token]);
 
+  // Show error if there is any
   if (error) return <div>Error: {error}</div>;
 
+  // If no user is logged in, show LoginView and SignupView
   if (!user) {
     return (
       <Container>
@@ -55,6 +58,7 @@ export const MainView = () => {
     );
   }
 
+  // Show MovieView if a movie is selected
   if (selectedMovie) {
     return (
       <MovieView
@@ -65,10 +69,7 @@ export const MainView = () => {
     );
   }
 
-  if (movies.length === 0) {
-    return <div>No movies available</div>;
-  }
-
+  // Show movie cards if the user is logged in
   return (
     <Container>
       <Row>

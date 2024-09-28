@@ -7,7 +7,11 @@ export const LoginView = ({ onLoggedIn }) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const data = { Username: username, Password: password };
+
+    const data = {
+      Username: username,
+      Password: password,
+    };
 
     fetch('https://da-flix-1a4fa4a29dcc.herokuapp.com/login', {
       method: 'POST',
