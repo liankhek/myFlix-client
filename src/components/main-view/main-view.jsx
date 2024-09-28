@@ -40,39 +40,37 @@ export const MainView = () => {
 
   // If no user is logged in, show LoginView and SignupView
   return (
-    <Container>
-      <Row className="justify-content-md-center">
-        {!user ? (
-          <Col md={6}>
-            <LoginView onLoggedIn={(user, token) => {
-              setUser(user);
-              setToken(token);
-            }} />
-            <div className="text-center mt-3">or</div>
-            <SignupView />
-          </Col>
-        ) : selectedMovie ? (
-          <Col md={8}>
-            <MovieView
-              movie={selectedMovie}
-              onBackClick={() => setSelectedMovie(null)}
-              similarMovies={similarMovies}
-            />
-          </Col>
-        ) : (
-          movies.length === 0 ? (
-            <div>The list is empty!</div>
-          ) : (
-            <Row>
-              {movies.map((movie) => (
-                <Col md={4} className="mb-4" key={movie._id}>
-                  <MovieCard movie={movie} onMovieClick={setSelectedMovie} />
-                </Col>
-              ))}
-            </Row>
-          )
-        )}
-      </Row>
-    </Container>
+    <Row className="justify-content-md-center">
+      {!user ? (
+        <Col md={5}>
+          <LoginView onLoggedIn={(user) => setUser(user)} />
+          <div className="mt-3">or</div>
+          <SignupView />
+        </Col>
+      ) : selectedBook ? (
+        <Col md={8}>
+          <BookView
+            style={{ border: "1px solid green" }}
+            book={selectedBook}
+            onBackClick={() => setSelectedBook(null)}
+          />
+        </Col>
+      ) : books.length === 0 ? (
+        <div>The list is empty!</div>
+      ) : (
+        <>
+          {books.map((book) => (
+            <Col className="mb-4" key={book.id} md={3}>
+              <BookCard
+                book={book}
+                onBookClick={(newSelectedBook) => {
+                  setSelectedBook(newSelectedBook);
+                }}
+              />
+            </Col>
+          ))}
+        </>
+      )}
+    </Row>
   );
 };
