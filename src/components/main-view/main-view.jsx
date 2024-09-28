@@ -39,45 +39,39 @@ export const MainView = () => {
   if (error) return <div>Error: {error}</div>;
 
   // If no user is logged in, show LoginView and SignupView
-  if (!user) {
-    return (
-      <Container>
-        <Row className="justify-content-md-center">
+  return (
+    <Container>
+      <Row className="justify-content-md-center">
+        {!user ? (
           <Col md={6}>
-            <LoginView
-              onLoggedIn={(user, token) => {
-                setUser(user);
-                setToken(token);
-              }}
-            />
+            <LoginView onLoggedIn={(user, token) => {
+              setUser(user);
+              setToken(token);
+            }} />
             <div className="text-center mt-3">or</div>
             <SignupView />
           </Col>
-        </Row>
-      </Container>
-    );
-  }
-
-  // Show MovieView if a movie is selected
-  if (selectedMovie) {
-    return (
-      <MovieView
-        movie={selectedMovie}
-        onBackClick={() => setSelectedMovie(null)}
-        similarMovies={movies.filter((m) => m.Genre === selectedMovie.Genre)}
-      />
-    );
-  }
-
-  // Show movie cards if the user is logged in
-  return (
-    <Container>
-      <Row>
-        {movies.map((movie) => (
-          <Col md={4} key={movie._id} className="mb-4">
-            <MovieCard movie={movie} onMovieClick={setSelectedMovie} />
+        ) : selectedMovie ? (
+          <Col md={8}>
+            <MovieView
+              movie={selectedMovie}
+              onBackClick={() => setSelectedMovie(null)}
+              similarMovies={similarMovies}
+            />
           </Col>
-        ))}
+        ) : (
+          movies.length === 0 ? (
+            <div>The list is empty!</div>
+          ) : (
+            <Row>
+              {movies.map((movie) => (
+                <Col md={4} className="mb-4" key={movie._id}>
+                  <MovieCard movie={movie} onMovieClick={setSelectedMovie} />
+                </Col>
+              ))}
+            </Row>
+          )
+        )}
       </Row>
     </Container>
   );
