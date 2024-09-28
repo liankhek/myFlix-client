@@ -1,20 +1,17 @@
 import PropTypes from 'prop-types';
+import { Card, Button } from 'react-bootstrap';
+
 
 export const MovieCard = ({ movie, onMovieClick }) => {
-  if (!movie) return null; // Check if movie is defined
-
   return (
-    <div
-      onClick={() => onMovieClick(movie)}
-      style={{ border: '1px solid #ccc', padding: '16px', cursor: 'pointer' }}
-    >
-      <img
-        src={movie.ImagePath} 
-        alt={movie.Title}
-        style={{ width: '100%', height: 'auto' }}
-      />
-      <h3 style={{ fontSize: '1.2rem', textAlign: 'center' }}>{movie.Title}</h3>
-    </div>
+    <Card onClick={() => onMovieClick(movie)} style={{ cursor: 'pointer' }}>
+      <Card.Img variant="top" src={movie.ImagePath} />
+      <Card.Body>
+        <Card.Title>{movie.Title}</Card.Title>
+        <Card.Text>{movie.Description}</Card.Text>
+        <Button variant="link">View Details</Button>
+      </Card.Body>
+    </Card>
   );
 };
 
