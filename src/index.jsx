@@ -1,8 +1,10 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { MainView } from './components/main-view/main-view';
-import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap CSS
-import './index.scss'; // Import custom SCSS
+
+// Import Bootstrap and custom SCSS
+import 'bootstrap/dist/css/bootstrap.min.css';  // Bootstrap CSS
+import './index.scss';  // Custom SCSS styles
 
 const App = () => {
   return (
