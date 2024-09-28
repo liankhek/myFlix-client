@@ -10,8 +10,8 @@ export const MainView = () => {
   const storedToken = localStorage.getItem('token');
   const [movies, setMovies] = useState([]);
   const [selectedMovie, setSelectedMovie] = useState(null);
-  const [user, setUser] = useState(storedUser || null);  // Ensure default value is null
-  const [token, setToken] = useState(storedToken || null);  // Ensure default value is null
+  const [user, setUser] = useState(storedUser || null); // Ensure default value is null
+  const [token, setToken] = useState(storedToken || null); // Ensure default value is null
   const [error, setError] = useState(null);
 
   useEffect(() => {
@@ -43,28 +43,33 @@ export const MainView = () => {
     <Row className="justify-content-md-center">
       {!user ? (
         <Col md={5}>
-          <LoginView onLoggedIn={(user) => setUser(user)} />
+          <LoginView
+            onLoggedIn={(user) => {
+              setUser(user);
+              localStorage.setItem('user', JSON.stringify(user));
+            }}
+          />
           <div className="mt-3">or</div>
           <SignupView />
         </Col>
-      ) : selectedBook ? (
+      ) : selectedMovie ? (
         <Col md={8}>
-          <BookView
-            style={{ border: "1px solid green" }}
-            book={selectedBook}
-            onBackClick={() => setSelectedBook(null)}
+          <MovieView
+            movie={selectedMovie}
+            onBackClick={() => setSelectedMovie(null)}
+            similarMovies={movies.filter(m => m.Genre === selectedMovie.Genre && m._id !== selectedMovie._id)}
           />
         </Col>
-      ) : books.length === 0 ? (
+      ) : movies.length === 0 ? (
         <div>The list is empty!</div>
       ) : (
         <>
-          {books.map((book) => (
-            <Col className="mb-4" key={book.id} md={3}>
-              <BookCard
-                book={book}
-                onBookClick={(newSelectedBook) => {
-                  setSelectedBook(newSelectedBook);
+          {movies.map((movie) => (
+            <Col className="mb-4" key={movie._id} md={3}>
+              <MovieCard
+                movie={movie}
+                onMovieClick={(newSelectedMovie) => {
+                  setSelectedMovie(newSelectedMovie);
                 }}
               />
             </Col>
