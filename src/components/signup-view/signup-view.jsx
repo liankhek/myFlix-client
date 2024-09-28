@@ -21,9 +21,14 @@ export const SignupView = ({ onSignedUp }) => {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data),
     })
-      .then((response) => response.json())
-      .then((data) => {
-        if (response.status === 201) {
+      .then((response) => {
+        return response.json().then((data) => ({
+          status: response.status,
+          data,
+        }));
+      })
+      .then(({ status, data }) => {
+        if (status === 201) {
           alert('Signup successful! Please login.');
           onSignedUp();
         } else {
