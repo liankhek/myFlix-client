@@ -2,53 +2,64 @@ import React, { useState } from 'react';
 import { Form, Button, Container, Row, Col } from 'react-bootstrap';
 
 export const SignupView = ({ onSignedUp }) => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
-  const [birthday, setBirthday] = useState('');
+  const [password, setPassword] = useState('');
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const data = { Username: username, Password: password, Email: email, Birthday: birthday };
+    const data = { FirstName: firstName, LastName: lastName, Email: email, Password: password };
 
+    // Signup API request
     fetch('https://da-flix-1a4fa4a29dcc.herokuapp.com/users', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data)
+      body: JSON.stringify(data),
     })
-    .then(response => response.json())
-    .then(data => {
-      if (data) {
-        alert('Signup successful! Please log in.');
-        onSignedUp();
-      } else {
-        alert('Signup failed');
-      }
-    })
-    .catch(e => {
-      console.error('Signup error:', e);
-      alert('Something went wrong');
-    });
+      .then((response) => response.json())
+      .then((data) => {
+        if (data) {
+          alert('Signup successful! Please log in.');
+          onSignedUp();
+        } else {
+          alert('Signup failed');
+        }
+      })
+      .catch((e) => {
+        console.error('Signup error:', e);
+        alert('Something went wrong');
+      });
   };
 
   return (
-    <Container className="d-flex justify-content-center align-items-center vh-100">
-      <Row>
-        <Col md={6}>
-          <div className="form-box registration-form p-md-5 p-3">
-            <h2 className="fw-bold mb-3">Create Your Account</h2>
+    <Container>
+      <Row className="justify-content-center">
+        <Col>
+          <div className="form-box">
+            <h2>Create Your Account</h2>
             <Form onSubmit={handleSubmit}>
-              <Form.Group className="mb-3" controlId="formUsername">
-                <Form.Label>Username</Form.Label>
+              <Form.Group controlId="formFirstName">
+                <Form.Label>First Name</Form.Label>
                 <Form.Control
                   type="text"
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
-                  placeholder="Username"
+                  value={firstName}
+                  onChange={(e) => setFirstName(e.target.value)}
+                  placeholder="First Name"
                   required
                 />
               </Form.Group>
-              <Form.Group className="mb-3" controlId="formEmail">
+              <Form.Group controlId="formLastName">
+                <Form.Label>Last Name</Form.Label>
+                <Form.Control
+                  type="text"
+                  value={lastName}
+                  onChange={(e) => setLastName(e.target.value)}
+                  placeholder="Last Name"
+                  required
+                />
+              </Form.Group>
+              <Form.Group controlId="formEmail">
                 <Form.Label>Email</Form.Label>
                 <Form.Control
                   type="email"
@@ -58,7 +69,7 @@ export const SignupView = ({ onSignedUp }) => {
                   required
                 />
               </Form.Group>
-              <Form.Group className="mb-3" controlId="formPassword">
+              <Form.Group controlId="formPassword">
                 <Form.Label>Password</Form.Label>
                 <Form.Control
                   type="password"
@@ -68,24 +79,11 @@ export const SignupView = ({ onSignedUp }) => {
                   required
                 />
               </Form.Group>
-              <Form.Group className="mb-3" controlId="formBirthday">
-                <Form.Label>Birthday</Form.Label>
-                <Form.Control
-                  type="date"
-                  value={birthday}
-                  onChange={(e) => setBirthday(e.target.value)}
-                  required
-                />
-              </Form.Group>
-              <Button variant="primary" type="submit" className="btn primaryBg text-white w-100">
-                Sign Up
-              </Button>
+              <Button type="submit">Sign Up</Button>
             </Form>
-            <div className="mt-3">
+            <div className="text-center mt-3">
               <span>Already have an account?</span>{' '}
-              <Button className="p-0 border-0 bg-transparent primaryColor login-show">
-                Login
-              </Button>
+              <a href="#" onClick={() => setShowLogin(true)}>Login</a>
             </div>
           </div>
         </Col>
