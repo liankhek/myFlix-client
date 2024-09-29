@@ -32,50 +32,62 @@ export const SignupView = ({ onSignedUp }) => {
   };
 
   return (
-    <Container>
-      <Row className="justify-content-md-center">
+    <Container className="d-flex justify-content-center align-items-center vh-100">
+      <Row>
         <Col md={6}>
-          <Form onSubmit={handleSubmit}>
-            <Form.Group controlId="formUsername">
-              <Form.Label>Username</Form.Label>
-              <Form.Control
-                type="text"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                required
-              />
-            </Form.Group>
-            <Form.Group controlId="formPassword">
-              <Form.Label>Password</Form.Label>
-              <Form.Control
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-              />
-            </Form.Group>
-            <Form.Group controlId="formEmail">
-              <Form.Label>Email</Form.Label>
-              <Form.Control
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-              />
-            </Form.Group>
-            <Form.Group controlId="formBirthday">
-              <Form.Label>Birthday</Form.Label>
-              <Form.Control
-                type="date"
-                value={birthday}
-                onChange={(e) => setBirthday(e.target.value)}
-                required
-              />
-            </Form.Group>
-            <Button variant="primary" type="submit" className="mt-3">
-              Signup
-            </Button>
-          </Form>
+          <div className="form-box registration-form p-md-5 p-3">
+            <h2 className="fw-bold mb-3">Create Your Account</h2>
+            <Form onSubmit={handleSubmit}>
+              <Form.Group className="mb-3" controlId="formUsername">
+                <Form.Label>Username</Form.Label>
+                <Form.Control
+                  type="text"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  placeholder="Username"
+                  required
+                />
+              </Form.Group>
+              <Form.Group className="mb-3" controlId="formEmail">
+                <Form.Label>Email</Form.Label>
+                <Form.Control
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="Email"
+                  required
+                />
+              </Form.Group>
+              <Form.Group className="mb-3" controlId="formPassword">
+                <Form.Label>Password</Form.Label>
+                <Form.Control
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="Password"
+                  required
+                />
+              </Form.Group>
+              <Form.Group className="mb-3" controlId="formBirthday">
+                <Form.Label>Birthday</Form.Label>
+                <Form.Control
+                  type="date"
+                  value={birthday}
+                  onChange={(e) => setBirthday(e.target.value)}
+                  required
+                />
+              </Form.Group>
+              <Button variant="primary" type="submit" className="btn primaryBg text-white w-100">
+                Sign Up
+              </Button>
+            </Form>
+            <div className="mt-3">
+              <span>Already have an account?</span>{' '}
+              <Button className="p-0 border-0 bg-transparent primaryColor login-show">
+                Login
+              </Button>
+            </div>
+          </div>
         </Col>
       </Row>
     </Container>
