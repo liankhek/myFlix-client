@@ -1,16 +1,17 @@
 import React, { useState } from 'react';
-import { Form, Button, Container, Row, Col } from 'react-bootstrap'; // Import Bootstrap components
+import { Form, Button, Container, Row, Col } from 'react-bootstrap';
 
 export const LoginView = ({ onLoggedIn }) => {
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    // Login API request
     fetch('https://da-flix-1a4fa4a29dcc.herokuapp.com/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ Username: username, Password: password }),
+      body: JSON.stringify({ Email: email, Password: password }),
     })
       .then((response) => response.json())
       .then(data => {
@@ -19,7 +20,7 @@ export const LoginView = ({ onLoggedIn }) => {
           localStorage.setItem('token', data.token);
           onLoggedIn(data.user, data.token);
         } else {
-          alert('No such user');
+          alert('Invalid login credentials');
         }
       })
       .catch(e => {
@@ -29,41 +30,37 @@ export const LoginView = ({ onLoggedIn }) => {
   };
 
   return (
-    <Container className="d-flex justify-content-center align-items-center vh-100">
-      <Row>
-        <Col md={6}>
-          <div className="form-box login-form p-md-5 p-3">
-            <h2 className="fw-bold mb-3">Login</h2>
+    <Container>
+      <Row className="justify-content-center">
+        <Col>
+          <div className="form-box">
+            <h2>Login</h2>
             <Form onSubmit={handleSubmit}>
-              <Form.Group className="mb-3" controlId="formUsername">
-                <Form.Label>Username</Form.Label>
+              <Form.Group controlId="formEmail">
+                <Form.Label>Email</Form.Label>
                 <Form.Control
-                  type="text"
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
-                  placeholder="Username"
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="Enter email"
                   required
                 />
               </Form.Group>
-              <Form.Group className="mb-3" controlId="formPassword">
+              <Form.Group controlId="formPassword">
                 <Form.Label>Password</Form.Label>
                 <Form.Control
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  placeholder="Password"
+                  placeholder="Enter password"
                   required
                 />
               </Form.Group>
-              <Button variant="primary" type="submit" className="btn primaryBg text-white w-100">
-                Login
-              </Button>
+              <Button type="submit">Login</Button>
             </Form>
-            <div className="mt-3">
+            <div className="text-center mt-3">
               <span>Don't have an account?</span>{' '}
-              <Button className="p-0 border-0 bg-transparent primaryColor signup-show">
-                Sign Up
-              </Button>
+              <a href="#" onClick={() => setShowLogin(false)}>Sign Up</a>
             </div>
           </div>
         </Col>
