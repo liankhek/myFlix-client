@@ -5,12 +5,12 @@ export const MovieCard = ({ movie, onMovieClick }) => {
   if (!movie) return null; // Check if movie is defined
 
   return (
-    <Card style={{ width: '60%' }} className="h-100">
+    <Card style={{ width: '80%' }} className="h-100">
       <Card.Img 
         variant="top" 
         src={movie.ImagePath} 
         alt={movie.Title} 
-        style={{ objectFit: 'cover', height: '150px', width: '70%' }}
+        style={{ objectFit: 'cover', height: '150px', width: '80%' }}
       />
       <Card.Body>
         <Card.Title>{movie.Title}</Card.Title>

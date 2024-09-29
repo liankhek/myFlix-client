@@ -27441,7 +27441,7 @@ const MovieCard = ({ movie, onMovieClick })=>{
     if (!movie) return null; // Check if movie is defined
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card), {
         style: {
-            width: "60%"
+            width: "80%"
         },
         className: "h-100",
         children: [
@@ -27452,7 +27452,7 @@ const MovieCard = ({ movie, onMovieClick })=>{
                 style: {
                     objectFit: "cover",
                     height: "150px",
-                    width: "70%"
+                    width: "80%"
                 }
             }, void 0, false, {
                 fileName: "src/components/movie-card/movie-card.jsx",
