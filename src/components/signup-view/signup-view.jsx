@@ -11,7 +11,6 @@ export const SignupView = ({ onSignedUp, setShowLogin }) => {
     event.preventDefault();
     const data = { FirstName: firstName, LastName: lastName, Username: username, Password: password };
 
-    // Signup API request
     fetch('https://da-flix-1a4fa4a29dcc.herokuapp.com/users', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },

@@ -7,7 +7,7 @@ export const LoginView = ({ onLoggedIn, setShowLogin }) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    // Login API request
+
     fetch('https://da-flix-1a4fa4a29dcc.herokuapp.com/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
