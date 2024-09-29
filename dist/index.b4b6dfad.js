@@ -27438,10 +27438,10 @@ var _propTypes = require("prop-types");
 var _propTypesDefault = parcelHelpers.interopDefault(_propTypes);
 var _reactBootstrap = require("react-bootstrap");
 const MovieCard = ({ movie, onMovieClick })=>{
-    if (!movie) return null;
+    if (!movie) return null; // Check if movie is defined
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card), {
         style: {
-            width: "18rem"
+            width: "60%"
         },
         className: "h-100",
         children: [
@@ -27451,7 +27451,8 @@ const MovieCard = ({ movie, onMovieClick })=>{
                 alt: movie.Title,
                 style: {
                     objectFit: "cover",
-                    height: "250px"
+                    height: "150px",
+                    width: "70%"
                 }
             }, void 0, false, {
                 fileName: "src/components/movie-card/movie-card.jsx",
