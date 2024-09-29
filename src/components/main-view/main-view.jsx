@@ -3,19 +3,18 @@ import { MovieCard } from '../movie-card/movie-card';
 import { MovieView } from '../movie-view/movie-view';
 import { LoginView } from '../login-view/login-view';
 import { SignupView } from '../signup-view/signup-view';
-import { Container, Col, Row } from 'react-bootstrap';
+import { Container, Row, Col, Button } from 'react-bootstrap'; // Import Bootstrap components
 
 export const MainView = () => {
-  const storedUser = JSON.parse(localStorage.getItem('user'));
-  const storedToken = localStorage.getItem('token');
+  const storedUser = JSON.parse(localStorage.getItem("user"));
+  const storedToken = localStorage.getItem("token");
   const [movies, setMovies] = useState([]);
   const [selectedMovie, setSelectedMovie] = useState(null);
-  const [user, setUser] = useState(storedUser || null); // Ensure default value is null
-  const [token, setToken] = useState(storedToken || null); // Ensure default value is null
-  const [error, setError] = useState(null);
+  const [user, setUser] = useState(storedUser);
+  const [token, setToken] = useState(storedToken);
 
   useEffect(() => {
-    if (!token) return; // Skip fetching if there's no token
+    if (!token) return;
 
     fetch('https://da-flix-1a4fa4a29dcc.herokuapp.com/movies', {
       headers: { Authorization: `Bearer ${token}` },
@@ -26,56 +25,83 @@ export const MainView = () => {
           _id: movie._id,
           Title: movie.Title,
           Description: movie.Description,
-          Genre: movie.Genre?.Name || 'Unknown Genre',
-          Director: movie.Director?.Name || 'Unknown Director',
+          Genre: movie.Genre?.Name || "Unknown Genre",
+          Director: movie.Director?.Name || "Unknown Director",
           ImagePath: movie.ImagePath,
+          Featured: movie.Featured,
         }));
         setMovies(moviesFromApi);
       })
-      .catch((error) => setError(error.message));
+      .catch((error) => console.error('Error fetching movies:', error));
   }, [token]);
 
-  // Show error if there is any
-  if (error) return <div>Error: {error}</div>;
+  if (!user) {
+    return (
+      <Container>
+        <Row className="justify-content-md-center">
+          <Col md={6}>
+            <LoginView
+              onLoggedIn={(user, token) => {
+                setUser(user);
+                setToken(token);
+              }}
+            />
+          </Col>
+        </Row>
+        <div className="text-center">or</div>
+        <Row className="justify-content-md-center">
+          <Col md={6}>
+            <SignupView />
+          </Col>
+        </Row>
+      </Container>
+    );
+  }
 
-  // If no user is logged in, show LoginView and SignupView
+  if (selectedMovie) {
+    return (
+      <Container>
+        <MovieView
+          movie={selectedMovie}
+          onBackClick={() => setSelectedMovie(null)}
+          similarMovies={movies.filter(
+            (movie) =>
+              movie.Genre === selectedMovie.Genre &&
+              movie._id !== selectedMovie._id
+          )}
+        />
+      </Container>
+    );
+  }
+
   return (
-    <Row className="justify-content-md-center">
-      {!user ? (
-        <Col md={5}>
-          <LoginView
-            onLoggedIn={(user) => {
-              setUser(user);
-              localStorage.setItem('user', JSON.stringify(user));
+    <Container>
+      <Row>
+        {movies.map((movie) => (
+          <Col md={3} key={movie._id} className="mb-4">
+            <MovieCard
+              movie={movie}
+              onMovieClick={(newSelectedMovie) => {
+                setSelectedMovie(newSelectedMovie);
+              }}
+            />
+          </Col>
+        ))}
+      </Row>
+      <Row className="justify-content-md-center">
+        <Col md="auto">
+          <Button
+            variant="primary"
+            onClick={() => {
+              setUser(null);
+              setToken(null);
+              localStorage.clear();
             }}
-          />
-          <div className="mt-3">or</div>
-          <SignupView />
+          >
+            Logout
+          </Button>
         </Col>
-      ) : selectedMovie ? (
-        <Col md={8}>
-          <MovieView
-            movie={selectedMovie}
-            onBackClick={() => setSelectedMovie(null)}
-            similarMovies={movies.filter(m => m.Genre === selectedMovie.Genre && m._id !== selectedMovie._id)}
-          />
-        </Col>
-      ) : movies.length === 0 ? (
-        <div>The list is empty!</div>
-      ) : (
-        <>
-          {movies.map((movie) => (
-            <Col className="mb-4" key={movie._id} md={3}>
-              <MovieCard
-                movie={movie}
-                onMovieClick={(newSelectedMovie) => {
-                  setSelectedMovie(newSelectedMovie);
-                }}
-              />
-            </Col>
-          ))}
-        </>
-      )}
-    </Row>
+      </Row>
+    </Container>
   );
 };
