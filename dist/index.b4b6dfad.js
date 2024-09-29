@@ -27288,8 +27288,9 @@ const MainView = ()=>{
         children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Row), {
             className: "justify-content-md-center",
             children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Col), {
-                md: 6,
+                md: 8,
                 children: [
+                    " ",
                     showLogin ? /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _loginView.LoginView), {
                         onLoggedIn: (user, token)=>{
                             setUser(user);
@@ -27307,22 +27308,6 @@ const MainView = ()=>{
                         fileName: "src/components/main-view/main-view.jsx",
                         lineNumber: 59,
                         columnNumber: 15
-                    }, undefined),
-                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-                        className: "text-center mt-3",
-                        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
-                            className: "p-0 border-0 bg-transparent primaryColor",
-                            onClick: ()=>setShowLogin(!showLogin),
-                            children: showLogin ? "Sign Up" : "Login"
-                        }, void 0, false, {
-                            fileName: "src/components/main-view/main-view.jsx",
-                            lineNumber: 65,
-                            columnNumber: 15
-                        }, undefined)
-                    }, void 0, false, {
-                        fileName: "src/components/main-view/main-view.jsx",
-                        lineNumber: 64,
-                        columnNumber: 13
                     }, undefined)
                 ]
             }, void 0, true, {
@@ -27347,12 +27332,12 @@ const MainView = ()=>{
             similarMovies: movies.filter((movie)=>movie.Genre === selectedMovie.Genre && movie._id !== selectedMovie._id)
         }, void 0, false, {
             fileName: "src/components/main-view/main-view.jsx",
-            lineNumber: 81,
+            lineNumber: 73,
             columnNumber: 9
         }, undefined)
     }, void 0, false, {
         fileName: "src/components/main-view/main-view.jsx",
-        lineNumber: 80,
+        lineNumber: 72,
         columnNumber: 7
     }, undefined);
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Container), {
@@ -27367,7 +27352,7 @@ const MainView = ()=>{
                     children: "No movies available"
                 }, void 0, false, {
                     fileName: "src/components/main-view/main-view.jsx",
-                    lineNumber: 98,
+                    lineNumber: 90,
                     columnNumber: 11
                 }, undefined) : movies.map((movie)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Col), {
                         md: 4,
@@ -27379,17 +27364,17 @@ const MainView = ()=>{
                             }
                         }, void 0, false, {
                             fileName: "src/components/main-view/main-view.jsx",
-                            lineNumber: 102,
+                            lineNumber: 94,
                             columnNumber: 15
                         }, undefined)
                     }, movie._id, false, {
                         fileName: "src/components/main-view/main-view.jsx",
-                        lineNumber: 101,
+                        lineNumber: 93,
                         columnNumber: 13
                     }, undefined))
             }, void 0, false, {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 96,
+                lineNumber: 88,
                 columnNumber: 7
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Row), {
@@ -27402,23 +27387,23 @@ const MainView = ()=>{
                         children: "Logout"
                     }, void 0, false, {
                         fileName: "src/components/main-view/main-view.jsx",
-                        lineNumber: 114,
+                        lineNumber: 106,
                         columnNumber: 11
                     }, undefined)
                 }, void 0, false, {
                     fileName: "src/components/main-view/main-view.jsx",
-                    lineNumber: 113,
+                    lineNumber: 105,
                     columnNumber: 9
                 }, undefined)
             }, void 0, false, {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 112,
+                lineNumber: 104,
                 columnNumber: 7
             }, undefined)
         ]
     }, void 0, true, {
         fileName: "src/components/main-view/main-view.jsx",
-        lineNumber: 95,
+        lineNumber: 87,
         columnNumber: 5
     }, undefined);
 };
@@ -31297,18 +31282,18 @@ var _react = require("react");
 var _reactDefault = parcelHelpers.interopDefault(_react);
 var _reactBootstrap = require("react-bootstrap");
 var _s = $RefreshSig$();
-const SignupView = ({ onSignedUp })=>{
+const SignupView = ({ onSignedUp, setShowLogin })=>{
     _s();
     const [firstName, setFirstName] = (0, _react.useState)("");
     const [lastName, setLastName] = (0, _react.useState)("");
-    const [email, setEmail] = (0, _react.useState)("");
+    const [username, setUsername] = (0, _react.useState)("");
     const [password, setPassword] = (0, _react.useState)("");
     const handleSubmit = (event)=>{
         event.preventDefault();
         const data = {
             FirstName: firstName,
             LastName: lastName,
-            Email: email,
+            Username: username,
             Password: password
         };
         // Signup API request
@@ -31400,20 +31385,20 @@ const SignupView = ({ onSignedUp })=>{
                                     columnNumber: 15
                                 }, undefined),
                                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Group, {
-                                    controlId: "formEmail",
+                                    controlId: "formUsername",
                                     children: [
                                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Label, {
-                                            children: "Email"
+                                            children: "Username"
                                         }, void 0, false, {
                                             fileName: "src/components/signup-view/signup-view.jsx",
                                             lineNumber: 63,
                                             columnNumber: 17
                                         }, undefined),
                                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Control, {
-                                            type: "email",
-                                            value: email,
-                                            onChange: (e)=>setEmail(e.target.value),
-                                            placeholder: "Email",
+                                            type: "text",
+                                            value: username,
+                                            onChange: (e)=>setUsername(e.target.value),
+                                            placeholder: "Username",
                                             required: true
                                         }, void 0, false, {
                                             fileName: "src/components/signup-view/signup-view.jsx",
@@ -31515,7 +31500,7 @@ const SignupView = ({ onSignedUp })=>{
         columnNumber: 5
     }, undefined);
 };
-_s(SignupView, "A61mcRXNapOcGHN5EK5jhYP4ZY4=");
+_s(SignupView, "9dQLg3GMyfEw8w+TPHzUSgG7hfY=");
 _c = SignupView;
 var _c;
 $RefreshReg$(_c, "SignupView");
