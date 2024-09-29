@@ -35,23 +35,35 @@ export const MainView = () => {
       .catch((error) => console.error('Error fetching movies:', error));
   }, [token]);
 
+  const handleLogout = () => {
+    setUser(null);
+    setToken(null);
+    localStorage.clear();
+  };
+
   if (!user) {
     return (
       <Container>
         <Row className="justify-content-md-center">
           <Col md={6}>
-            <LoginView
-              onLoggedIn={(user, token) => {
-                setUser(user);
-                setToken(token);
-              }}
-            />
-          </Col>
-        </Row>
-        <div className="text-center">or</div>
-        <Row className="justify-content-md-center">
-          <Col md={6}>
-            <SignupView />
+            {showLogin ? (
+              <LoginView
+                onLoggedIn={(user, token) => {
+                  setUser(user);
+                  setToken(token);
+                }}
+              />
+            ) : (
+              <SignupView onSignedUp={() => setShowLogin(true)} />
+            )}
+            <div className="text-center mt-3">
+              <Button
+                className="p-0 border-0 bg-transparent primaryColor"
+                onClick={() => setShowLogin(!showLogin)}
+              >
+                {showLogin ? 'Sign Up' : 'Login'}
+              </Button>
+            </div>
           </Col>
         </Row>
       </Container>
@@ -77,26 +89,26 @@ export const MainView = () => {
   return (
     <Container fluid style={{ maxWidth: '85%' }}>
       <Row>
-        {movies.map((movie) => (
-          <Col md={4} key={movie._id} className="mb-4">
-            <MovieCard
-              movie={movie}
-              onMovieClick={(newSelectedMovie) => {
-                setSelectedMovie(newSelectedMovie);
-              }}
-            />
-          </Col>
-        ))}
+        {movies.length === 0 ? (
+          <div className="text-center">No movies available</div>
+        ) : (
+          movies.map((movie) => (
+            <Col md={4} key={movie._id} className="mb-4">
+              <MovieCard
+                movie={movie}
+                onMovieClick={(newSelectedMovie) => {
+                  setSelectedMovie(newSelectedMovie);
+                }}
+              />
+            </Col>
+          ))
+        )}
       </Row>
       <Row className="justify-content-md-center">
         <Col md="auto">
           <Button
-            variant="success" /* Green button for logout */
-            onClick={() => {
-              setUser(null);
-              setToken(null);
-              localStorage.clear();
-            }}
+            variant="success"
+            onClick={handleLogout}
           >
             Logout
           </Button>
