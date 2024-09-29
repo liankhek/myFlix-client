@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { MovieCard } from '../movie-card/movie-card';
 import { MovieView } from '../movie-view/movie-view';
-import { LoginView } from '../login-view/login-view';
-import { SignupView } from '../signup-view/signup-view';
+import { LoginView } from "../login-view/login-view";
+import { SignupView } from "../signup-view/signup-view";
 import { Container, Row, Col, Button } from 'react-bootstrap'; // Import Bootstrap components
 
 export const MainView = () => {
@@ -48,7 +48,7 @@ export const MainView = () => {
             />
           </Col>
         </Row>
-        <div className="text-center mt-3">or</div>
+        <div className="text-center">or</div>
         <Row className="justify-content-md-center">
           <Col md={6}>
             <SignupView />
@@ -75,10 +75,10 @@ export const MainView = () => {
   }
 
   return (
-    <Container>
+    <Container fluid style={{ maxWidth: '85%' }}>
       <Row>
         {movies.map((movie) => (
-          <Col md={3} key={movie._id} className="mb-4">
+          <Col md={4} key={movie._id} className="mb-4">
             <MovieCard
               movie={movie}
               onMovieClick={(newSelectedMovie) => {
@@ -91,14 +91,12 @@ export const MainView = () => {
       <Row className="justify-content-md-center">
         <Col md="auto">
           <Button
-            variant="danger"
-            size="lg"
+            variant="success" /* Green button for logout */
             onClick={() => {
               setUser(null);
               setToken(null);
               localStorage.clear();
             }}
-            className="mt-4"
           >
             Logout
           </Button>
