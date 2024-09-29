@@ -27256,7 +27256,7 @@ const MainView = ()=>{
     const [selectedMovie, setSelectedMovie] = (0, _react.useState)(null);
     const [user, setUser] = (0, _react.useState)(storedUser);
     const [token, setToken] = (0, _react.useState)(storedToken);
-    const [showLogin, setShowLogin] = (0, _react.useState)(true); // Initialize showLogin state
+    const [showLogin, setShowLogin] = (0, _react.useState)(true);
     (0, _react.useEffect)(()=>{
         if (!token) return;
         fetch("https://da-flix-1a4fa4a29dcc.herokuapp.com/movies", {
@@ -31103,7 +31103,6 @@ const LoginView = ({ onLoggedIn, setShowLogin })=>{
     const [password, setPassword] = (0, _react.useState)("");
     const handleSubmit = (event)=>{
         event.preventDefault();
-        // Login API request
         fetch("https://da-flix-1a4fa4a29dcc.herokuapp.com/login", {
             method: "POST",
             headers: {
@@ -31296,7 +31295,6 @@ const SignupView = ({ onSignedUp, setShowLogin })=>{
             Username: username,
             Password: password
         };
-        // Signup API request
         fetch("https://da-flix-1a4fa4a29dcc.herokuapp.com/users", {
             method: "POST",
             headers: {
@@ -31324,7 +31322,7 @@ const SignupView = ({ onSignedUp, setShowLogin })=>{
                             children: "Create Your Account"
                         }, void 0, false, {
                             fileName: "src/components/signup-view/signup-view.jsx",
-                            lineNumber: 40,
+                            lineNumber: 39,
                             columnNumber: 13
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form), {
@@ -31337,7 +31335,7 @@ const SignupView = ({ onSignedUp, setShowLogin })=>{
                                             children: "First Name"
                                         }, void 0, false, {
                                             fileName: "src/components/signup-view/signup-view.jsx",
-                                            lineNumber: 43,
+                                            lineNumber: 42,
                                             columnNumber: 17
                                         }, undefined),
                                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Control, {
@@ -31348,13 +31346,13 @@ const SignupView = ({ onSignedUp, setShowLogin })=>{
                                             required: true
                                         }, void 0, false, {
                                             fileName: "src/components/signup-view/signup-view.jsx",
-                                            lineNumber: 44,
+                                            lineNumber: 43,
                                             columnNumber: 17
                                         }, undefined)
                                     ]
                                 }, void 0, true, {
                                     fileName: "src/components/signup-view/signup-view.jsx",
-                                    lineNumber: 42,
+                                    lineNumber: 41,
                                     columnNumber: 15
                                 }, undefined),
                                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Group, {
@@ -31364,7 +31362,7 @@ const SignupView = ({ onSignedUp, setShowLogin })=>{
                                             children: "Last Name"
                                         }, void 0, false, {
                                             fileName: "src/components/signup-view/signup-view.jsx",
-                                            lineNumber: 53,
+                                            lineNumber: 52,
                                             columnNumber: 17
                                         }, undefined),
                                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Control, {
@@ -31375,13 +31373,13 @@ const SignupView = ({ onSignedUp, setShowLogin })=>{
                                             required: true
                                         }, void 0, false, {
                                             fileName: "src/components/signup-view/signup-view.jsx",
-                                            lineNumber: 54,
+                                            lineNumber: 53,
                                             columnNumber: 17
                                         }, undefined)
                                     ]
                                 }, void 0, true, {
                                     fileName: "src/components/signup-view/signup-view.jsx",
-                                    lineNumber: 52,
+                                    lineNumber: 51,
                                     columnNumber: 15
                                 }, undefined),
                                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Group, {
@@ -31391,7 +31389,7 @@ const SignupView = ({ onSignedUp, setShowLogin })=>{
                                             children: "Username"
                                         }, void 0, false, {
                                             fileName: "src/components/signup-view/signup-view.jsx",
-                                            lineNumber: 63,
+                                            lineNumber: 62,
                                             columnNumber: 17
                                         }, undefined),
                                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Control, {
@@ -31402,13 +31400,13 @@ const SignupView = ({ onSignedUp, setShowLogin })=>{
                                             required: true
                                         }, void 0, false, {
                                             fileName: "src/components/signup-view/signup-view.jsx",
-                                            lineNumber: 64,
+                                            lineNumber: 63,
                                             columnNumber: 17
                                         }, undefined)
                                     ]
                                 }, void 0, true, {
                                     fileName: "src/components/signup-view/signup-view.jsx",
-                                    lineNumber: 62,
+                                    lineNumber: 61,
                                     columnNumber: 15
                                 }, undefined),
                                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Group, {
@@ -31418,7 +31416,7 @@ const SignupView = ({ onSignedUp, setShowLogin })=>{
                                             children: "Password"
                                         }, void 0, false, {
                                             fileName: "src/components/signup-view/signup-view.jsx",
-                                            lineNumber: 73,
+                                            lineNumber: 72,
                                             columnNumber: 17
                                         }, undefined),
                                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Control, {
@@ -31429,13 +31427,13 @@ const SignupView = ({ onSignedUp, setShowLogin })=>{
                                             required: true
                                         }, void 0, false, {
                                             fileName: "src/components/signup-view/signup-view.jsx",
-                                            lineNumber: 74,
+                                            lineNumber: 73,
                                             columnNumber: 17
                                         }, undefined)
                                     ]
                                 }, void 0, true, {
                                     fileName: "src/components/signup-view/signup-view.jsx",
-                                    lineNumber: 72,
+                                    lineNumber: 71,
                                     columnNumber: 15
                                 }, undefined),
                                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
@@ -31443,13 +31441,13 @@ const SignupView = ({ onSignedUp, setShowLogin })=>{
                                     children: "Sign Up"
                                 }, void 0, false, {
                                     fileName: "src/components/signup-view/signup-view.jsx",
-                                    lineNumber: 82,
+                                    lineNumber: 81,
                                     columnNumber: 15
                                 }, undefined)
                             ]
                         }, void 0, true, {
                             fileName: "src/components/signup-view/signup-view.jsx",
-                            lineNumber: 41,
+                            lineNumber: 40,
                             columnNumber: 13
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
@@ -31459,7 +31457,7 @@ const SignupView = ({ onSignedUp, setShowLogin })=>{
                                     children: "Already have an account?"
                                 }, void 0, false, {
                                     fileName: "src/components/signup-view/signup-view.jsx",
-                                    lineNumber: 85,
+                                    lineNumber: 84,
                                     columnNumber: 15
                                 }, undefined),
                                 " ",
@@ -31469,34 +31467,34 @@ const SignupView = ({ onSignedUp, setShowLogin })=>{
                                     children: "Login"
                                 }, void 0, false, {
                                     fileName: "src/components/signup-view/signup-view.jsx",
-                                    lineNumber: 86,
+                                    lineNumber: 85,
                                     columnNumber: 15
                                 }, undefined)
                             ]
                         }, void 0, true, {
                             fileName: "src/components/signup-view/signup-view.jsx",
-                            lineNumber: 84,
+                            lineNumber: 83,
                             columnNumber: 13
                         }, undefined)
                     ]
                 }, void 0, true, {
                     fileName: "src/components/signup-view/signup-view.jsx",
-                    lineNumber: 39,
+                    lineNumber: 38,
                     columnNumber: 11
                 }, undefined)
             }, void 0, false, {
                 fileName: "src/components/signup-view/signup-view.jsx",
-                lineNumber: 38,
+                lineNumber: 37,
                 columnNumber: 9
             }, undefined)
         }, void 0, false, {
             fileName: "src/components/signup-view/signup-view.jsx",
-            lineNumber: 37,
+            lineNumber: 36,
             columnNumber: 7
         }, undefined)
     }, void 0, false, {
         fileName: "src/components/signup-view/signup-view.jsx",
-        lineNumber: 36,
+        lineNumber: 35,
         columnNumber: 5
     }, undefined);
 };
