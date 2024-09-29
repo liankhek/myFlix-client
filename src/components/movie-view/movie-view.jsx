@@ -14,7 +14,7 @@ export const MovieView = ({ movie, onBackClick, similarMovies }) => {
             <img
               src={movie.ImagePath}
               alt={movie.Title}
-              style={{ width: '100%', maxWidth: '500px', height: 'auto', marginBottom: '20px' }} // Adjust the width and height here
+              style={{ width: '100%', maxWidth: '500px', height: 'auto', marginBottom: '20px' }}
             />
           </div>
 
@@ -48,7 +48,7 @@ export const MovieView = ({ movie, onBackClick, similarMovies }) => {
           )}
 
           <div className="text-center">
-            <Button onClick={onBackClick} variant="primary">
+            <Button onClick={onBackClick} variant="primary" style={{ fontSize: '14px', padding: '10px 20px' }}>
               Back
             </Button>
           </div>
