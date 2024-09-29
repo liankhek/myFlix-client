@@ -46,7 +46,7 @@ export const MainView = () => {
     return (
       <Container className="auth-container">
         <Row className="justify-content-md-center">
-          <Col md={6}>
+          <Col md={8}> {/* Increased form size */}
             {showLogin ? (
               <LoginView
                 onLoggedIn={(user, token) => {
@@ -61,14 +61,6 @@ export const MainView = () => {
                 setShowLogin={setShowLogin}
               />
             )}
-            <div className="text-center mt-3">
-              <Button
-                className="p-0 border-0 bg-transparent primaryColor"
-                onClick={() => setShowLogin(!showLogin)}
-              >
-                {showLogin ? 'Sign Up' : 'Login'}
-              </Button>
-            </div>
           </Col>
         </Row>
       </Container>

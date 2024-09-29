@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Form, Button, Container, Row, Col } from 'react-bootstrap';
 
-export const LoginView = ({ onLoggedIn }) => {
-  const [email, setEmail] = useState('');
+export const LoginView = ({ onLoggedIn, setShowLogin }) => {
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
   const handleSubmit = (event) => {
@@ -11,7 +11,7 @@ export const LoginView = ({ onLoggedIn }) => {
     fetch('https://da-flix-1a4fa4a29dcc.herokuapp.com/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ Email: email, Password: password }),
+      body: JSON.stringify({ Username: username, Password: password }),
     })
       .then((response) => response.json())
       .then(data => {
@@ -36,13 +36,13 @@ export const LoginView = ({ onLoggedIn }) => {
           <div className="form-box">
             <h2>Login</h2>
             <Form onSubmit={handleSubmit}>
-              <Form.Group controlId="formEmail">
-                <Form.Label>Email</Form.Label>
+              <Form.Group controlId="formUsername">
+                <Form.Label>Username</Form.Label>
                 <Form.Control
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="Enter email"
+                  type="text"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  placeholder="Enter username"
                   required
                 />
               </Form.Group>
