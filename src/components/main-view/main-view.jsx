@@ -2,37 +2,31 @@ import React, { useState, useEffect } from 'react';
 import { MovieCard } from '../movie-card/movie-card';
 import { MovieView } from '../movie-view/movie-view';
 import { LoginView } from "../login-view/login-view";
-import { SignupView } from "../signup-view/signup-view.jsx";
-
+import { SignupView } from "../signup-view/signup-view";
+import { Container, Row, Col, Button } from 'react-bootstrap'; // Import Bootstrap components
 
 export const MainView = () => {
   const storedUser = JSON.parse(localStorage.getItem("user"));
   const storedToken = localStorage.getItem("token");
   const [movies, setMovies] = useState([]);
   const [selectedMovie, setSelectedMovie] = useState(null);
-  const [error, setError] = useState(null);
   const [user, setUser] = useState(storedUser);
   const [token, setToken] = useState(storedToken);
 
   useEffect(() => {
     if (!token) return;
-    // Fetch movies data from the API
+
     fetch('https://da-flix-1a4fa4a29dcc.herokuapp.com/movies', {
       headers: { Authorization: `Bearer ${token}` },
     })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        return response.json();
-      })
+      .then((response) => response.json())
       .then((data) => {
         const moviesFromApi = data.map((movie) => ({
           _id: movie._id,
           Title: movie.Title,
           Description: movie.Description,
-          Genre: movie.Genre?.Name || "Unknown Genre", // Adjusted
-          Director: movie.Director?.Name || "Unknown Director", // Adjusted
+          Genre: movie.Genre?.Name || "Unknown Genre",
+          Director: movie.Director?.Name || "Unknown Director",
           ImagePath: movie.ImagePath,
           Featured: movie.Featured,
         }));
@@ -41,72 +35,73 @@ export const MainView = () => {
       .catch((error) => console.error('Error fetching movies:', error));
   }, [token]);
 
-  if (error) {
-    return <div>Error: {error}</div>;
-  }
-
   if (!user) {
     return (
-      <>
-        <LoginView
-          onLoggedIn={(user, token) => {
-            setUser(user);
-            setToken(token);
-          }}
-        />
-        <div style={{ textAlign: 'center', marginTop: '20px' }}>or</div>
-        <SignupView />
-      </>
+      <Container>
+        <Row className="justify-content-md-center">
+          <Col md={6}>
+            <LoginView
+              onLoggedIn={(user, token) => {
+                setUser(user);
+                setToken(token);
+              }}
+            />
+          </Col>
+        </Row>
+        <div className="text-center">or</div>
+        <Row className="justify-content-md-center">
+          <Col md={6}>
+            <SignupView />
+          </Col>
+        </Row>
+      </Container>
     );
   }
 
   if (selectedMovie) {
-    // Filter similar movies by matching genre and excluding the selected movie itself
-    const similarMovies = movies.filter(
-      (movie) =>
-        movie.Genre === selectedMovie.Genre &&
-        movie._id !== selectedMovie._id
-    );
-
     return (
-      <MovieView
-        movie={selectedMovie}
-        onBackClick={() => setSelectedMovie(null)}
-        similarMovies={similarMovies}
-      />
+      <Container>
+        <MovieView
+          movie={selectedMovie}
+          onBackClick={() => setSelectedMovie(null)}
+          similarMovies={movies.filter(
+            (movie) =>
+              movie.Genre === selectedMovie.Genre &&
+              movie._id !== selectedMovie._id
+          )}
+        />
+      </Container>
     );
-  }
-
-  if (movies.length === 0) {
-    return <div>The list is empty!</div>;
   }
 
   return (
-    <>
-      <div className="movies-container">
+    <Container>
+      <Row>
         {movies.map((movie) => (
-          <div key={movie._id} className="movie-card">
+          <Col md={3} key={movie._id} className="mb-4">
             <MovieCard
               movie={movie}
               onMovieClick={(newSelectedMovie) => {
                 setSelectedMovie(newSelectedMovie);
               }}
             />
-          </div>
+          </Col>
         ))}
-      </div>
-      <div className="logout-container">
-        <button
-          className="logout-button"
-          onClick={() => {
-            setUser(null);
-            setToken(null);
-            localStorage.clear();
-          }}
-        >
-          Logout
-        </button>
-      </div>
-    </>
+      </Row>
+      <Row className="justify-content-md-center">
+        <Col md="auto">
+          <Button
+            variant="primary"
+            onClick={() => {
+              setUser(null);
+              setToken(null);
+              localStorage.clear();
+            }}
+          >
+            Logout
+          </Button>
+        </Col>
+      </Row>
+    </Container>
   );
 };

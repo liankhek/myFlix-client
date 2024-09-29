@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Form, Button, Container, Row, Col } from 'react-bootstrap'; // Import Bootstrap components
 
 export const LoginView = ({ onLoggedIn }) => {
   const [username, setUsername] = useState('');
@@ -6,16 +7,9 @@ export const LoginView = ({ onLoggedIn }) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const data = { 
-        Username: username,
-        Password: password
-    };
-
     fetch('https://da-flix-1a4fa4a29dcc.herokuapp.com/login', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json' 
-      },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ Username: username, Password: password }),
     })
       .then((response) => response.json())
@@ -35,24 +29,34 @@ export const LoginView = ({ onLoggedIn }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label>
-        Username:
-        <input
-            type="text" 
-            value={username} onChange={(e) => setUsername(e.target.value)} required 
-        />
-      </label>
-      <br />
-      <label>
-        Password:
-        <input 
-            type="password" 
-            value={password} onChange={(e) => setPassword(e.target.value)} required 
-        />
-      </label>
-      <br />
-      <button type="submit">Login</button>
-    </form>
+    <Container>
+      <Row className="justify-content-md-center">
+        <Col md={6}>
+          <Form onSubmit={handleSubmit}>
+            <Form.Group controlId="formUsername">
+              <Form.Label>Username</Form.Label>
+              <Form.Control
+                type="text"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                required
+              />
+            </Form.Group>
+            <Form.Group controlId="formPassword">
+              <Form.Label>Password</Form.Label>
+              <Form.Control
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+            </Form.Group>
+            <Button variant="primary" type="submit" block>
+              Login
+            </Button>
+          </Form>
+        </Col>
+      </Row>
+    </Container>
   );
 };

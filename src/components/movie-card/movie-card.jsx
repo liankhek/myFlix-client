@@ -1,23 +1,28 @@
 import PropTypes from 'prop-types';
+import { Card, Button } from 'react-bootstrap'; // Importing Bootstrap components
 
 export const MovieCard = ({ movie, onMovieClick }) => {
-  if (!movie) return null; // Check if movie is defined
+  if (!movie) return null; // Check if the movie object exists
 
   return (
-    <div
-      onClick={() => onMovieClick(movie)}
-      style={{ border: '1px solid #ccc', padding: '16px', cursor: 'pointer' }}
-    >
-      <img
-        src={movie.ImagePath} 
+    <Card className="h-100" onClick={() => onMovieClick(movie)} style={{ cursor: 'pointer' }}>
+      <Card.Img
+        variant="top"
+        src={movie.ImagePath}
         alt={movie.Title}
-        style={{ width: '100%', height: 'auto' }}
+        style={{ height: '270px', objectFit: 'cover' }} // Ensures the image has a fixed height and is well-fitted
       />
-      <h3 style={{ fontSize: '1.2rem', textAlign: 'center' }}>{movie.Title}</h3>
-    </div>
+      <Card.Body>
+        <Card.Title>{movie.Title}</Card.Title>
+        <Button variant="primary" onClick={() => onMovieClick(movie)}>
+          View Details
+        </Button>
+      </Card.Body>
+    </Card>
   );
 };
 
+// Defining propTypes for MovieCard component
 MovieCard.propTypes = {
   movie: PropTypes.shape({
     _id: PropTypes.string.isRequired,

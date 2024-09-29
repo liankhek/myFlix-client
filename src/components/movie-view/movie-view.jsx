@@ -1,75 +1,82 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { MovieCard } from '../movie-card/movie-card';
+import { Container, Row, Col, Button } from 'react-bootstrap'; // Import Bootstrap components
 
 export const MovieView = ({ movie, onBackClick, similarMovies }) => {
   if (!movie) return null;
 
   return (
-    <div style={{ padding: '20px', maxWidth: '600px', margin: '0 auto' }}>
-      <div style={{ marginBottom: '20px' }}>
-        <img
-          src={movie.ImagePath}
-          alt={movie.Title}
-          style={{ maxWidth: '100%', height: 'auto' }}
-        />
-      </div>
+    <Container>
+      <Row className="justify-content-md-center">
+        <Col md={8}>
+          <div className="mb-4">
+            <img
+              src={movie.ImagePath}
+              alt={movie.Title}
+              style={{ width: '100%', height: 'auto' }}
+            />
+          </div>
 
-      <div style={{ marginBottom: '10px' }}>
-        <strong>Title:</strong> {movie.Title}
-      </div>
-      <div style={{ marginBottom: '10px' }}>
-        <strong>Description:</strong> {movie.Description}
-      </div>
-      <div style={{ marginBottom: '10px' }}>
-        <strong>Genre:</strong> {movie.Genre || 'Unknown Genre'}
-      </div>
-      <div style={{ marginBottom: '10px' }}>
-        <strong>Director:</strong> {movie.Director || 'Unknown Director'}
-      </div>
+          <div className="mb-2">
+            <strong>Title:</strong> {movie.Title}
+          </div>
+          <div className="mb-2">
+            <strong>Description:</strong> {movie.Description}
+          </div>
+          <div className="mb-2">
+            <strong>Genre:</strong> {movie.Genre || 'Unknown Genre'}
+          </div>
+          <div className="mb-2">
+            <strong>Director:</strong> {movie.Director || 'Unknown Director'}
+          </div>
 
-      {/* Optional Director Details */}
-      {movie.DirectorBio && (
-        <div style={{ marginBottom: '10px' }}>
-          <strong>Bio:</strong> {movie.DirectorBio}
-        </div>
-      )}
-      {movie.DirectorBirth && (
-        <div style={{ marginBottom: '10px' }}>
-          <strong>Birth:</strong> {movie.DirectorBirth}
-        </div>
-      )}
-      {movie.DirectorDeath && (
-        <div style={{ marginBottom: '10px' }}>
-          <strong>Death:</strong> {movie.DirectorDeath}
-        </div>
-      )}
-
-      <button
-        onClick={onBackClick}
-        style={{ padding: '10px 20px', cursor: 'pointer' }}
-      >
-        Back
-      </button>
-
-      {/* Render Similar Movies */}
-      <hr />
-      <h2>Similar Movies</h2>
-      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '16px' }}>
-        {similarMovies.length === 0 ? (
-          <div>No similar movies available</div>
-        ) : (
-          similarMovies.map((similarMovie) => (
-            <div key={similarMovie._id} style={{ width: '150px' }}>
-              <MovieCard
-                movie={similarMovie}
-                onMovieClick={() => console.log('Clicking similar movie')}
-              />
+          {/* Optional Director Details */}
+          {movie.DirectorBio && (
+            <div className="mb-2">
+              <strong>Bio:</strong> {movie.DirectorBio}
             </div>
-          ))
-        )}
-      </div>
-    </div>
+          )}
+          {movie.DirectorBirth && (
+            <div className="mb-2">
+              <strong>Birth:</strong> {movie.DirectorBirth}
+            </div>
+          )}
+          {movie.DirectorDeath && (
+            <div className="mb-2">
+              <strong>Death:</strong> {movie.DirectorDeath}
+            </div>
+          )}
+
+          <Button variant="primary" onClick={onBackClick} className="mb-4">
+            Back
+          </Button>
+        </Col>
+      </Row>
+
+      <hr />
+      <Row className="justify-content-md-center">
+        <Col md={8}>
+          <h3>Similar Movies</h3>
+          <Row>
+            {similarMovies.length === 0 ? (
+              <Col>
+                <p>No similar movies available</p>
+              </Col>
+            ) : (
+              similarMovies.map((similarMovie) => (
+                <Col key={similarMovie._id} xs={6} md={4} className="mb-3">
+                  <MovieCard
+                    movie={similarMovie}
+                    onMovieClick={() => console.log('Clicking similar movie')}
+                  />
+                </Col>
+              ))
+            )}
+          </Row>
+        </Col>
+      </Row>
+    </Container>
   );
 };
 
