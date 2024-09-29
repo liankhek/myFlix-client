@@ -27445,7 +27445,8 @@ const MovieCard = ({ movie, onMovieClick })=>{
                 alt: movie.Title,
                 style: {
                     width: "100%",
-                    height: "auto"
+                    height: "auto",
+                    objectFit: "cover"
                 }
             }, void 0, false, {
                 fileName: "src/components/movie-card/movie-card.jsx",
@@ -30823,14 +30824,13 @@ const MovieView = ({ movie, onBackClick, similarMovies })=>{
                             alt: movie.Title,
                             style: {
                                 width: "100%",
-                                maxWidth: "500px",
                                 height: "auto",
-                                marginBottom: "20px"
+                                objectFit: "cover"
                             }
                         }, void 0, false, {
                             fileName: "src/components/movie-view/movie-view.jsx",
                             lineNumber: 14,
-                            columnNumber: 13
+                            columnNumber: 11
                         }, undefined)
                     }, void 0, false, {
                         fileName: "src/components/movie-view/movie-view.jsx",
@@ -30846,7 +30846,7 @@ const MovieView = ({ movie, onBackClick, similarMovies })=>{
                                 children: "Title:"
                             }, void 0, false, {
                                 fileName: "src/components/movie-view/movie-view.jsx",
-                                lineNumber: 22,
+                                lineNumber: 23,
                                 columnNumber: 13
                             }, undefined),
                             " ",
@@ -30854,7 +30854,7 @@ const MovieView = ({ movie, onBackClick, similarMovies })=>{
                         ]
                     }, void 0, true, {
                         fileName: "src/components/movie-view/movie-view.jsx",
-                        lineNumber: 21,
+                        lineNumber: 22,
                         columnNumber: 11
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
@@ -30866,7 +30866,7 @@ const MovieView = ({ movie, onBackClick, similarMovies })=>{
                                 children: "Description:"
                             }, void 0, false, {
                                 fileName: "src/components/movie-view/movie-view.jsx",
-                                lineNumber: 25,
+                                lineNumber: 26,
                                 columnNumber: 13
                             }, undefined),
                             " ",
@@ -30874,7 +30874,7 @@ const MovieView = ({ movie, onBackClick, similarMovies })=>{
                         ]
                     }, void 0, true, {
                         fileName: "src/components/movie-view/movie-view.jsx",
-                        lineNumber: 24,
+                        lineNumber: 25,
                         columnNumber: 11
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
@@ -30886,7 +30886,7 @@ const MovieView = ({ movie, onBackClick, similarMovies })=>{
                                 children: "Genre:"
                             }, void 0, false, {
                                 fileName: "src/components/movie-view/movie-view.jsx",
-                                lineNumber: 28,
+                                lineNumber: 29,
                                 columnNumber: 13
                             }, undefined),
                             " ",
@@ -30894,7 +30894,7 @@ const MovieView = ({ movie, onBackClick, similarMovies })=>{
                         ]
                     }, void 0, true, {
                         fileName: "src/components/movie-view/movie-view.jsx",
-                        lineNumber: 27,
+                        lineNumber: 28,
                         columnNumber: 11
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
@@ -30906,7 +30906,7 @@ const MovieView = ({ movie, onBackClick, similarMovies })=>{
                                 children: "Director:"
                             }, void 0, false, {
                                 fileName: "src/components/movie-view/movie-view.jsx",
-                                lineNumber: 31,
+                                lineNumber: 32,
                                 columnNumber: 13
                             }, undefined),
                             " ",
@@ -30914,7 +30914,7 @@ const MovieView = ({ movie, onBackClick, similarMovies })=>{
                         ]
                     }, void 0, true, {
                         fileName: "src/components/movie-view/movie-view.jsx",
-                        lineNumber: 30,
+                        lineNumber: 31,
                         columnNumber: 11
                     }, undefined),
                     movie.DirectorBio && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
@@ -30926,7 +30926,7 @@ const MovieView = ({ movie, onBackClick, similarMovies })=>{
                                 children: "Bio:"
                             }, void 0, false, {
                                 fileName: "src/components/movie-view/movie-view.jsx",
-                                lineNumber: 36,
+                                lineNumber: 37,
                                 columnNumber: 15
                             }, undefined),
                             " ",
@@ -30934,7 +30934,7 @@ const MovieView = ({ movie, onBackClick, similarMovies })=>{
                         ]
                     }, void 0, true, {
                         fileName: "src/components/movie-view/movie-view.jsx",
-                        lineNumber: 35,
+                        lineNumber: 36,
                         columnNumber: 13
                     }, undefined),
                     movie.DirectorBirth && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
@@ -30946,7 +30946,7 @@ const MovieView = ({ movie, onBackClick, similarMovies })=>{
                                 children: "Birth:"
                             }, void 0, false, {
                                 fileName: "src/components/movie-view/movie-view.jsx",
-                                lineNumber: 41,
+                                lineNumber: 42,
                                 columnNumber: 15
                             }, undefined),
                             " ",
@@ -30954,7 +30954,7 @@ const MovieView = ({ movie, onBackClick, similarMovies })=>{
                         ]
                     }, void 0, true, {
                         fileName: "src/components/movie-view/movie-view.jsx",
-                        lineNumber: 40,
+                        lineNumber: 41,
                         columnNumber: 13
                     }, undefined),
                     movie.DirectorDeath && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
@@ -30966,7 +30966,7 @@ const MovieView = ({ movie, onBackClick, similarMovies })=>{
                                 children: "Death:"
                             }, void 0, false, {
                                 fileName: "src/components/movie-view/movie-view.jsx",
-                                lineNumber: 46,
+                                lineNumber: 47,
                                 columnNumber: 15
                             }, undefined),
                             " ",
@@ -30974,32 +30974,25 @@ const MovieView = ({ movie, onBackClick, similarMovies })=>{
                         ]
                     }, void 0, true, {
                         fileName: "src/components/movie-view/movie-view.jsx",
-                        lineNumber: 45,
+                        lineNumber: 46,
                         columnNumber: 13
                     }, undefined),
-                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-                        className: "text-center",
-                        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
-                            onClick: onBackClick,
-                            variant: "primary",
-                            style: {
-                                fontSize: "14px",
-                                padding: "10px 20px"
-                            },
-                            children: "Back"
-                        }, void 0, false, {
-                            fileName: "src/components/movie-view/movie-view.jsx",
-                            lineNumber: 51,
-                            columnNumber: 13
-                        }, undefined)
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
+                        onClick: onBackClick,
+                        variant: "primary",
+                        style: {
+                            fontSize: "12px",
+                            padding: "8px 15px"
+                        },
+                        children: "Back"
                     }, void 0, false, {
                         fileName: "src/components/movie-view/movie-view.jsx",
-                        lineNumber: 50,
+                        lineNumber: 51,
                         columnNumber: 11
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("hr", {}, void 0, false, {
                         fileName: "src/components/movie-view/movie-view.jsx",
-                        lineNumber: 57,
+                        lineNumber: 60,
                         columnNumber: 11
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h2", {
@@ -31007,7 +31000,7 @@ const MovieView = ({ movie, onBackClick, similarMovies })=>{
                         children: "Similar Movies"
                     }, void 0, false, {
                         fileName: "src/components/movie-view/movie-view.jsx",
-                        lineNumber: 58,
+                        lineNumber: 61,
                         columnNumber: 11
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Row), {
@@ -31017,7 +31010,7 @@ const MovieView = ({ movie, onBackClick, similarMovies })=>{
                             children: "No similar movies available"
                         }, void 0, false, {
                             fileName: "src/components/movie-view/movie-view.jsx",
-                            lineNumber: 61,
+                            lineNumber: 64,
                             columnNumber: 15
                         }, undefined) : similarMovies.map((similarMovie)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Col), {
                                 md: 3,
@@ -31027,17 +31020,17 @@ const MovieView = ({ movie, onBackClick, similarMovies })=>{
                                     onMovieClick: ()=>console.log("Clicking similar movie")
                                 }, void 0, false, {
                                     fileName: "src/components/movie-view/movie-view.jsx",
-                                    lineNumber: 65,
+                                    lineNumber: 68,
                                     columnNumber: 19
                                 }, undefined)
                             }, similarMovie._id, false, {
                                 fileName: "src/components/movie-view/movie-view.jsx",
-                                lineNumber: 64,
+                                lineNumber: 67,
                                 columnNumber: 17
                             }, undefined))
                     }, void 0, false, {
                         fileName: "src/components/movie-view/movie-view.jsx",
-                        lineNumber: 59,
+                        lineNumber: 62,
                         columnNumber: 11
                     }, undefined)
                 ]
