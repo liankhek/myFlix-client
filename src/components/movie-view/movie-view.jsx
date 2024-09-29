@@ -7,14 +7,14 @@ export const MovieView = ({ movie, onBackClick, similarMovies }) => {
   if (!movie) return null;
 
   return (
-    <Container fluid style={{ maxWidth: '85%' }}>
+    <Container>
       <Row className="justify-content-md-center">
         <Col md={8}>
           <div className="text-center">
             <img
               src={movie.ImagePath}
               alt={movie.Title}
-              style={{ maxWidth: '100%', height: 'auto', marginBottom: '20px' }}
+              style={{ width: '100%', maxWidth: '500px', height: 'auto', marginBottom: '20px' }} // Adjust the width and height here
             />
           </div>
 
@@ -61,7 +61,7 @@ export const MovieView = ({ movie, onBackClick, similarMovies }) => {
               <div className="text-center">No similar movies available</div>
             ) : (
               similarMovies.map((similarMovie) => (
-                <Col md={4} key={similarMovie._id} className="mb-4">
+                <Col md={3} key={similarMovie._id} className="mb-4">
                   <MovieCard
                     movie={similarMovie}
                     onMovieClick={() => console.log('Clicking similar movie')}

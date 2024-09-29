@@ -30819,10 +30819,6 @@ var _reactBootstrap = require("react-bootstrap");
 const MovieView = ({ movie, onBackClick, similarMovies })=>{
     if (!movie) return null;
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Container), {
-        fluid: true,
-        style: {
-            maxWidth: "85%"
-        },
         children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Row), {
             className: "justify-content-md-center",
             children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Col), {
@@ -30834,7 +30830,8 @@ const MovieView = ({ movie, onBackClick, similarMovies })=>{
                             src: movie.ImagePath,
                             alt: movie.Title,
                             style: {
-                                maxWidth: "100%",
+                                width: "100%",
+                                maxWidth: "500px",
                                 height: "auto",
                                 marginBottom: "20px"
                             }
@@ -31027,7 +31024,7 @@ const MovieView = ({ movie, onBackClick, similarMovies })=>{
                             lineNumber: 61,
                             columnNumber: 15
                         }, undefined) : similarMovies.map((similarMovie)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Col), {
-                                md: 4,
+                                md: 3,
                                 className: "mb-4",
                                 children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieCard.MovieCard), {
                                     movie: similarMovie,
