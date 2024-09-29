@@ -3,7 +3,7 @@ import { MovieCard } from '../movie-card/movie-card';
 import { MovieView } from '../movie-view/movie-view';
 import { LoginView } from "../login-view/login-view";
 import { SignupView } from "../signup-view/signup-view";
-import { Container, Row, Col, Button } from 'react-bootstrap'; // Import Bootstrap components
+import { Container, Row, Col, Button } from 'react-bootstrap';
 
 export const MainView = () => {
   const storedUser = JSON.parse(localStorage.getItem("user"));
@@ -12,6 +12,7 @@ export const MainView = () => {
   const [selectedMovie, setSelectedMovie] = useState(null);
   const [user, setUser] = useState(storedUser);
   const [token, setToken] = useState(storedToken);
+  const [showLogin, setShowLogin] = useState(true);  // Initialize showLogin state
 
   useEffect(() => {
     if (!token) return;
