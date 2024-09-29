@@ -27444,8 +27444,8 @@ const MovieCard = ({ movie, onMovieClick })=>{
                 src: movie.ImagePath,
                 alt: movie.Title,
                 style: {
-                    objectFit: "contain",
-                    height: "300px"
+                    width: "100%",
+                    height: "auto"
                 }
             }, void 0, false, {
                 fileName: "src/components/movie-card/movie-card.jsx",
@@ -30982,6 +30982,10 @@ const MovieView = ({ movie, onBackClick, similarMovies })=>{
                         children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
                             onClick: onBackClick,
                             variant: "primary",
+                            style: {
+                                fontSize: "14px",
+                                padding: "10px 20px"
+                            },
                             children: "Back"
                         }, void 0, false, {
                             fileName: "src/components/movie-view/movie-view.jsx",

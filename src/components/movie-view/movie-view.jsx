@@ -11,11 +11,12 @@ export const MovieView = ({ movie, onBackClick, similarMovies }) => {
       <Row className="justify-content-md-center">
         <Col md={8}>
           <div className="text-center">
-            <img
-              src={movie.ImagePath}
-              alt={movie.Title}
-              style={{ width: '100%', maxWidth: '500px', height: 'auto', marginBottom: '20px' }}
-            />
+          <img
+            src={movie.ImagePath}
+            alt={movie.Title}
+            style={{ width: '100%', height: 'auto', objectFit: 'cover' }}
+          />
+
           </div>
 
           <div style={{ marginBottom: '10px' }}>
@@ -47,11 +48,13 @@ export const MovieView = ({ movie, onBackClick, similarMovies }) => {
             </div>
           )}
 
-          <div className="text-center">
-            <Button onClick={onBackClick} variant="primary" style={{ fontSize: '14px', padding: '10px 20px' }}>
-              Back
-            </Button>
-          </div>
+          <Button 
+            onClick={onBackClick} 
+            variant="primary" 
+            style={{ fontSize: '12px', padding: '8px 15px' }}
+          >
+            Back
+          </Button>
 
           {/* Render Similar Movies */}
           <hr />
