@@ -2,20 +2,24 @@ import PropTypes from 'prop-types';
 import { Card, Button } from 'react-bootstrap';
 
 export const MovieCard = ({ movie, onMovieClick }) => {
-  if (!movie) return null; // Check if movie is defined
+  if (!movie) return null;
 
   return (
     <Card style={{ width: '100%' }} className="h-100">
-      <Card.Img 
-        variant="top" 
-        src={movie.ImagePath} 
-        alt={movie.Title} 
-        style={{ objectFit: 'cover', height: '300px' }} // Consistent image size
+      <Card.Img
+        variant="top"
+        src={movie.ImagePath}
+        alt={movie.Title}
+        style={{
+          objectFit: 'cover',
+          height: '400px', // Increased height for better aspect ratio
+          width: '100%' // Ensure the width fills the card
+        }}
       />
-      <Card.Body>
+      <Card.Body className="d-flex flex-column">
         <Card.Title>{movie.Title}</Card.Title>
-        <Card.Text>{movie.Description}</Card.Text>
-        <Button variant="primary" onClick={() => onMovieClick(movie)}>
+        <Card.Text className="flex-grow-1">{movie.Description}</Card.Text>
+        <Button variant="primary" onClick={() => onMovieClick(movie)} className="mt-auto">
           View Details
         </Button>
       </Card.Body>

@@ -14,7 +14,7 @@ export const MovieView = ({ movie, onBackClick, similarMovies }) => {
             <img
               src={movie.ImagePath}
               alt={movie.Title}
-              style={{ maxWidth: '100%', height: 'auto', marginBottom: '20px' }}
+              style={{ objectFit: 'cover', maxWidth: '100%', height: '400px', marginBottom: '20px' }}
             />
           </div>
 
@@ -31,7 +31,6 @@ export const MovieView = ({ movie, onBackClick, similarMovies }) => {
             <strong>Director:</strong> {movie.Director || 'Unknown Director'}
           </div>
 
-          {/* Optional Director Details */}
           {movie.DirectorBio && (
             <div style={{ marginBottom: '10px' }}>
               <strong>Bio:</strong> {movie.DirectorBio}
@@ -62,7 +61,7 @@ export const MovieView = ({ movie, onBackClick, similarMovies }) => {
               <div className="text-center">No similar movies available</div>
             ) : (
               similarMovies.map((similarMovie) => (
-                <Col md={3} key={similarMovie._id} className="mb-4">
+                <Col md={3} sm={6} key={similarMovie._id} className="mb-4">
                   <MovieCard
                     movie={similarMovie}
                     onMovieClick={() => console.log('Clicking similar movie')}
