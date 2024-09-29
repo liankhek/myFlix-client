@@ -19,11 +19,11 @@ body {
 
 .form-box {
   background: #fff;
-  padding: 1.5rem;
+  padding: 2rem;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   width: 100%;
-  max-width: 350px;
+  max-width: 400px;  // Increased width to make form larger
   text-align: center;
 }
 
@@ -42,7 +42,7 @@ h2 {
 
 button {
   font-size: 16px;
-  padding: 10px 15px;
+  padding: 12px;
   width: 100%;
   background-color: #8dc26f;
   border: none;
@@ -70,5 +70,9 @@ button:hover {
 
 .mt-3 {
   margin-top: 1rem;
+}
+
+.mb-4 {
+  margin-bottom: 1.5rem;
 }
 

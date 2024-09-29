@@ -12,9 +12,8 @@ export const MainView = () => {
   const [selectedMovie, setSelectedMovie] = useState(null);
   const [user, setUser] = useState(storedUser);
   const [token, setToken] = useState(storedToken);
-  const [showLogin, setShowLogin] = useState(true); // Toggle between login and signup
+  const [showLogin, setShowLogin] = useState(true);  // Initialize showLogin state
 
-  // Fetch the movies when the token is available
   useEffect(() => {
     if (!token) return;
 
@@ -37,17 +36,15 @@ export const MainView = () => {
       .catch((error) => console.error('Error fetching movies:', error));
   }, [token]);
 
-  // Handle user logout and clear stored credentials
   const handleLogout = () => {
     setUser(null);
     setToken(null);
     localStorage.clear();
   };
 
-  // If the user is not logged in, show the login or signup view
   if (!user) {
     return (
-      <Container>
+      <Container className="auth-container">
         <Row className="justify-content-md-center">
           <Col md={6}>
             {showLogin ? (
@@ -78,7 +75,6 @@ export const MainView = () => {
     );
   }
 
-  // Show the selected movie's details view
   if (selectedMovie) {
     return (
       <Container>
@@ -95,7 +91,6 @@ export const MainView = () => {
     );
   }
 
-  // Display the list of movies if the user is logged in and no movie is selected
   return (
     <Container fluid style={{ maxWidth: '85%' }}>
       <Row>
