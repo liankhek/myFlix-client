@@ -27304,7 +27304,7 @@ const MainView = ()=>{
                 columnNumber: 9
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-                className: "text-center mt-3",
+                className: "text-center",
                 children: "or"
             }, void 0, false, {
                 fileName: "src/components/main-view/main-view.jsx",
@@ -27352,10 +27352,14 @@ const MainView = ()=>{
         columnNumber: 7
     }, undefined);
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Container), {
+        fluid: true,
+        style: {
+            maxWidth: "85%"
+        },
         children: [
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Row), {
                 children: movies.map((movie)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Col), {
-                        md: 3,
+                        md: 4,
                         className: "mb-4",
                         children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieCard.MovieCard), {
                             movie: movie,
@@ -27382,14 +27386,12 @@ const MainView = ()=>{
                 children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Col), {
                     md: "auto",
                     children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
-                        variant: "danger",
-                        size: "lg",
+                        variant: "success" /* Green button for logout */ ,
                         onClick: ()=>{
                             setUser(null);
                             setToken(null);
                             localStorage.clear();
                         },
-                        className: "mt-4",
                         children: "Logout"
                     }, void 0, false, {
                         fileName: "src/components/main-view/main-view.jsx",
@@ -27441,7 +27443,7 @@ const MovieCard = ({ movie, onMovieClick })=>{
     if (!movie) return null; // Check if movie is defined
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card), {
         style: {
-            width: "80%"
+            width: "100%"
         },
         className: "h-100",
         children: [
@@ -27450,9 +27452,8 @@ const MovieCard = ({ movie, onMovieClick })=>{
                 src: movie.ImagePath,
                 alt: movie.Title,
                 style: {
-                    objectFit: "cover",
-                    height: "150px",
-                    width: "80%"
+                    objectFit: "contain",
+                    height: "300px"
                 }
             }, void 0, false, {
                 fileName: "src/components/movie-card/movie-card.jsx",
