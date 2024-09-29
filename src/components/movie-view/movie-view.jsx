@@ -31,6 +31,22 @@ export const MovieView = ({ movie, onBackClick, similarMovies }) => {
             <strong>Director:</strong> {movie.Director || 'Unknown Director'}
           </div>
 
+          {movie.DirectorBio && (
+            <div style={{ marginBottom: '10px' }}>
+              <strong>Bio:</strong> {movie.DirectorBio}
+            </div>
+          )}
+          {movie.DirectorBirth && (
+            <div style={{ marginBottom: '10px' }}>
+              <strong>Birth:</strong> {movie.DirectorBirth}
+            </div>
+          )}
+          {movie.DirectorDeath && (
+            <div style={{ marginBottom: '10px' }}>
+              <strong>Death:</strong> {movie.DirectorDeath}
+            </div>
+          )}
+
           <div className="text-center">
             <Button onClick={onBackClick} variant="primary">
               Back
@@ -47,7 +63,7 @@ export const MovieView = ({ movie, onBackClick, similarMovies }) => {
               similarMovies.map((similarMovie) => (
                 <Col md={4} key={similarMovie._id} className="mb-4">
                   <MovieCard
-                    movie={{ ...similarMovie, Description: '' }} // Hide description
+                    movie={similarMovie}
                     onMovieClick={() => console.log('Clicking similar movie')}
                   />
                 </Col>
