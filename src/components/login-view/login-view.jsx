@@ -1,11 +1,9 @@
 import React, { useState } from 'react';
-import { Form, Button, Container, Row, Col, InputGroup } from 'react-bootstrap'; // Import Bootstrap components
-import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import { Form, Button, Container, Row, Col } from 'react-bootstrap'; // Import Bootstrap components
 
 export const LoginView = ({ onLoggedIn }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [showPassword, setShowPassword] = useState(false); // State to toggle password visibility
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -39,7 +37,6 @@ export const LoginView = ({ onLoggedIn }) => {
               <Form.Label>Username</Form.Label>
               <Form.Control
                 type="text"
-                placeholder="Full Name" // Placeholder for full name
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 required
@@ -47,18 +44,12 @@ export const LoginView = ({ onLoggedIn }) => {
             </Form.Group>
             <Form.Group controlId="formPassword">
               <Form.Label>Password</Form.Label>
-              <InputGroup>
-                <Form.Control
-                  type={showPassword ? 'text' : 'password'} // Toggle between text and password
-                  placeholder="Password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
-                />
-                <InputGroup.Text onClick={() => setShowPassword(!showPassword)}>
-                  {showPassword ? <FaEyeSlash /> : <FaEye />} 
-                </InputGroup.Text>
-              </InputGroup>
+              <Form.Control
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
             </Form.Group>
             <Button variant="primary" type="submit" block>
               Login
