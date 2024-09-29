@@ -12,7 +12,7 @@ export const MainView = () => {
   const [selectedMovie, setSelectedMovie] = useState(null);
   const [user, setUser] = useState(storedUser);
   const [token, setToken] = useState(storedToken);
-  const [showLogin, setShowLogin] = useState(true);  // Initialize showLogin state
+  const [showLogin, setShowLogin] = useState(true);
 
   useEffect(() => {
     if (!token) return;
@@ -53,11 +53,11 @@ export const MainView = () => {
                   setUser(user);
                   setToken(token);
                 }}
-                setShowLogin={setShowLogin}  // Pass down setShowLogin to toggle between forms
+                setShowLogin={setShowLogin}
               />
             ) : (
               <SignupView
-                onSignedUp={() => setShowLogin(true)}  // After signup, show the login form
+                onSignedUp={() => setShowLogin(true)}
                 setShowLogin={setShowLogin}
               />
             )}

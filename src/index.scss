@@ -23,7 +23,7 @@ body {
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   width: 100%;
-  max-width: 600px; /* Increased width to double/triple size */
+  max-width: 600px; /* Increased width */
   text-align: center;
 }
 
@@ -35,14 +35,14 @@ h2 {
 }
 
 .form-control {
-  font-size: 18px; /* Increase font size */
-  padding: 15px 20px; /* Increase padding */
+  font-size: 18px;
+  padding: 15px 20px;
   border-radius: 5px;
   margin-bottom: 20px;
 }
 
 button {
-  font-size: 18px; /* Increase font size */
+  font-size: 18px;
   padding: 15px;
   width: 100%;
   background-color: #8dc26f;
@@ -63,7 +63,7 @@ button:hover {
 .text-center a {
   color: #8dc26f;
   text-decoration: none;
-  font-size: 18px; /* Increase font size */
+  font-size: 18px;
 }
 
 .text-center a:hover {
@@ -77,5 +77,3 @@ button:hover {
 .mb-4 {
   margin-bottom: 1.5rem;
 }
-
-
