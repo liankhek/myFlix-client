@@ -27304,7 +27304,7 @@ const MainView = ()=>{
                 columnNumber: 9
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-                className: "text-center",
+                className: "text-center mt-3",
                 children: "or"
             }, void 0, false, {
                 fileName: "src/components/main-view/main-view.jsx",
@@ -27382,12 +27382,14 @@ const MainView = ()=>{
                 children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Col), {
                     md: "auto",
                     children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
-                        variant: "primary",
+                        variant: "danger",
+                        size: "lg",
                         onClick: ()=>{
                             setUser(null);
                             setToken(null);
                             localStorage.clear();
                         },
+                        className: "mt-4",
                         children: "Logout"
                     }, void 0, false, {
                         fileName: "src/components/main-view/main-view.jsx",
@@ -27439,7 +27441,7 @@ const MovieCard = ({ movie, onMovieClick })=>{
     if (!movie) return null;
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card), {
         style: {
-            width: "100%"
+            width: "18rem"
         },
         className: "h-100",
         children: [
@@ -27449,8 +27451,7 @@ const MovieCard = ({ movie, onMovieClick })=>{
                 alt: movie.Title,
                 style: {
                     objectFit: "cover",
-                    height: "400px",
-                    width: "100%" // Ensure the width fills the card
+                    height: "250px"
                 }
             }, void 0, false, {
                 fileName: "src/components/movie-card/movie-card.jsx",
@@ -27458,37 +27459,34 @@ const MovieCard = ({ movie, onMovieClick })=>{
                 columnNumber: 7
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card).Body, {
-                className: "d-flex flex-column",
                 children: [
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card).Title, {
                         children: movie.Title
                     }, void 0, false, {
                         fileName: "src/components/movie-card/movie-card.jsx",
-                        lineNumber: 20,
+                        lineNumber: 16,
                         columnNumber: 9
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card).Text, {
-                        className: "flex-grow-1",
                         children: movie.Description
                     }, void 0, false, {
                         fileName: "src/components/movie-card/movie-card.jsx",
-                        lineNumber: 21,
+                        lineNumber: 17,
                         columnNumber: 9
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
                         variant: "primary",
                         onClick: ()=>onMovieClick(movie),
-                        className: "mt-auto",
                         children: "View Details"
                     }, void 0, false, {
                         fileName: "src/components/movie-card/movie-card.jsx",
-                        lineNumber: 22,
+                        lineNumber: 18,
                         columnNumber: 9
                     }, undefined)
                 ]
             }, void 0, true, {
                 fileName: "src/components/movie-card/movie-card.jsx",
-                lineNumber: 19,
+                lineNumber: 15,
                 columnNumber: 7
             }, undefined)
         ]
