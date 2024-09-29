@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import { Form, Button, Container, Row, Col } from 'react-bootstrap';
 
-export const SignupView = ({ onSignedUp }) => {
+export const SignupView = ({ onSignedUp, setShowLogin }) => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
-  const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const data = { FirstName: firstName, LastName: lastName, Email: email, Password: password };
+    const data = { FirstName: firstName, LastName: lastName, Username: username, Password: password };
 
     // Signup API request
     fetch('https://da-flix-1a4fa4a29dcc.herokuapp.com/users', {
@@ -59,13 +59,13 @@ export const SignupView = ({ onSignedUp }) => {
                   required
                 />
               </Form.Group>
-              <Form.Group controlId="formEmail">
-                <Form.Label>Email</Form.Label>
+              <Form.Group controlId="formUsername">
+                <Form.Label>Username</Form.Label>
                 <Form.Control
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="Email"
+                  type="text"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  placeholder="Username"
                   required
                 />
               </Form.Group>
