@@ -14,8 +14,9 @@ export const MovieView = ({ movie, onBackClick, similarMovies }) => {
           <img
             src={movie.ImagePath}
             alt={movie.Title}
-            style={{ width: '100%', height: 'auto', objectFit: 'cover' }}
+            style={{ width: '100%', height: 'auto', maxHeight: '500px', objectFit: 'contain', marginBottom: '20px' }}
           />
+
 
           </div>
 
@@ -48,13 +49,10 @@ export const MovieView = ({ movie, onBackClick, similarMovies }) => {
             </div>
           )}
 
-          <Button 
-            onClick={onBackClick} 
-            variant="primary" 
-            style={{ fontSize: '12px', padding: '8px 15px' }}
-          >
+          <Button onClick={onBackClick} variant="primary" style={{ fontSize: '12px', padding: '8px 16px' }}>
             Back
           </Button>
+
 
           {/* Render Similar Movies */}
           <hr />
