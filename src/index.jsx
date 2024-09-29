@@ -1,10 +1,9 @@
-import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { MainView } from './components/main-view/main-view';
+import './index.scss';
 
-// Import Bootstrap and custom SCSS
-import 'bootstrap/dist/css/bootstrap.min.css';  // Bootstrap CSS
-import './index.scss';  // Custom SCSS styles
+// Importing Bootstrap CSS globally
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const App = () => {
   return (

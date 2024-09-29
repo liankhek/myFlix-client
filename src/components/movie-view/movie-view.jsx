@@ -1,73 +1,68 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { MovieCard } from '../movie-card/movie-card';
-import { Button, Row, Col, Container } from 'react-bootstrap';
+import { Container, Row, Col, Button } from 'react-bootstrap';
 
 export const MovieView = ({ movie, onBackClick, similarMovies }) => {
   if (!movie) return null;
 
   return (
-    <Container className="my-4">
-      <Row>
-        <Col md={{ span: 8, offset: 2 }}>
-          <div className="text-center mb-4">
+    <Container>
+      <Row className="justify-content-md-center">
+        <Col md={8}>
+          <div className="text-center">
             <img
               src={movie.ImagePath}
               alt={movie.Title}
-              className="img-fluid"
-              style={{ maxHeight: '400px' }}
+              style={{ maxWidth: '100%', height: 'auto', marginBottom: '20px' }}
             />
           </div>
 
-          <div className="mb-3">
-            <h4><strong>Title:</strong> {movie.Title}</h4>
+          <div style={{ marginBottom: '10px' }}>
+            <strong>Title:</strong> {movie.Title}
           </div>
-          <div className="mb-3">
-            <p><strong>Description:</strong> {movie.Description}</p>
+          <div style={{ marginBottom: '10px' }}>
+            <strong>Description:</strong> {movie.Description}
           </div>
-          <div className="mb-3">
-            <p><strong>Genre:</strong> {movie.Genre || 'Unknown Genre'}</p>
+          <div style={{ marginBottom: '10px' }}>
+            <strong>Genre:</strong> {movie.Genre || 'Unknown Genre'}
           </div>
-          <div className="mb-3">
-            <p><strong>Director:</strong> {movie.Director || 'Unknown Director'}</p>
+          <div style={{ marginBottom: '10px' }}>
+            <strong>Director:</strong> {movie.Director || 'Unknown Director'}
           </div>
 
           {/* Optional Director Details */}
           {movie.DirectorBio && (
-            <div className="mb-3">
-              <p><strong>Bio:</strong> {movie.DirectorBio}</p>
+            <div style={{ marginBottom: '10px' }}>
+              <strong>Bio:</strong> {movie.DirectorBio}
             </div>
           )}
           {movie.DirectorBirth && (
-            <div className="mb-3">
-              <p><strong>Birth:</strong> {movie.DirectorBirth}</p>
+            <div style={{ marginBottom: '10px' }}>
+              <strong>Birth:</strong> {movie.DirectorBirth}
             </div>
           )}
           {movie.DirectorDeath && (
-            <div className="mb-3">
-              <p><strong>Death:</strong> {movie.DirectorDeath}</p>
+            <div style={{ marginBottom: '10px' }}>
+              <strong>Death:</strong> {movie.DirectorDeath}
             </div>
           )}
 
-          <Button
-            variant="primary"
-            onClick={onBackClick}
-            className="mb-4"
-          >
-            Back
-          </Button>
+          <div className="text-center">
+            <Button onClick={onBackClick} variant="primary">
+              Back
+            </Button>
+          </div>
 
           {/* Render Similar Movies */}
           <hr />
-          <h4 className="mb-3">Similar Movies</h4>
-          <Row>
+          <h2 className="text-center">Similar Movies</h2>
+          <Row className="justify-content-md-center">
             {similarMovies.length === 0 ? (
-              <Col>
-                <div>No similar movies available</div>
-              </Col>
+              <div className="text-center">No similar movies available</div>
             ) : (
               similarMovies.map((similarMovie) => (
-                <Col key={similarMovie._id} md={4} className="mb-4">
+                <Col md={3} key={similarMovie._id} className="mb-4">
                   <MovieCard
                     movie={similarMovie}
                     onMovieClick={() => console.log('Clicking similar movie')}
@@ -87,8 +82,8 @@ MovieView.propTypes = {
     _id: PropTypes.string.isRequired,
     Title: PropTypes.string.isRequired,
     Description: PropTypes.string.isRequired,
-    Genre: PropTypes.string, // Now a string, since we adjusted it in main-view.jsx
-    Director: PropTypes.string, // Now a string
+    Genre: PropTypes.string,
+    Director: PropTypes.string,
     DirectorBio: PropTypes.string,
     DirectorBirth: PropTypes.string,
     DirectorDeath: PropTypes.string,
