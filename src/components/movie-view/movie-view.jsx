@@ -7,14 +7,14 @@ export const MovieView = ({ movie, onBackClick, similarMovies }) => {
   if (!movie) return null;
 
   return (
-    <Container>
+    <Container fluid style={{ maxWidth: '85%' }}>
       <Row className="justify-content-md-center">
         <Col md={8}>
           <div className="text-center">
             <img
               src={movie.ImagePath}
               alt={movie.Title}
-              style={{ objectFit: 'cover', maxWidth: '100%', height: '400px', marginBottom: '20px' }}
+              style={{ maxWidth: '100%', height: 'auto', marginBottom: '20px' }}
             />
           </div>
 
@@ -31,22 +31,6 @@ export const MovieView = ({ movie, onBackClick, similarMovies }) => {
             <strong>Director:</strong> {movie.Director || 'Unknown Director'}
           </div>
 
-          {movie.DirectorBio && (
-            <div style={{ marginBottom: '10px' }}>
-              <strong>Bio:</strong> {movie.DirectorBio}
-            </div>
-          )}
-          {movie.DirectorBirth && (
-            <div style={{ marginBottom: '10px' }}>
-              <strong>Birth:</strong> {movie.DirectorBirth}
-            </div>
-          )}
-          {movie.DirectorDeath && (
-            <div style={{ marginBottom: '10px' }}>
-              <strong>Death:</strong> {movie.DirectorDeath}
-            </div>
-          )}
-
           <div className="text-center">
             <Button onClick={onBackClick} variant="primary">
               Back
@@ -61,9 +45,9 @@ export const MovieView = ({ movie, onBackClick, similarMovies }) => {
               <div className="text-center">No similar movies available</div>
             ) : (
               similarMovies.map((similarMovie) => (
-                <Col md={3} sm={6} key={similarMovie._id} className="mb-4">
+                <Col md={4} key={similarMovie._id} className="mb-4">
                   <MovieCard
-                    movie={similarMovie}
+                    movie={{ ...similarMovie, Description: '' }} // Hide description
                     onMovieClick={() => console.log('Clicking similar movie')}
                   />
                 </Col>
