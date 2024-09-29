@@ -2,14 +2,13 @@ import React, { useState } from 'react';
 import { Form, Button, Container, Row, Col } from 'react-bootstrap';
 
 export const SignupView = ({ onSignedUp, setShowLogin }) => {
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
   const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const data = { FirstName: firstName, LastName: lastName, Username: username, Password: password };
+    const data = { Username: username, Password: password, Email: email };
 
     fetch('https://da-flix-1a4fa4a29dcc.herokuapp.com/users', {
       method: 'POST',
@@ -38,33 +37,23 @@ export const SignupView = ({ onSignedUp, setShowLogin }) => {
           <div className="form-box">
             <h2>Create Your Account</h2>
             <Form onSubmit={handleSubmit}>
-              <Form.Group controlId="formFirstName">
-                <Form.Label>First Name</Form.Label>
-                <Form.Control
-                  type="text"
-                  value={firstName}
-                  onChange={(e) => setFirstName(e.target.value)}
-                  placeholder="First Name"
-                  required
-                />
-              </Form.Group>
-              <Form.Group controlId="formLastName">
-                <Form.Label>Last Name</Form.Label>
-                <Form.Control
-                  type="text"
-                  value={lastName}
-                  onChange={(e) => setLastName(e.target.value)}
-                  placeholder="Last Name"
-                  required
-                />
-              </Form.Group>
               <Form.Group controlId="formUsername">
                 <Form.Label>Username</Form.Label>
                 <Form.Control
                   type="text"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
-                  placeholder="Username"
+                  placeholder="Enter username"
+                  required
+                />
+              </Form.Group>
+              <Form.Group controlId="formEmail">
+                <Form.Label>Email Address</Form.Label>
+                <Form.Control
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="Enter email"
                   required
                 />
               </Form.Group>
@@ -74,7 +63,7 @@ export const SignupView = ({ onSignedUp, setShowLogin }) => {
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  placeholder="Password"
+                  placeholder="Enter password"
                   required
                 />
               </Form.Group>
