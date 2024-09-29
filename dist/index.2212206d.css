@@ -21,22 +21,23 @@ body {
   background: #fff;
   border-radius: 10px;
   width: 100%;
-  max-width: 500px;
-  padding: 2rem;
+  max-width: 600px;
+  padding: 4rem;
   box-shadow: 0 4px 8px #0000001a;
 }
 
 h2 {
   text-align: center;
   margin-bottom: 20px;
+  font-size: 2rem;
   font-weight: 500;
 }
 
 .form-control {
   border-radius: 5px;
-  margin-bottom: 15px;
-  padding: 10px 12px;
-  font-size: 16px;
+  margin-bottom: 20px;
+  padding: 15px 20px;
+  font-size: 18px;
 }
 
 button {
@@ -46,8 +47,8 @@ button {
   border: none;
   border-radius: 5px;
   width: 100%;
-  padding: 12px;
-  font-size: 16px;
+  padding: 15px;
+  font-size: 18px;
 }
 
 button:hover {
@@ -56,6 +57,7 @@ button:hover {
 
 .text-center a {
   color: #8dc26f;
+  font-size: 18px;
   text-decoration: none;
 }
 
