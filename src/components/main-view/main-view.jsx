@@ -48,7 +48,7 @@ export const MainView = () => {
             />
           </Col>
         </Row>
-        <div className="text-center">or</div>
+        <div className="text-center mt-3">or</div>
         <Row className="justify-content-md-center">
           <Col md={6}>
             <SignupView />
@@ -91,12 +91,14 @@ export const MainView = () => {
       <Row className="justify-content-md-center">
         <Col md="auto">
           <Button
-            variant="primary"
+            variant="danger"
+            size="lg"
             onClick={() => {
               setUser(null);
               setToken(null);
               localStorage.clear();
             }}
+            className="mt-4"
           >
             Logout
           </Button>
