@@ -10,36 +10,50 @@ export const MovieView = ({ movie, onBackClick, similarMovies }) => {
     <Container>
       <Row className="justify-content-md-center">
         <Col md={8}>
-          {/* Movie Image */}
-          <div className="text-center mb-4">
-          <img
-            src={movie.ImagePath}
-            alt={movie.Title}
-            className="img-fluid movie-image"
-            style={{ width: '100%', height: '100%', objectFit: 'contain', marginBottom: '20px' }}
-          />
+          <div className="text-center">
+            <img
+              src={movie.ImagePath}
+              alt={movie.Title}
+              style={{ width: '100%', maxWidth: '500px', height: 'auto', marginBottom: '20px' }} // Adjust the width and height here
+            />
           </div>
 
-          {/* Movie Details */}
-          <div className="movie-details">
-            <MovieDetail label="Title" value={movie.Title} />
-            <MovieDetail label="Description" value={movie.Description} />
-            <MovieDetail label="Genre" value={movie.Genre || 'Unknown Genre'} />
-            <MovieDetail label="Director" value={movie.Director || 'Unknown Director'} />
-
-            {movie.DirectorBio && <MovieDetail label="Bio" value={movie.DirectorBio} />}
-            {movie.DirectorBirth && <MovieDetail label="Birth" value={movie.DirectorBirth} />}
-            {movie.DirectorDeath && <MovieDetail label="Death" value={movie.DirectorDeath} />}
+          <div style={{ marginBottom: '10px' }}>
+            <strong>Title:</strong> {movie.Title}
+          </div>
+          <div style={{ marginBottom: '10px' }}>
+            <strong>Description:</strong> {movie.Description}
+          </div>
+          <div style={{ marginBottom: '10px' }}>
+            <strong>Genre:</strong> {movie.Genre || 'Unknown Genre'}
+          </div>
+          <div style={{ marginBottom: '10px' }}>
+            <strong>Director:</strong> {movie.Director || 'Unknown Director'}
           </div>
 
-          {/* Back Button */}
-          <div className="text-center mt-3">
-            <Button onClick={onBackClick} variant="primary" size="sm">
+          {movie.DirectorBio && (
+            <div style={{ marginBottom: '10px' }}>
+              <strong>Bio:</strong> {movie.DirectorBio}
+            </div>
+          )}
+          {movie.DirectorBirth && (
+            <div style={{ marginBottom: '10px' }}>
+              <strong>Birth:</strong> {movie.DirectorBirth}
+            </div>
+          )}
+          {movie.DirectorDeath && (
+            <div style={{ marginBottom: '10px' }}>
+              <strong>Death:</strong> {movie.DirectorDeath}
+            </div>
+          )}
+
+          <div className="text-center">
+            <Button onClick={onBackClick} variant="primary">
               Back
             </Button>
           </div>
 
-          {/* Similar Movies Section */}
+          {/* Render Similar Movies */}
           <hr />
           <h2 className="text-center">Similar Movies</h2>
           <Row className="justify-content-md-center">
@@ -48,7 +62,10 @@ export const MovieView = ({ movie, onBackClick, similarMovies }) => {
             ) : (
               similarMovies.map((similarMovie) => (
                 <Col md={3} key={similarMovie._id} className="mb-4">
-                  <MovieCard movie={similarMovie} onMovieClick={() => console.log('Clicking similar movie')} />
+                  <MovieCard
+                    movie={similarMovie}
+                    onMovieClick={() => console.log('Clicking similar movie')}
+                  />
                 </Col>
               ))
             )}
@@ -57,18 +74,6 @@ export const MovieView = ({ movie, onBackClick, similarMovies }) => {
       </Row>
     </Container>
   );
-};
-
-// A reusable component for rendering each movie detail
-const MovieDetail = ({ label, value }) => (
-  <div style={{ marginBottom: '10px' }}>
-    <strong>{label}:</strong> {value}
-  </div>
-);
-
-MovieDetail.propTypes = {
-  label: PropTypes.string.isRequired,
-  value: PropTypes.string.isRequired,
 };
 
 MovieView.propTypes = {
