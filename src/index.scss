@@ -3,6 +3,9 @@ $primary-color: steelblue;
 $secondary-color: lightgray;
 $font-family: 'Arial', sans-serif;
 $hover-color: #4682b4; // slightly darker than steelblue
+$danger-color: darkred;
+$success-color: green;
+$light-background-color: white;
 
 // Import Bootstrap's SCSS
 @import '~bootstrap/scss/bootstrap';
@@ -54,7 +57,7 @@ body {
   }
 
   .btn-danger {
-    background-color: darkred;
+    background-color: $danger-color;
     border: none;
 
     &:hover {
@@ -81,27 +84,31 @@ body {
   }
 }
 
-// Form styles
-form {
-  display: flex;
-  flex-direction: column;
-  margin: 20px auto;
+// Update profile section
+.update-profile {
+  background-color: $light-background-color;
   padding: 20px;
-  max-width: 400px;
-  background-color: white;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 
-  label {
-    font-weight: bold;
-    margin-bottom: 10px;
-  }
+  .form-group {
+    margin-bottom: 15px;
 
-  input {
-    padding: 10px;
-    margin-bottom: 20px;
-    border: 1px solid $primary-color;
-    border-radius: 4px;
+    label {
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    input {
+      padding: 10px;
+      margin-bottom: 10px;
+      border: 1px solid $primary-color;
+      border-radius: 4px;
+    }
+
+    .form-control {
+      border-color: $primary-color;
+    }
   }
 
   button {
@@ -115,6 +122,54 @@ form {
 
     &:hover {
       background-color: $hover-color;
+    }
+  }
+}
+
+// Favorite movies section
+.favorite-movies {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  gap: 20px;
+  padding: 20px;
+  
+  .movie-card {
+    width: 200px;
+    text-align: center;
+    background-color: $light-background-color;
+    border: 1px solid #ccc;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+
+    img {
+      width: 100%;
+      height: auto;
+      border-radius: 4px;
+    }
+
+    h5 {
+      margin-top: 10px;
+      margin-bottom: 10px;
+      font-size: 1.2rem;
+    }
+
+    .btn-primary {
+      background-color: $primary-color;
+      border: none;
+      
+      &:hover {
+        background-color: $hover-color;
+      }
+    }
+
+    .btn-danger {
+      background-color: $danger-color;
+      border: none;
+      
+      &:hover {
+        background-color: red;
+      }
     }
   }
 }
@@ -133,10 +188,10 @@ form {
   width: 200px;
   padding: 10px;
   text-align: center;
-  background-color: white;
+  background-color: $light-background-color;
   border: 1px solid #ccc;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  border-radius: 5px;
+  border-radius: 8px;
 
   img {
     width: 100%;
