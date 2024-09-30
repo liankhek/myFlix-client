@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { Form, Button, Container, Row, Col } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
+import './login-signup-view.scss';
 
 export const SignupView = ({ onSignedUp }) => {
   const [username, setUsername] = useState('');
@@ -16,25 +18,27 @@ export const SignupView = ({ onSignedUp }) => {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data)
     })
-    .then(response => response.json())
-    .then(data => {
-      if (data) {
-        alert('Signup successful! Please log in.');
-        onSignedUp();
-      } else {
-        alert('Signup failed');
-      }
-    })
-    .catch(e => {
-      console.error('Signup error:', e);
-      alert('Something went wrong');
-    });
+      .then((response) => response.json())
+      .then((data) => {
+        if (data) {
+          alert('Signup successful! Please log in.');
+          onSignedUp();
+        } else {
+          alert('Signup failed');
+        }
+      })
+      .catch((e) => {
+        console.error('Signup error:', e);
+        alert('Something went wrong');
+      });
   };
 
   return (
-    <Container>
-      <Row className="justify-content-md-center">
-        <Col md={6}>
+    <Container className="login-signup-container">
+      <Row className="split">
+        {/* Signup Section */}
+        <Col className="left-section" md={6}>
+          <h2>Signup</h2>
           <Form onSubmit={handleSubmit}>
             <Form.Group controlId="formUsername">
               <Form.Label>Username</Form.Label>
@@ -43,6 +47,7 @@ export const SignupView = ({ onSignedUp }) => {
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 required
+                placeholder="Enter username"
               />
             </Form.Group>
             <Form.Group controlId="formPassword">
@@ -52,6 +57,7 @@ export const SignupView = ({ onSignedUp }) => {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
+                placeholder="Enter password"
               />
             </Form.Group>
             <Form.Group controlId="formEmail">
@@ -61,6 +67,7 @@ export const SignupView = ({ onSignedUp }) => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
+                placeholder="Enter email"
               />
             </Form.Group>
             <Form.Group controlId="formBirthday">
@@ -72,10 +79,21 @@ export const SignupView = ({ onSignedUp }) => {
                 required
               />
             </Form.Group>
-            <Button variant="primary" type="submit" block>
+            <Button variant="warning" type="submit" block>
               Signup
             </Button>
           </Form>
+        </Col>
+
+        {/* Login Redirect Section */}
+        <Col className="right-section" md={6}>
+          <h2>Welcome!</h2>
+          <p>Already have an account?</p>
+          <Link to="/login">
+            <Button variant="warning" block>
+              Login
+            </Button>
+          </Link>
         </Col>
       </Row>
     </Container>

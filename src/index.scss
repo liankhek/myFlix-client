@@ -1,74 +1,281 @@
 // Define SCSS variables
-$primary-color: #0275d8;
-$secondary-color: #f8f9fa;
+$primary-color: #ff0066;
+$secondary-color: lightgray;
 $font-family: 'Arial', sans-serif;
-$hover-color: #0056b3;
-$btn-primary-color: #0275d8;
-$btn-primary-hover: #0056b3;
+$hover-color: darken($primary-color, 10%); // Slightly darker than primary color
+$background-light: #f5f5f5;
+$border-radius: 5px;
 
 // Import Bootstrap's SCSS
 @import '~bootstrap/scss/bootstrap';
 
+// Body Styling
 body {
-  background-color: $secondary-color;
+  background-color: $background-light;
   font-family: $font-family;
+  margin: 0;
+  padding: 0;
 }
 
+// Navigation bar styles
 .navbar {
-  background-color: #343a40;
-  
+  background-color: $primary-color;
+
   .navbar-brand, .nav-link {
     color: white !important;
+    font-weight: bold;
     
     &:hover {
       color: $hover-color !important;
     }
   }
 
+  .navbar-toggler {
+    border-color: $hover-color;
+
+    &:hover {
+      background-color: $hover-color;
+    }
+  }
+  
   .ml-auto {
-    margin-left: auto !important;
+    margin-left: auto;
   }
 }
 
-.login-signup-container {
+// Login & Signup Page Styling
+.auth-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  min-height: 100vh;
+  background-color: $background-light;
+
+  .auth-box {
+    display: flex;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: $border-radius;
+    overflow: hidden;
+
+    .login-section, .signup-section {
+      flex: 1;
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+      form {
+        width: 100%;
+      }
+
+      h2 {
+        margin-bottom: 20px;
+        color: $primary-color;
+      }
+
+      input {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 20px;
+        border-radius: $border-radius;
+        border: 1px solid $primary-color;
+      }
+
+      button {
+        background-color: $primary-color;
+        border: none;
+        color: white;
+        padding: 10px;
+        width: 100%;
+        border-radius: $border-radius;
+        cursor: pointer;
+
+        &:hover {
+          background-color: $hover-color;
+        }
+      }
+    }
+
+    .login-section {
+      background-color: white;
+    }
+
+    .signup-section {
+      background-color: #ffcc00;
+      text-align: center;
+
+      h2 {
+        color: #333;
+      }
+
+      p {
+        margin-bottom: 20px;
+      }
+
+      button {
+        background-color: #ff6600;
+        &:hover {
+          background-color: #e65c00;
+        }
+      }
+    }
+  }
 }
 
-.login-side, .signup-side {
-  padding: 20px;
+// Movie Card Styling
+.movie-card {
+  margin-bottom: 20px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  border-radius: $border-radius;
+  overflow: hidden;
   background-color: white;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  text-align: center;
+
+  .card-img-top {
+    object-fit: cover;
+    height: 350px;
+  }
+
+  .card-body {
+    padding: 15px;
+  }
+
+  .card-title {
+    font-weight: bold;
+    color: $primary-color;
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+  }
+
+  .btn-primary {
+    background-color: $primary-color;
+    border: none;
+    &:hover {
+      background-color: $hover-color;
+    }
+  }
 }
 
-.signup-side {
-  background-color: #f0ad4e;
+// Profile View Styles
+.profile-view {
+  padding: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+
+  .card {
+    flex: 1;
+    margin-bottom: 20px;
+    border: 1px solid $primary-color;
+    border-radius: $border-radius;
+  }
+
+  .btn-danger {
+    background-color: darkred;
+    border: none;
+
+    &:hover {
+      background-color: red;
+    }
+  }
+
+  h2 {
+    color: $primary-color;
+    margin-bottom: 20px;
+  }
+
+  .form-control {
+    border-color: $primary-color;
+    border-radius: $border-radius;
+  }
+
+  .btn-primary {
+    background-color: $primary-color;
+    border: none;
+    
+    &:hover {
+      background-color: $hover-color;
+    }
+  }
 }
 
+// Favorite Movies Section
 .movies-container {
   display: flex;
-  justify-content: center;
   flex-wrap: wrap;
-  gap: 16px;
+  justify-content: center;
+  gap: 20px;
+
+  .movie-card {
+    width: 200px;
+  }
 }
 
-.movie-card {
-  border: 1px solid $primary-color;
-  border-radius: 10px;
-  padding: 15px;
-  background-color: white;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  text-align: center;
-}
-
-.btn-primary {
-  background-color: $btn-primary-color;
+// Movie View Page
+.movie-view-container {
+  display: flex;
+  justify-content: center;
+  padding: 40px;
   
+  .movie-details {
+    max-width: 600px;
+    background-color: white;
+    padding: 20px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: $border-radius;
+
+    img {
+      width: 100%;
+      object-fit: cover;
+      border-radius: $border-radius;
+    }
+
+    h2 {
+      color: $primary-color;
+      margin-top: 20px;
+    }
+
+    p {
+      margin-top: 10px;
+      line-height: 1.5;
+    }
+
+    .btn-primary {
+      background-color: $primary-color;
+      border: none;
+      margin-top: 20px;
+      &:hover {
+        background-color: $hover-color;
+      }
+    }
+  }
+}
+
+// Buttons
+button {
+  background-color: $primary-color;
+  border: none;
+  padding: 10px 20px;
+  color: white;
+  border-radius: $border-radius;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
   &:hover {
-    background-color: $btn-primary-hover;
+    background-color: $hover-color;
+  }
+}
+
+// Favorite movie button
+.favorite-movie-btn {
+  background-color: darkorange;
+  border: none;
+  padding: 8px 16px;
+  color: white;
+  border-radius: $border-radius;
+  cursor: pointer;
+
+  &:hover {
+    background-color: orangered;
   }
 }
