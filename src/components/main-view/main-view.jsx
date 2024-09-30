@@ -1,34 +1,40 @@
 import React, { useState, useEffect } from 'react';
-import { MovieCard } from '../movie-card/movie-card';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { LoginView } from '../login-view/login-view';
 import { SignupView } from '../signup-view/signup-view';
+import { MovieView } from '../movie-view/movie-view';
 import { ProfileView } from '../profile-view/profile-view';
 import { NavigationBar } from '../navigation-bar/navigation-bar';
+import { MovieCard } from '../movie-card/movie-card';
 import { Container, Row, Col } from 'react-bootstrap';
-import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
+import './main-view.scss';
 
 export const MainView = () => {
-  const [user, setUser] = useState(null);
-  const [token, setToken] = useState(null);
+  const storedUser = JSON.parse(localStorage.getItem('user'));
+  const storedToken = localStorage.getItem('token');
   const [movies, setMovies] = useState([]);
-
-  useEffect(() => {
-    const storedUser = JSON.parse(localStorage.getItem('user'));
-    const storedToken = localStorage.getItem('token');
-    if (storedToken) {
-      setUser(storedUser);
-      setToken(storedToken);
-    }
-  }, []);
+  const [user, setUser] = useState(storedUser);
+  const [token, setToken] = useState(storedToken);
 
   useEffect(() => {
     if (!token) return;
+
     fetch('https://da-flix-1a4fa4a29dcc.herokuapp.com/movies', {
-      headers: { Authorization: `Bearer ${token}` }
+      headers: { Authorization: `Bearer ${token}` },
     })
-      .then(res => res.json())
-      .then(data => setMovies(data))
-      .catch(err => console.log(err));
+      .then((response) => response.json())
+      .then((data) => {
+        const moviesFromApi = data.map((movie) => ({
+          _id: movie._id,
+          Title: movie.Title,
+          Description: movie.Description,
+          Genre: movie.Genre?.Name || 'Unknown Genre',
+          Director: movie.Director?.Name || 'Unknown Director',
+          ImagePath: movie.ImagePath,
+        }));
+        setMovies(moviesFromApi);
+      })
+      .catch((error) => console.error('Error fetching movies:', error));
   }, [token]);
 
   const onLoggedIn = (user, token) => {
@@ -47,9 +53,11 @@ export const MainView = () => {
   if (!user) {
     return (
       <Router>
-        <Route path="/login" render={() => <LoginView onLoggedIn={onLoggedIn} />} />
-        <Route path="/signup" render={() => <SignupView onSignedUp={onLoggedIn} />} />
-        <Redirect to="/login" />
+        <Routes>
+          <Route path="/login" element={<LoginView onLoggedIn={onLoggedIn} />} />
+          <Route path="/signup" element={<SignupView />} />
+          <Route path="*" element={<Navigate to="/login" />} />
+        </Routes>
       </Router>
     );
   }
@@ -57,20 +65,28 @@ export const MainView = () => {
   return (
     <Router>
       <NavigationBar user={user} onLoggedOut={onLoggedOut} />
-      <Container>
-        <Route exact path="/movies" render={() => (
-          <Row>
-            {movies.map(m => (
-              <Col md={4} key={m._id}>
-                <MovieCard movie={m} />
-              </Col>
-            ))}
-          </Row>
-        )} />
-        <Route path="/users/:id" render={() => (
-          <ProfileView user={user} />
-        )} />
-        <Redirect to="/movies" />
+      <Container fluid>
+        <Routes>
+          {/* Movies List Route */}
+          <Route
+            path="/"
+            element={
+              <Row>
+                {movies.map((movie) => (
+                  <Col md={4} key={movie._id}>
+                    <MovieCard movie={movie} />
+                  </Col>
+                ))}
+              </Row>
+            }
+          />
+          {/* Movie Details Route */}
+          <Route path="/movies/:movieId" element={<MovieView />} />
+          {/* Profile View Route */}
+          <Route path="/users/:userId" element={<ProfileView />} />
+          {/* Redirect if no match */}
+          <Route path="*" element={<Navigate to="/" />} />
+        </Routes>
       </Container>
     </Router>
   );
