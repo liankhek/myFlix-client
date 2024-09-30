@@ -17,7 +17,7 @@ export const MainView = () => {
     if (!token) return;
 
     fetch('https://da-flix-1a4fa4a29dcc.herokuapp.com/movies', {
-      headers: { Authorization: Bearer ${token} },
+      headers: { Authorization: `Bearer ${token}` },
     })
       .then((response) => response.json())
       .then((data) => {
