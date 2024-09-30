@@ -10,7 +10,7 @@ export const MovieCard = ({ movie, onMovieClick }) => {
     variant="top" 
     src={movie.ImagePath} 
     alt={movie.Title} 
-    style={{ width: '100%', height: 'auto', objectFit: 'cover' }}
+    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
   />
   <Card.Body>
     <Card.Title>{movie.Title}</Card.Title>
