@@ -2,8 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { MovieCard } from '../movie-card/movie-card';
 import { Container, Row, Col, Button } from 'react-bootstrap';
+import { useNavigate, Link } from 'react-router-dom'; // Import React Router's hooks
 
-export const MovieView = ({ movie, onBackClick, similarMovies }) => {
+export const MovieView = ({ movie, similarMovies }) => {
+  const navigate = useNavigate(); // Use useNavigate for navigation
+
   if (!movie) return null;
 
   return (
@@ -14,7 +17,7 @@ export const MovieView = ({ movie, onBackClick, similarMovies }) => {
             <img
               src={movie.ImagePath}
               alt={movie.Title}
-              style={{ width: '100%', maxWidth: '500px', height: 'auto', marginBottom: '20px' }} // Adjust the width and height here
+              style={{ width: '100%', maxWidth: '500px', height: 'auto', marginBottom: '20px' }}
             />
           </div>
 
@@ -48,7 +51,7 @@ export const MovieView = ({ movie, onBackClick, similarMovies }) => {
           )}
 
           <div className="text-center">
-            <Button onClick={onBackClick} variant="primary">
+            <Button onClick={() => navigate(-1)} variant="primary">
               Back
             </Button>
           </div>
@@ -64,7 +67,6 @@ export const MovieView = ({ movie, onBackClick, similarMovies }) => {
                 <Col md={3} key={similarMovie._id} className="mb-4">
                   <MovieCard
                     movie={similarMovie}
-                    onMovieClick={() => console.log('Clicking similar movie')}
                   />
                 </Col>
               ))
@@ -89,7 +91,6 @@ MovieView.propTypes = {
     ImagePath: PropTypes.string.isRequired,
     Featured: PropTypes.bool,
   }).isRequired,
-  onBackClick: PropTypes.func.isRequired,
   similarMovies: PropTypes.arrayOf(
     PropTypes.shape({
       _id: PropTypes.string.isRequired,

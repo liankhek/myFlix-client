@@ -2,21 +2,19 @@
 @import '~bootstrap/scss/bootstrap';
 
 body {
-  background-color: lightgray; /* previously $secondary-color */
-  font-family: 'Arial', sans-serif; /* previously $font-family */
+  background-color: lightgray;
+  font-family: 'Arial', sans-serif;
   margin: 0;
   padding: 0;
 }
 
-/* Customize the app's title */
 .my-flix {
-  color: steelblue; /* previously $primary-color */
+  color: steelblue;
   text-align: center;
   padding: 20px;
   font-size: 24px;
 }
 
-/* Form styles */
 form {
   display: flex;
   flex-direction: column;
@@ -36,12 +34,12 @@ form label {
 form input {
   padding: 10px;
   margin-bottom: 20px;
-  border: 1px solid steelblue; /* previously $primary-color */
+  border: 1px solid steelblue;
   border-radius: 4px;
 }
 
 form button {
-  background-color: steelblue; /* previously $primary-color */
+  background-color: steelblue;
   color: white;
   padding: 10px;
   border: none;
@@ -51,11 +49,10 @@ form button {
 }
 
 form button:hover {
-  background-color: #4682b4; /* slightly darker than steelblue */
+  background-color: #4682b4;
 }
 
-/* Movie and book card layout styling */
-.movies-container, .books-container {
+.movies-container {
   display: flex;
   flex-wrap: wrap;
   gap: 16px;
@@ -63,8 +60,7 @@ form button:hover {
   padding: 20px;
 }
 
-/* Card component styles */
-.movie-card, .book-card {
+.movie-card {
   width: 200px;
   padding: 10px;
   text-align: center;
@@ -74,28 +70,20 @@ form button:hover {
   border-radius: 5px;
 }
 
-.movie-card img, .book-card img {
+.movie-card img {
   width: 100%;
   height: auto;
   object-fit: cover;
 }
 
-.movie-card h3, .book-card h3 {
+.movie-card h3 {
   margin-top: 10px;
   margin-bottom: 0;
   font-size: 1.2rem;
 }
 
-/* Similar movies/book cards grid layout */
-.similar-movies, .similar-books {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
-}
-
-/* Buttons customization */
 button {
-  background-color: steelblue; /* previously $primary-color */
+  background-color: steelblue;
   border: none;
   padding: 10px 20px;
   color: white;
@@ -105,5 +93,5 @@ button {
 }
 
 button:hover {
-  background-color: #4682b4; /* slightly darker than steelblue */
+  background-color: #4682b4;
 }
