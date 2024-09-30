@@ -7267,7 +7267,7 @@ form button:hover {
   background-color: #4682b4;
 }
 
-.movies-container, .books-container {
+.movies-container {
   flex-wrap: wrap;
   justify-content: center;
   gap: 16px;
@@ -7275,7 +7275,7 @@ form button:hover {
   display: flex;
 }
 
-.movie-card, .book-card {
+.movie-card {
   text-align: center;
   background-color: #fff;
   border: 1px solid #ccc;
@@ -7285,22 +7285,16 @@ form button:hover {
   box-shadow: 0 4px 8px #0000001a;
 }
 
-.movie-card img, .book-card img {
+.movie-card img {
   object-fit: cover;
   width: 100%;
   height: auto;
 }
 
-.movie-card h3, .movie-card .h3, .book-card h3, .book-card .h3 {
+.movie-card h3, .movie-card .h3 {
   margin-top: 10px;
   margin-bottom: 0;
   font-size: 1.2rem;
-}
-
-.similar-movies, .similar-books {
-  flex-wrap: wrap;
-  gap: 16px;
-  display: flex;
 }
 
 button {
