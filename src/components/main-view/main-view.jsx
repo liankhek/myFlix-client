@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { MovieCard } from '../movie-card/movie-card';
 import { MovieView } from '../movie-view/movie-view';
 import { LoginView } from "../login-view/login-view";
 import { SignupView } from "../signup-view/signup-view";
-import { Container, Row, Col, Button } from 'react-bootstrap'; // Import Bootstrap components
+import { NavigationBar } from "../navigation-bar/navigation-bar";
+import { ProfileView } from "../profile-view/profile-view";
+import { Container, Row, Col } from 'react-bootstrap';
 
 export const MainView = () => {
   const storedUser = JSON.parse(localStorage.getItem("user"));
   const storedToken = localStorage.getItem("token");
   const [movies, setMovies] = useState([]);
-  const [selectedMovie, setSelectedMovie] = useState(null);
   const [user, setUser] = useState(storedUser);
   const [token, setToken] = useState(storedToken);
 
@@ -37,71 +39,35 @@ export const MainView = () => {
 
   if (!user) {
     return (
-      <Container>
-        <Row className="justify-content-md-center">
-          <Col md={6}>
-            <LoginView
-              onLoggedIn={(user, token) => {
-                setUser(user);
-                setToken(token);
-              }}
-            />
-          </Col>
-        </Row>
-        <div className="text-center">or</div>
-        <Row className="justify-content-md-center">
-          <Col md={6}>
-            <SignupView />
-          </Col>
-        </Row>
-      </Container>
-    );
-  }
-
-  if (selectedMovie) {
-    return (
-      <Container>
-        <MovieView
-          movie={selectedMovie}
-          onBackClick={() => setSelectedMovie(null)}
-          similarMovies={movies.filter(
-            (movie) =>
-              movie.Genre === selectedMovie.Genre &&
-              movie._id !== selectedMovie._id
-          )}
-        />
-      </Container>
+      <Router>
+        <Routes>
+          <Route path="/login" element={<LoginView onLoggedIn={(user, token) => { setUser(user); setToken(token); }} />} />
+          <Route path="/signup" element={<SignupView />} />
+          <Route path="*" element={<Navigate to="/login" />} />
+        </Routes>
+      </Router>
     );
   }
 
   return (
-    <Container fluid style={{ maxWidth: '85%' }}>
-      <Row>
-        {movies.map((movie) => (
-          <Col md={4} key={movie._id} className="mb-4">
-            <MovieCard
-              movie={movie}
-              onMovieClick={(newSelectedMovie) => {
-                setSelectedMovie(newSelectedMovie);
-              }}
-            />
-          </Col>
-        ))}
-      </Row>
-      <Row className="justify-content-md-center">
-        <Col md="auto">
-          <Button
-            variant="success" /* Green button for logout */
-            onClick={() => {
-              setUser(null);
-              setToken(null);
-              localStorage.clear();
-            }}
-          >
-            Logout
-          </Button>
-        </Col>
-      </Row>
-    </Container>
+    <Router>
+      <NavigationBar user={user} onLoggedOut={() => { setUser(null); setToken(null); localStorage.clear(); }} />
+      <Routes>
+        <Route path="/movies/:movieId" element={<MovieView movies={movies} />} />
+        <Route path="/profile" element={<ProfileView user={user} token={token} />} />
+        <Route path="/" element={
+          <Container fluid style={{ maxWidth: '85%' }}>
+            <Row>
+              {movies.map((movie) => (
+                <Col md={4} key={movie._id} className="mb-4">
+                  <MovieCard movie={movie} />
+                </Col>
+              ))}
+            </Row>
+          </Container>
+        } />
+        <Route path="*" element={<Navigate to="/" />} />
+      </Routes>
+    </Router>
   );
 };
