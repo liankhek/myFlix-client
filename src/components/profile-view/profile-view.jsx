@@ -1,12 +1,15 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Container, Row, Col, Card, Button } from 'react-bootstrap';
-import { ProfileUpdate } from './profile-update';
-import { FavoriteMovies } from './favorite-movies';
 
-export const ProfileView = ({ user, token, updatedUser, onLoggedOut }) => {
+import React, { useState } from 'react';
+import { Container, Row, Col, Card, Button } from 'react-bootstrap';
+import PropTypes from 'prop-types';
+import { FavoriteMovies } from './favorite-movies';
+import { ProfileUpdate } from './profile-update';
+
+export const ProfileView = ({ user, token, onLoggedOut }) => {
+  const [currentUser, setCurrentUser] = useState(user);
+
   const handleDeleteAccount = () => {
-    fetch(`https://moviesdb-6abb3284c2fb.herokuapp.com/users/${user.Username}`, {
+    fetch(`https://da-flix-1a4fa4a29dcc.herokuapp.com/users/${user.Username}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
@@ -15,44 +18,53 @@ export const ProfileView = ({ user, token, updatedUser, onLoggedOut }) => {
     })
       .then((response) => {
         if (response.ok) {
+          alert('Account deleted successfully!');
           onLoggedOut();
         } else {
           alert('Account deletion failed.');
         }
+      })
+      .catch((error) => {
+        console.error('Error deleting account:', error);
+        alert('An error occurred. Please try again.');
       });
   };
 
+  const handleUpdateUser = (updatedUser) => {
+    setCurrentUser(updatedUser);
+  };
+
   return (
-    <Container>
-      <Row className="justify-content-center">
-        <Col xs={12} md={6}>
+    <Container className="profile-view">
+      <Row>
+        {/* User Info */}
+        <Col md={6}>
           <Card>
+            <Card.Header>Your Info</Card.Header>
             <Card.Body>
-              <h2>Your Info</h2>
-              <p>Name: {user.Username}</p>
-              <p>Email: {user.Email}</p>
+              <p><strong>Username:</strong> {currentUser.Username}</p>
+              <p><strong>Email:</strong> {currentUser.Email}</p>
+              <p><strong>Birthday:</strong> {currentUser.Birthday ? new Date(currentUser.Birthday).toLocaleDateString() : 'N/A'}</p>
             </Card.Body>
           </Card>
-        </Col>
-        <Col xs={12} md={6}>
           <Card>
             <Card.Body>
-              <ProfileUpdate user={user} updatedUser={updatedUser} />
+              <ProfileUpdate user={currentUser} token={token} updatedUser={handleUpdateUser} />
             </Card.Body>
           </Card>
-        </Col>
-      </Row>
-      <Row className="justify-content-center mt-4">
-        <Col xs={12} md={6}>
           <Button variant="danger" onClick={handleDeleteAccount}>
             Delete Account
           </Button>
         </Col>
-      </Row>
-      <Row className="mt-5">
-        <Col xs={12}>
-          <h3>Favorite Movies</h3>
-          <FavoriteMovies favMovies={user.FavoriteMovies || []} />
+
+        {/* Favorite Movies */}
+        <Col md={6}>
+          <Card>
+            <Card.Header>Favorite Movies</Card.Header>
+            <Card.Body>
+              <FavoriteMovies favMovies={currentUser.FavoriteMovies || []} />
+            </Card.Body>
+          </Card>
         </Col>
       </Row>
     </Container>
@@ -60,8 +72,12 @@ export const ProfileView = ({ user, token, updatedUser, onLoggedOut }) => {
 };
 
 ProfileView.propTypes = {
-  user: PropTypes.object.isRequired,
+  user: PropTypes.shape({
+    Username: PropTypes.string.isRequired,
+    Email: PropTypes.string.isRequired,
+    Birthday: PropTypes.string,
+    FavoriteMovies: PropTypes.array,
+  }).isRequired,
   token: PropTypes.string.isRequired,
-  updatedUser: PropTypes.func.isRequired,
-  onLoggedOut: PropTypes.func.isRequired
+  onLoggedOut: PropTypes.func.isRequired,
 };

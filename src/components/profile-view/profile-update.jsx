@@ -1,47 +1,45 @@
+
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Form, Button } from 'react-bootstrap';
 
-export const ProfileUpdate = ({ user, updatedUser }) => {
-  const token = localStorage.getItem('token');
-  const [username, setUsername] = useState(user.Username || '');
+export const ProfileUpdate = ({ user, token, updatedUser }) => {
+  const [username, setUsername] = useState(user.Username);
   const [password, setPassword] = useState('');
-  const [email, setEmail] = useState(user.Email || '');
-  const [birthday, setBirthday] = useState(user.Birthday || '');
+  const [email, setEmail] = useState(user.Email);
+  const [birthday, setBirthday] = useState(user.Birthday ? new Date(user.Birthday).toISOString().substr(0,10) : '');
 
   const handleSubmit = (event) => {
     event.preventDefault();
+
     const data = {
       Username: username,
       Password: password,
       Email: email,
-      Birthday: birthday
+      Birthday: birthday,
     };
 
-    fetch(`https://moviesdb-6abb3284c2fb.herokuapp.com/users/${user.Username}`, {
+    fetch(`https://da-flix-1a4fa4a29dcc.herokuapp.com/users/${user.Username}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`
+        Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify(data)
+      body: JSON.stringify(data),
     })
       .then((response) => response.json())
       .then((data) => {
+        alert('Profile updated successfully!');
         updatedUser(data);
-        setUsername(data.Username);
-        setPassword('');
-        setEmail(data.Email);
-        setBirthday(data.Birthday);
-        window.location.reload();
       })
-      .catch((e) => {
-        console.log(e);
+      .catch((error) => {
+        console.error('Error updating profile:', error);
+        alert('Profile update failed. Please try again.');
       });
   };
 
   return (
-    <Form onSubmit={handleSubmit}>
+    <Form onSubmit={handleSubmit} className="profile-update">
       <h2>Update Info</h2>
       <Form.Group controlId="formUsername">
         <Form.Label>Username:</Form.Label>
@@ -59,6 +57,7 @@ export const ProfileUpdate = ({ user, updatedUser }) => {
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          placeholder="Leave blank to keep current password"
         />
       </Form.Group>
 
@@ -80,8 +79,9 @@ export const ProfileUpdate = ({ user, updatedUser }) => {
           onChange={(e) => setBirthday(e.target.value)}
         />
       </Form.Group>
-      <Button className="mt-3" variant="primary" type="submit">
-        Submit
+
+      <Button variant="primary" type="submit" className="mt-3">
+        Update Profile
       </Button>
     </Form>
   );
@@ -89,5 +89,6 @@ export const ProfileUpdate = ({ user, updatedUser }) => {
 
 ProfileUpdate.propTypes = {
   user: PropTypes.object.isRequired,
-  updatedUser: PropTypes.func.isRequired
+  token: PropTypes.string.isRequired,
+  updatedUser: PropTypes.func.isRequired,
 };

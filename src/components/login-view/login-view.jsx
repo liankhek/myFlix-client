@@ -1,18 +1,18 @@
+
 import React, { useState } from 'react';
 import { Form, Button, Container, Row, Col } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import './login-signup-view.scss';
 
 export const LoginView = ({ onLoggedIn }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-
+  
   const handleSubmit = (event) => {
     event.preventDefault();
     fetch('https://da-flix-1a4fa4a29dcc.herokuapp.com/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ Username: username, Password: password })
+      body: JSON.stringify({ Username: username, Password: password }),
     })
       .then((response) => response.json())
       .then((data) => {
@@ -31,10 +31,10 @@ export const LoginView = ({ onLoggedIn }) => {
   };
 
   return (
-    <Container className="login-signup-container">
-      <Row className="split">
+    <Container className="auth-container">
+      <div className="auth-box">
         {/* Login Section */}
-        <Col className="left-section" md={6}>
+        <div className="left-section">
           <h2>Login</h2>
           <Form onSubmit={handleSubmit}>
             <Form.Group controlId="formUsername">
@@ -61,10 +61,10 @@ export const LoginView = ({ onLoggedIn }) => {
               Login
             </Button>
           </Form>
-        </Col>
+        </div>
 
         {/* Signup Redirect Section */}
-        <Col className="right-section" md={6}>
+        <div className="right-section">
           <h2>Welcome!</h2>
           <p>Don't have an account?</p>
           <Link to="/signup">
@@ -72,8 +72,8 @@ export const LoginView = ({ onLoggedIn }) => {
               Signup
             </Button>
           </Link>
-        </Col>
-      </Row>
+        </div>
+      </div>
     </Container>
   );
 };

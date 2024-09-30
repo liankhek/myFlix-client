@@ -1,20 +1,28 @@
+
 // Define SCSS variables
-$primary-color: #ff0066;
+$primary-color: steelblue;
 $secondary-color: lightgray;
 $font-family: 'Arial', sans-serif;
 $hover-color: darken($primary-color, 10%); // Slightly darker than primary color
-$background-light: #f5f5f5;
-$border-radius: 5px;
+$danger-color: darkred;
+$success-color: green;
+$light-background-color: white;
+$btn-warning-color: #ffc107;
 
 // Import Bootstrap's SCSS
 @import '~bootstrap/scss/bootstrap';
 
 // Body Styling
 body {
-  background-color: $background-light;
+  background-color: $secondary-color;
   font-family: $font-family;
   margin: 0;
   padding: 0;
+}
+
+// App Container
+.app-container {
+  padding: 20px;
 }
 
 // Navigation bar styles
@@ -24,7 +32,7 @@ body {
   .navbar-brand, .nav-link {
     color: white !important;
     font-weight: bold;
-    
+
     &:hover {
       color: $hover-color !important;
     }
@@ -37,7 +45,7 @@ body {
       background-color: $hover-color;
     }
   }
-  
+
   .ml-auto {
     margin-left: auto;
   }
@@ -48,75 +56,102 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
-  background-color: $background-light;
+  min-height: 80vh;
+  background-color: $secondary-color;
 
   .auth-box {
     display: flex;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-    border-radius: $border-radius;
+    border-radius: 10px;
     overflow: hidden;
+    background-color: white;
+    width: 800px;
 
-    .login-section, .signup-section {
+    .left-section, .right-section {
       flex: 1;
       padding: 40px;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
+    }
+
+    .left-section {
+      background-color: white;
+
+      h2 {
+        font-size: 2rem;
+        margin-bottom: 20px;
+        color: $primary-color;
+      }
 
       form {
         width: 100%;
       }
 
-      h2 {
-        margin-bottom: 20px;
-        color: $primary-color;
+      .form-group {
+        margin-bottom: 15px;
+      }
+
+      label {
+        font-weight: bold;
       }
 
       input {
         width: 100%;
         padding: 10px;
-        margin-bottom: 20px;
-        border-radius: $border-radius;
+        margin-top: 5px;
         border: 1px solid $primary-color;
+        border-radius: 4px;
       }
 
       button {
-        background-color: $primary-color;
+        background-color: $btn-warning-color;
         border: none;
-        color: white;
         padding: 10px;
         width: 100%;
-        border-radius: $border-radius;
+        color: white;
+        border-radius: 4px;
         cursor: pointer;
+        transition: background-color 0.3s ease;
 
         &:hover {
-          background-color: $hover-color;
+          background-color: darken($btn-warning-color, 10%);
         }
       }
     }
 
-    .login-section {
-      background-color: white;
-    }
-
-    .signup-section {
-      background-color: #ffcc00;
+    .right-section {
+      background-color: $primary-color;
+      color: white;
       text-align: center;
 
       h2 {
-        color: #333;
+        font-size: 2.5rem;
+        margin-bottom: 20px;
       }
 
       p {
         margin-bottom: 20px;
       }
 
-      button {
-        background-color: #ff6600;
-        &:hover {
-          background-color: #e65c00;
+      a {
+        width: 100%;
+        display: block;
+
+        button {
+          background-color: $btn-warning-color;
+          border: none;
+          padding: 10px;
+          width: 100%;
+          color: white;
+          border-radius: 4px;
+          cursor: pointer;
+          transition: background-color 0.3s ease;
+
+          &:hover {
+            background-color: darken($btn-warning-color, 10%);
+          }
         }
       }
     }
@@ -125,15 +160,19 @@ body {
 
 // Movie Card Styling
 .movie-card {
-  margin-bottom: 20px;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-  border-radius: $border-radius;
+  border-radius: 10px;
   overflow: hidden;
   background-color: white;
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: translateY(-5px);
+  }
 
   .card-img-top {
-    object-fit: cover;
     height: 350px;
+    object-fit: cover;
   }
 
   .card-body {
@@ -147,9 +186,14 @@ body {
     margin-bottom: 10px;
   }
 
+  .card-text {
+    margin-bottom: 15px;
+  }
+
   .btn-primary {
     background-color: $primary-color;
     border: none;
+
     &:hover {
       background-color: $hover-color;
     }
@@ -160,19 +204,27 @@ body {
 .profile-view {
   padding: 20px;
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   gap: 20px;
 
   .card {
-    flex: 1;
-    margin-bottom: 20px;
     border: 1px solid $primary-color;
-    border-radius: $border-radius;
+    border-radius: 10px;
+  }
+
+  .card-header {
+    background-color: $primary-color;
+    color: white;
+    font-size: 1.5rem;
   }
 
   .btn-danger {
-    background-color: darkred;
+    background-color: $danger-color;
     border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
 
     &:hover {
       background-color: red;
@@ -186,13 +238,13 @@ body {
 
   .form-control {
     border-color: $primary-color;
-    border-radius: $border-radius;
+    border-radius: 4px;
   }
 
   .btn-primary {
     background-color: $primary-color;
     border: none;
-    
+
     &:hover {
       background-color: $hover-color;
     }
@@ -200,7 +252,7 @@ body {
 }
 
 // Favorite Movies Section
-.movies-container {
+.favorite-movies {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -216,18 +268,18 @@ body {
   display: flex;
   justify-content: center;
   padding: 40px;
-  
+
   .movie-details {
     max-width: 600px;
     background-color: white;
     padding: 20px;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-    border-radius: $border-radius;
+    border-radius: 10px;
 
     img {
       width: 100%;
       object-fit: cover;
-      border-radius: $border-radius;
+      border-radius: 10px;
     }
 
     h2 {
@@ -244,6 +296,7 @@ body {
       background-color: $primary-color;
       border: none;
       margin-top: 20px;
+
       &:hover {
         background-color: $hover-color;
       }
@@ -251,13 +304,13 @@ body {
   }
 }
 
-// Buttons
+// General Button Styling
 button {
   background-color: $primary-color;
   border: none;
   padding: 10px 20px;
   color: white;
-  border-radius: $border-radius;
+  border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.3s ease;
 
@@ -266,16 +319,24 @@ button {
   }
 }
 
-// Favorite movie button
+// Favorite Movie Button
 .favorite-movie-btn {
   background-color: darkorange;
   border: none;
   padding: 8px 16px;
   color: white;
-  border-radius: $border-radius;
+  border-radius: 4px;
   cursor: pointer;
 
   &:hover {
     background-color: orangered;
   }
+}
+
+// Movie List Layout
+.movie-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
 }

@@ -7223,11 +7223,8 @@ body {
   font-family: Arial, sans-serif;
 }
 
-.my-flix {
-  color: #4682b4;
-  text-align: center;
+.app-container {
   padding: 20px;
-  font-size: 24px;
 }
 
 .navbar {
@@ -7240,29 +7237,193 @@ body {
 }
 
 .navbar .navbar-brand:hover, .navbar .nav-link:hover {
-  color: #4682b4 !important;
+  color: #38678f !important;
 }
 
 .navbar .navbar-toggler {
-  border-color: #4682b4;
+  border-color: #38678f;
 }
 
 .navbar .navbar-toggler:hover {
+  background-color: #38678f;
+}
+
+.navbar .ml-auto {
+  margin-left: auto;
+}
+
+.auth-container {
+  background-color: #d3d3d3;
+  justify-content: center;
+  align-items: center;
+  min-height: 80vh;
+  display: flex;
+}
+
+.auth-container .auth-box {
+  background-color: #fff;
+  border-radius: 10px;
+  width: 800px;
+  display: flex;
+  overflow: hidden;
+  box-shadow: 0 4px 10px #0000001a;
+}
+
+.auth-container .auth-box .left-section, .auth-container .auth-box .right-section {
+  flex-direction: column;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+  display: flex;
+}
+
+.auth-container .auth-box .left-section {
+  background-color: #fff;
+}
+
+.auth-container .auth-box .left-section h2, .auth-container .auth-box .left-section .h2 {
+  color: #4682b4;
+  margin-bottom: 20px;
+  font-size: 2rem;
+}
+
+.auth-container .auth-box .left-section form {
+  width: 100%;
+}
+
+.auth-container .auth-box .left-section .form-group {
+  margin-bottom: 15px;
+}
+
+.auth-container .auth-box .left-section label {
+  font-weight: bold;
+}
+
+.auth-container .auth-box .left-section input {
+  border: 1px solid #4682b4;
+  border-radius: 4px;
+  width: 100%;
+  margin-top: 5px;
+  padding: 10px;
+}
+
+.auth-container .auth-box .left-section button {
+  color: #fff;
+  cursor: pointer;
+  background-color: #ffc107;
+  border: none;
+  border-radius: 4px;
+  width: 100%;
+  padding: 10px;
+  transition: background-color .3s;
+}
+
+.auth-container .auth-box .left-section button:hover {
+  background-color: #d39e00;
+}
+
+.auth-container .auth-box .right-section {
+  color: #fff;
+  text-align: center;
   background-color: #4682b4;
 }
 
+.auth-container .auth-box .right-section h2, .auth-container .auth-box .right-section .h2 {
+  margin-bottom: 20px;
+  font-size: 2.5rem;
+}
+
+.auth-container .auth-box .right-section p {
+  margin-bottom: 20px;
+}
+
+.auth-container .auth-box .right-section a {
+  width: 100%;
+  display: block;
+}
+
+.auth-container .auth-box .right-section a button {
+  color: #fff;
+  cursor: pointer;
+  background-color: #ffc107;
+  border: none;
+  border-radius: 4px;
+  width: 100%;
+  padding: 10px;
+  transition: background-color .3s;
+}
+
+.auth-container .auth-box .right-section a button:hover {
+  background-color: #d39e00;
+}
+
+.movie-card {
+  background-color: #fff;
+  border-radius: 10px;
+  transition: transform .3s;
+  overflow: hidden;
+  box-shadow: 0 4px 10px #0000001a;
+}
+
+.movie-card:hover {
+  transform: translateY(-5px);
+}
+
+.movie-card .card-img-top {
+  object-fit: cover;
+  height: 350px;
+}
+
+.movie-card .card-body {
+  padding: 15px;
+}
+
+.movie-card .card-title {
+  color: #4682b4;
+  margin-bottom: 10px;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.movie-card .card-text {
+  margin-bottom: 15px;
+}
+
+.movie-card .btn-primary {
+  background-color: #4682b4;
+  border: none;
+}
+
+.movie-card .btn-primary:hover {
+  background-color: #38678f;
+}
+
 .profile-view {
+  flex-direction: column;
+  gap: 20px;
   padding: 20px;
+  display: flex;
 }
 
 .profile-view .card {
   border: 1px solid #4682b4;
-  margin-bottom: 20px;
+  border-radius: 10px;
+}
+
+.profile-view .card-header {
+  color: #fff;
+  background-color: #4682b4;
+  font-size: 1.5rem;
 }
 
 .profile-view .btn-danger {
+  cursor: pointer;
   background-color: #8b0000;
   border: none;
+  border-radius: 4px;
+  padding: 10px 20px;
+  transition: background-color .3s;
 }
 
 .profile-view .btn-danger:hover {
@@ -7276,6 +7437,7 @@ body {
 
 .profile-view .form-control {
   border-color: #4682b4;
+  border-radius: 4px;
 }
 
 .profile-view .btn-primary {
@@ -7284,131 +7446,58 @@ body {
 }
 
 .profile-view .btn-primary:hover {
-  background-color: #4682b4;
-}
-
-.update-profile {
-  background-color: #fff;
-  border-radius: 8px;
-  padding: 20px;
-  box-shadow: 0 4px 8px #0000001a;
-}
-
-.update-profile .form-group {
-  margin-bottom: 15px;
-}
-
-.update-profile .form-group label {
-  margin-bottom: 10px;
-  font-weight: bold;
-}
-
-.update-profile .form-group input {
-  border: 1px solid #4682b4;
-  border-radius: 4px;
-  margin-bottom: 10px;
-  padding: 10px;
-}
-
-.update-profile .form-group .form-control {
-  border-color: #4682b4;
-}
-
-.update-profile button {
-  color: #fff;
-  cursor: pointer;
-  background-color: #4682b4;
-  border: none;
-  border-radius: 4px;
-  padding: 10px;
-  transition: background-color .3s;
-}
-
-.update-profile button:hover {
-  background-color: #4682b4;
+  background-color: #38678f;
 }
 
 .favorite-movies {
   flex-wrap: wrap;
-  justify-content: space-around;
+  justify-content: center;
   gap: 20px;
-  padding: 20px;
   display: flex;
 }
 
 .favorite-movies .movie-card {
-  text-align: center;
-  background-color: #fff;
-  border: 1px solid #ccc;
-  border-radius: 8px;
   width: 200px;
-  box-shadow: 0 4px 8px #0000001a;
 }
 
-.favorite-movies .movie-card img {
-  border-radius: 4px;
-  width: 100%;
-  height: auto;
-}
-
-.favorite-movies .movie-card h5, .favorite-movies .movie-card .h5 {
-  margin-top: 10px;
-  margin-bottom: 10px;
-  font-size: 1.2rem;
-}
-
-.favorite-movies .movie-card .btn-primary {
-  background-color: #4682b4;
-  border: none;
-}
-
-.favorite-movies .movie-card .btn-primary:hover {
-  background-color: #4682b4;
-}
-
-.favorite-movies .movie-card .btn-danger {
-  background-color: #8b0000;
-  border: none;
-}
-
-.favorite-movies .movie-card .btn-danger:hover {
-  background-color: red;
-}
-
-.movies-container, .books-container {
-  flex-wrap: wrap;
+.movie-view-container {
   justify-content: center;
-  gap: 16px;
-  padding: 20px;
+  padding: 40px;
   display: flex;
 }
 
-.movie-card, .book-card {
-  text-align: center;
+.movie-view-container .movie-details {
   background-color: #fff;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  width: 200px;
-  padding: 10px;
-  box-shadow: 0 4px 8px #0000001a;
+  border-radius: 10px;
+  max-width: 600px;
+  padding: 20px;
+  box-shadow: 0 4px 10px #0000001a;
 }
 
-.movie-card img, .book-card img {
+.movie-view-container .movie-details img {
   object-fit: cover;
+  border-radius: 10px;
   width: 100%;
-  height: auto;
 }
 
-.movie-card h3, .movie-card .h3, .book-card h3, .book-card .h3 {
+.movie-view-container .movie-details h2, .movie-view-container .movie-details .h2 {
+  color: #4682b4;
+  margin-top: 20px;
+}
+
+.movie-view-container .movie-details p {
   margin-top: 10px;
-  margin-bottom: 0;
-  font-size: 1.2rem;
+  line-height: 1.5;
 }
 
-.similar-movies, .similar-books {
-  flex-wrap: wrap;
-  gap: 16px;
-  display: flex;
+.movie-view-container .movie-details .btn-primary {
+  background-color: #4682b4;
+  border: none;
+  margin-top: 20px;
+}
+
+.movie-view-container .movie-details .btn-primary:hover {
+  background-color: #38678f;
 }
 
 button {
@@ -7422,7 +7511,7 @@ button {
 }
 
 button:hover {
-  background-color: #4682b4;
+  background-color: #38678f;
 }
 
 .favorite-movie-btn {
@@ -7436,6 +7525,13 @@ button:hover {
 
 .favorite-movie-btn:hover {
   background-color: #ff4500;
+}
+
+.movie-list {
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  display: flex;
 }
 
 :root, [data-bs-theme="light"] {

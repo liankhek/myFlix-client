@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { LoginView } from '../login-view/login-view';
@@ -7,14 +8,14 @@ import { ProfileView } from '../profile-view/profile-view';
 import { NavigationBar } from '../navigation-bar/navigation-bar';
 import { MovieCard } from '../movie-card/movie-card';
 import { Container, Row, Col } from 'react-bootstrap';
-import './main-view.scss';
+import '../../index.scss'; // Import the global styles
 
 export const MainView = () => {
   const storedUser = JSON.parse(localStorage.getItem('user'));
   const storedToken = localStorage.getItem('token');
   const [movies, setMovies] = useState([]);
-  const [user, setUser] = useState(storedUser);
-  const [token, setToken] = useState(storedToken);
+  const [user, setUser] = useState(storedUser || null);
+  const [token, setToken] = useState(storedToken || null);
 
   useEffect(() => {
     if (!token) return;
@@ -50,41 +51,51 @@ export const MainView = () => {
     localStorage.clear();
   };
 
-  if (!user) {
-    return (
-      <Router>
-        <Routes>
-          <Route path="/login" element={<LoginView onLoggedIn={onLoggedIn} />} />
-          <Route path="/signup" element={<SignupView />} />
-          <Route path="*" element={<Navigate to="/login" />} />
-        </Routes>
-      </Router>
-    );
-  }
-
   return (
     <Router>
       <NavigationBar user={user} onLoggedOut={onLoggedOut} />
-      <Container fluid>
+      <Container fluid className="app-container">
         <Routes>
-          {/* Movies List Route */}
+          {/* Login Route */}
+          <Route
+            path="/login"
+            element={!user ? <LoginView onLoggedIn={onLoggedIn} /> : <Navigate to="/" />}
+          />
+          {/* Signup Route */}
+          <Route
+            path="/signup"
+            element={!user ? <SignupView onSignedUp={onLoggedIn} /> : <Navigate to="/" />}
+          />
+          {/* Movie Details Route */}
+          <Route
+            path="/movies/:movieId"
+            element={user ? <MovieView movies={movies} /> : <Navigate to="/login" />}
+          />
+          {/* Profile Route */}
+          <Route
+            path="/profile"
+            element={
+              user ? <ProfileView user={user} token={token} onLoggedOut={onLoggedOut} /> : <Navigate to="/login" />
+            }
+          />
+          {/* Home Route */}
           <Route
             path="/"
             element={
-              <Row>
-                {movies.map((movie) => (
-                  <Col md={4} key={movie._id}>
-                    <MovieCard movie={movie} />
-                  </Col>
-                ))}
-              </Row>
+              user ? (
+                <Row className="movie-list">
+                  {movies.map((movie) => (
+                    <Col md={4} key={movie._id} className="mb-4">
+                      <MovieCard movie={movie} />
+                    </Col>
+                  ))}
+                </Row>
+              ) : (
+                <Navigate to="/login" />
+              )
             }
           />
-          {/* Movie Details Route */}
-          <Route path="/movies/:movieId" element={<MovieView />} />
-          {/* Profile View Route */}
-          <Route path="/users/:userId" element={<ProfileView />} />
-          {/* Redirect if no match */}
+          {/* Catch-all Route */}
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </Container>
