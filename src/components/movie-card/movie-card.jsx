@@ -1,23 +1,24 @@
 import PropTypes from 'prop-types';
 import { Card, Button } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
-export const MovieCard = ({ movie, onMovieClick }) => {
-  if (!movie) return null; // Check if movie is defined
+export const MovieCard = ({ movie }) => {
+  if (!movie) return null;
 
   return (
     <Card style={{ width: '100%' }} className="h-100">
-      <Card.Img 
-        variant="top" 
-        src={movie.ImagePath} 
-        alt={movie.Title} 
-        style={{ objectFit: 'contain', height: '300px' }} // Ensure full image is shown
+      <Card.Img
+        variant="top"
+        src={movie.ImagePath}
+        alt={movie.Title}
+        style={{ objectFit: 'contain', height: '300px' }}
       />
       <Card.Body>
         <Card.Title>{movie.Title}</Card.Title>
         <Card.Text>{movie.Description}</Card.Text>
-        <Button variant="primary" onClick={() => onMovieClick(movie)}>
-          View Details
-        </Button>
+        <Link to={`/movies/${encodeURIComponent(movie._id)}`}>
+          <Button variant="primary">View Details</Button>
+        </Link>
       </Card.Body>
     </Card>
   );
@@ -33,12 +34,8 @@ MovieCard.propTypes = {
     }).isRequired,
     Director: PropTypes.shape({
       Name: PropTypes.string.isRequired,
-      Bio: PropTypes.string,
-      Birth: PropTypes.string,
-      Death: PropTypes.string,
     }).isRequired,
     ImagePath: PropTypes.string.isRequired,
     Featured: PropTypes.bool.isRequired,
   }).isRequired,
-  onMovieClick: PropTypes.func.isRequired,
 };
