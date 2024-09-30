@@ -27445,7 +27445,7 @@ const MovieCard = ({ movie, onMovieClick })=>{
                 alt: movie.Title,
                 style: {
                     width: "100%",
-                    height: "auto",
+                    height: "100%",
                     objectFit: "cover"
                 }
             }, void 0, false, {
@@ -30825,8 +30825,7 @@ const MovieView = ({ movie, onBackClick, similarMovies })=>{
                             className: "img-fluid movie-image",
                             style: {
                                 width: "100%",
-                                height: "auto",
-                                maxHeight: "500px",
+                                height: "100%",
                                 objectFit: "contain",
                                 marginBottom: "20px"
                             }

@@ -16,7 +16,7 @@ export const MovieView = ({ movie, onBackClick, similarMovies }) => {
             src={movie.ImagePath}
             alt={movie.Title}
             className="img-fluid movie-image"
-            style={{ width: '100%', height: 'auto', maxHeight: '500px', objectFit: 'contain', marginBottom: '20px' }}
+            style={{ width: '100%', height: '100%', objectFit: 'contain', marginBottom: '20px' }}
           />
           </div>
 
