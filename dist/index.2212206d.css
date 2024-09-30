@@ -7230,6 +7230,63 @@ body {
   font-size: 24px;
 }
 
+.navbar {
+  background-color: #4682b4;
+}
+
+.navbar .navbar-brand, .navbar .nav-link {
+  font-weight: bold;
+  color: #fff !important;
+}
+
+.navbar .navbar-brand:hover, .navbar .nav-link:hover {
+  color: #4682b4 !important;
+}
+
+.navbar .navbar-toggler {
+  border-color: #4682b4;
+}
+
+.navbar .navbar-toggler:hover {
+  background-color: #4682b4;
+}
+
+.profile-view {
+  padding: 20px;
+}
+
+.profile-view .card {
+  border: 1px solid #4682b4;
+  margin-bottom: 20px;
+}
+
+.profile-view .btn-danger {
+  background-color: #8b0000;
+  border: none;
+}
+
+.profile-view .btn-danger:hover {
+  background-color: red;
+}
+
+.profile-view h2, .profile-view .h2 {
+  color: #4682b4;
+  margin-bottom: 20px;
+}
+
+.profile-view .form-control {
+  border-color: #4682b4;
+}
+
+.profile-view .btn-primary {
+  background-color: #4682b4;
+  border: none;
+}
+
+.profile-view .btn-primary:hover {
+  background-color: #4682b4;
+}
+
 form {
   background-color: #fff;
   border-radius: 8px;
@@ -7315,6 +7372,19 @@ button {
 
 button:hover {
   background-color: #4682b4;
+}
+
+.favorite-movie-btn {
+  color: #fff;
+  cursor: pointer;
+  background-color: #ff8c00;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 16px;
+}
+
+.favorite-movie-btn:hover {
+  background-color: #ff4500;
 }
 
 :root, [data-bs-theme="light"] {
