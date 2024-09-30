@@ -1,39 +1,34 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { MovieCard } from '../movie-card/movie-card';
-import { MovieView } from '../movie-view/movie-view';
 import { LoginView } from '../login-view/login-view';
 import { SignupView } from '../signup-view/signup-view';
 import { ProfileView } from '../profile-view/profile-view';
 import { NavigationBar } from '../navigation-bar/navigation-bar';
 import { Container, Row, Col } from 'react-bootstrap';
+import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
 
 export const MainView = () => {
-  const storedUser = JSON.parse(localStorage.getItem('user'));
-  const storedToken = localStorage.getItem('token');
-  const [user, setUser] = useState(storedUser || null);
-  const [token, setToken] = useState(storedToken || null);
+  const [user, setUser] = useState(null);
+  const [token, setToken] = useState(null);
   const [movies, setMovies] = useState([]);
 
   useEffect(() => {
-    if (!token) return;
+    const storedUser = JSON.parse(localStorage.getItem('user'));
+    const storedToken = localStorage.getItem('token');
+    if (storedToken) {
+      setUser(storedUser);
+      setToken(storedToken);
+    }
+  }, []);
 
+  useEffect(() => {
+    if (!token) return;
     fetch('https://da-flix-1a4fa4a29dcc.herokuapp.com/movies', {
-      headers: { Authorization: `Bearer ${token}` },
+      headers: { Authorization: `Bearer ${token}` }
     })
-      .then((response) => response.json())
-      .then((data) => {
-        const moviesFromApi = data.map((movie) => ({
-          _id: movie._id,
-          Title: movie.Title,
-          Description: movie.Description,
-          Genre: movie.Genre?.Name || 'Unknown Genre',
-          Director: movie.Director?.Name || 'Unknown Director',
-          ImagePath: movie.ImagePath,
-          Featured: movie.Featured,
-        }));
-        setMovies(moviesFromApi);
-      });
+      .then(res => res.json())
+      .then(data => setMovies(data))
+      .catch(err => console.log(err));
   }, [token]);
 
   const onLoggedIn = (user, token) => {
@@ -49,39 +44,33 @@ export const MainView = () => {
     localStorage.clear();
   };
 
+  if (!user) {
+    return (
+      <Router>
+        <Route path="/login" render={() => <LoginView onLoggedIn={onLoggedIn} />} />
+        <Route path="/signup" render={() => <SignupView onSignedUp={onLoggedIn} />} />
+        <Redirect to="/login" />
+      </Router>
+    );
+  }
+
   return (
     <Router>
       <NavigationBar user={user} onLoggedOut={onLoggedOut} />
       <Container>
-        <Routes>
-          <Route
-            path="/login"
-            element={!user ? <LoginView onLoggedIn={onLoggedIn} /> : <Navigate to="/" />}
-          />
-          <Route path="/signup" element={<SignupView />} />
-          <Route
-            path="/"
-            element={user ? (
-              <Row>
-                {movies.map((movie) => (
-                  <Col md={4} key={movie._id} className="mb-4">
-                    <MovieCard movie={movie} />
-                  </Col>
-                ))}
-              </Row>
-            ) : (
-              <Navigate to="/login" />
-            )}
-          />
-          <Route
-            path="/movies/:movieId"
-            element={user ? <MovieView movies={movies} /> : <Navigate to="/login" />}
-          />
-          <Route
-            path="/users/:userId"
-            element={user ? <ProfileView user={user} /> : <Navigate to="/login" />}
-          />
-        </Routes>
+        <Route exact path="/movies" render={() => (
+          <Row>
+            {movies.map(m => (
+              <Col md={4} key={m._id}>
+                <MovieCard movie={m} />
+              </Col>
+            ))}
+          </Row>
+        )} />
+        <Route path="/users/:id" render={() => (
+          <ProfileView user={user} />
+        )} />
+        <Redirect to="/movies" />
       </Container>
     </Router>
   );

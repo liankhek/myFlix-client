@@ -1,13 +1,11 @@
 import React, { useState } from 'react';
 import { Form, Button, Container, Row, Col } from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate for navigation
 
-export const SignupView = () => {
+export const SignupView = ({ onSignedUp }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
   const [birthday, setBirthday] = useState('');
-  const navigate = useNavigate(); // Initialize navigate
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -22,7 +20,7 @@ export const SignupView = () => {
     .then(data => {
       if (data) {
         alert('Signup successful! Please log in.');
-        navigate('/login'); // Redirect to login page after signup
+        onSignedUp();
       } else {
         alert('Signup failed');
       }
@@ -74,7 +72,7 @@ export const SignupView = () => {
                 required
               />
             </Form.Group>
-            <Button variant="primary" type="submit" className="mt-3">
+            <Button variant="primary" type="submit" block>
               Signup
             </Button>
           </Form>

@@ -1,243 +1,74 @@
 // Define SCSS variables
-$primary-color: steelblue;
-$secondary-color: lightgray;
+$primary-color: #0275d8;
+$secondary-color: #f8f9fa;
 $font-family: 'Arial', sans-serif;
-$hover-color: #4682b4; // slightly darker than steelblue
-$danger-color: darkred;
-$success-color: green;
-$light-background-color: white;
+$hover-color: #0056b3;
+$btn-primary-color: #0275d8;
+$btn-primary-hover: #0056b3;
 
 // Import Bootstrap's SCSS
 @import '~bootstrap/scss/bootstrap';
 
 body {
-  background-color: $secondary-color; 
-  font-family: $font-family; 
-  margin: 0;
-  padding: 0;
+  background-color: $secondary-color;
+  font-family: $font-family;
 }
 
-// Customize the app's title
-.my-flix {
-  color: $primary-color;
-  text-align: center;
-  padding: 20px;
-  font-size: 24px;
-}
-
-// Navigation bar styles
 .navbar {
-  background-color: $primary-color;
+  background-color: #343a40;
   
   .navbar-brand, .nav-link {
     color: white !important;
-    font-weight: bold;
     
     &:hover {
       color: $hover-color !important;
     }
   }
 
-  .navbar-toggler {
-    border-color: $hover-color;
-
-    &:hover {
-      background-color: $hover-color;
-    }
+  .ml-auto {
+    margin-left: auto !important;
   }
 }
 
-// Profile page styles
-.profile-view {
-  padding: 20px;
-
-  .card {
-    margin-bottom: 20px;
-    border: 1px solid $primary-color;
-  }
-
-  .btn-danger {
-    background-color: $danger-color;
-    border: none;
-
-    &:hover {
-      background-color: red;
-    }
-  }
-
-  h2 {
-    color: $primary-color;
-    margin-bottom: 20px;
-  }
-
-  .form-control {
-    border-color: $primary-color;
-  }
-
-  .btn-primary {
-    background-color: $primary-color;
-    border: none;
-    
-    &:hover {
-      background-color: $hover-color;
-    }
-  }
-}
-
-// Update profile section
-.update-profile {
-  background-color: $light-background-color;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-
-  .form-group {
-    margin-bottom: 15px;
-
-    label {
-      font-weight: bold;
-      margin-bottom: 10px;
-    }
-
-    input {
-      padding: 10px;
-      margin-bottom: 10px;
-      border: 1px solid $primary-color;
-      border-radius: 4px;
-    }
-
-    .form-control {
-      border-color: $primary-color;
-    }
-  }
-
-  button {
-    background-color: $primary-color;
-    color: white;
-    padding: 10px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-
-    &:hover {
-      background-color: $hover-color;
-    }
-  }
-}
-
-// Favorite movies section
-.favorite-movies {
+.login-signup-container {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  gap: 20px;
-  padding: 20px;
-  
-  .movie-card {
-    width: 200px;
-    text-align: center;
-    background-color: $light-background-color;
-    border: 1px solid #ccc;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-
-    img {
-      width: 100%;
-      height: auto;
-      border-radius: 4px;
-    }
-
-    h5 {
-      margin-top: 10px;
-      margin-bottom: 10px;
-      font-size: 1.2rem;
-    }
-
-    .btn-primary {
-      background-color: $primary-color;
-      border: none;
-      
-      &:hover {
-        background-color: $hover-color;
-      }
-    }
-
-    .btn-danger {
-      background-color: $danger-color;
-      border: none;
-      
-      &:hover {
-        background-color: red;
-      }
-    }
-  }
-}
-
-// Movie and book card layout styling
-.movies-container, .books-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
   justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.login-side, .signup-side {
   padding: 20px;
-}
-
-// Card component styles
-.movie-card, .book-card {
-  width: 200px;
-  padding: 10px;
-  text-align: center;
-  background-color: $light-background-color;
-  border: 1px solid #ccc;
+  background-color: white;
+  border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
-
-  img {
-    width: 100%;
-    height: auto;
-    object-fit: cover;
-  }
-
-  h3 {
-    margin-top: 10px;
-    margin-bottom: 0;
-    font-size: 1.2rem;
-  }
+  text-align: center;
 }
 
-// Similar movies/book cards grid layout
-.similar-movies, .similar-books {
+.signup-side {
+  background-color: #f0ad4e;
+}
+
+.movies-container {
   display: flex;
+  justify-content: center;
   flex-wrap: wrap;
   gap: 16px;
 }
 
-// Buttons customization
-button {
-  background-color: $primary-color;
-  border: none;
-  padding: 10px 20px;
-  color: white;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-
-  &:hover {
-    background-color: $hover-color;
-  }
+.movie-card {
+  border: 1px solid $primary-color;
+  border-radius: 10px;
+  padding: 15px;
+  background-color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
 }
 
-// Favorite movie button
-.favorite-movie-btn {
-  background-color: darkorange;
-  border: none;
-  padding: 8px 16px;
-  color: white;
-  border-radius: 4px;
-  cursor: pointer;
-
+.btn-primary {
+  background-color: $btn-primary-color;
+  
   &:hover {
-    background-color: orangered;
+    background-color: $btn-primary-hover;
   }
 }
