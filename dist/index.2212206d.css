@@ -7287,30 +7287,34 @@ body {
   background-color: #4682b4;
 }
 
-form {
+.update-profile {
   background-color: #fff;
   border-radius: 8px;
-  flex-direction: column;
-  max-width: 400px;
-  margin: 20px auto;
   padding: 20px;
-  display: flex;
   box-shadow: 0 4px 8px #0000001a;
 }
 
-form label {
+.update-profile .form-group {
+  margin-bottom: 15px;
+}
+
+.update-profile .form-group label {
   margin-bottom: 10px;
   font-weight: bold;
 }
 
-form input {
+.update-profile .form-group input {
   border: 1px solid #4682b4;
   border-radius: 4px;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   padding: 10px;
 }
 
-form button {
+.update-profile .form-group .form-control {
+  border-color: #4682b4;
+}
+
+.update-profile button {
   color: #fff;
   cursor: pointer;
   background-color: #4682b4;
@@ -7320,8 +7324,55 @@ form button {
   transition: background-color .3s;
 }
 
-form button:hover {
+.update-profile button:hover {
   background-color: #4682b4;
+}
+
+.favorite-movies {
+  flex-wrap: wrap;
+  justify-content: space-around;
+  gap: 20px;
+  padding: 20px;
+  display: flex;
+}
+
+.favorite-movies .movie-card {
+  text-align: center;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  width: 200px;
+  box-shadow: 0 4px 8px #0000001a;
+}
+
+.favorite-movies .movie-card img {
+  border-radius: 4px;
+  width: 100%;
+  height: auto;
+}
+
+.favorite-movies .movie-card h5, .favorite-movies .movie-card .h5 {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  font-size: 1.2rem;
+}
+
+.favorite-movies .movie-card .btn-primary {
+  background-color: #4682b4;
+  border: none;
+}
+
+.favorite-movies .movie-card .btn-primary:hover {
+  background-color: #4682b4;
+}
+
+.favorite-movies .movie-card .btn-danger {
+  background-color: #8b0000;
+  border: none;
+}
+
+.favorite-movies .movie-card .btn-danger:hover {
+  background-color: red;
 }
 
 .movies-container, .books-container {
@@ -7336,7 +7387,7 @@ form button:hover {
   text-align: center;
   background-color: #fff;
   border: 1px solid #ccc;
-  border-radius: 5px;
+  border-radius: 8px;
   width: 200px;
   padding: 10px;
   box-shadow: 0 4px 8px #0000001a;
