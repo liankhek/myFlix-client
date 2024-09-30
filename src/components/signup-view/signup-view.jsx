@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { Form, Button, Container, Row, Col } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate for navigation
 
-export const SignupView = ({ onSignedUp }) => {
+export const SignupView = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
   const [birthday, setBirthday] = useState('');
+  const navigate = useNavigate(); // Initialize navigate
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -20,7 +22,7 @@ export const SignupView = ({ onSignedUp }) => {
     .then(data => {
       if (data) {
         alert('Signup successful! Please log in.');
-        onSignedUp();
+        navigate('/login'); // Redirect to login page after signup
       } else {
         alert('Signup failed');
       }
