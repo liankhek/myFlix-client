@@ -1,28 +1,32 @@
 import React, { useState } from 'react';
-import { Form, Button, Container, Row, Col } from 'react-bootstrap'; // Import Bootstrap components
+import { Form, Button, Container, Row, Col } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate for navigation
 
 export const LoginView = ({ onLoggedIn }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate(); // Initialize navigate
 
   const handleSubmit = (event) => {
     event.preventDefault();
+
     fetch('https://da-flix-1a4fa4a29dcc.herokuapp.com/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ Username: username, Password: password }),
     })
       .then((response) => response.json())
-      .then(data => {
+      .then((data) => {
         if (data.user) {
           localStorage.setItem('user', JSON.stringify(data.user));
           localStorage.setItem('token', data.token);
           onLoggedIn(data.user, data.token);
+          navigate('/'); // Redirect to the main page after login
         } else {
           alert('No such user');
         }
       })
-      .catch(e => {
+      .catch((e) => {
         console.error('Login error:', e);
         alert('Something went wrong');
       });
