@@ -7230,6 +7230,63 @@ body {
   font-size: 24px;
 }
 
+.navbar {
+  background-color: #4682b4;
+}
+
+.navbar .navbar-brand, .navbar .nav-link {
+  font-weight: bold;
+  color: #fff !important;
+}
+
+.navbar .navbar-brand:hover, .navbar .nav-link:hover {
+  color: #4682b4 !important;
+}
+
+.navbar .navbar-toggler {
+  border-color: #4682b4;
+}
+
+.navbar .navbar-toggler:hover {
+  background-color: #4682b4;
+}
+
+.profile-view {
+  padding: 20px;
+}
+
+.profile-view .card {
+  border: 1px solid #4682b4;
+  margin-bottom: 20px;
+}
+
+.profile-view .btn-danger {
+  background-color: #8b0000;
+  border: none;
+}
+
+.profile-view .btn-danger:hover {
+  background-color: red;
+}
+
+.profile-view h2, .profile-view .h2 {
+  color: #4682b4;
+  margin-bottom: 20px;
+}
+
+.profile-view .form-control {
+  border-color: #4682b4;
+}
+
+.profile-view .btn-primary {
+  background-color: #4682b4;
+  border: none;
+}
+
+.profile-view .btn-primary:hover {
+  background-color: #4682b4;
+}
+
 form {
   background-color: #fff;
   border-radius: 8px;
@@ -7267,7 +7324,7 @@ form button:hover {
   background-color: #4682b4;
 }
 
-.movies-container {
+.movies-container, .books-container {
   flex-wrap: wrap;
   justify-content: center;
   gap: 16px;
@@ -7275,7 +7332,7 @@ form button:hover {
   display: flex;
 }
 
-.movie-card {
+.movie-card, .book-card {
   text-align: center;
   background-color: #fff;
   border: 1px solid #ccc;
@@ -7285,16 +7342,22 @@ form button:hover {
   box-shadow: 0 4px 8px #0000001a;
 }
 
-.movie-card img {
+.movie-card img, .book-card img {
   object-fit: cover;
   width: 100%;
   height: auto;
 }
 
-.movie-card h3, .movie-card .h3 {
+.movie-card h3, .movie-card .h3, .book-card h3, .book-card .h3 {
   margin-top: 10px;
   margin-bottom: 0;
   font-size: 1.2rem;
+}
+
+.similar-movies, .similar-books {
+  flex-wrap: wrap;
+  gap: 16px;
+  display: flex;
 }
 
 button {
@@ -7309,6 +7372,19 @@ button {
 
 button:hover {
   background-color: #4682b4;
+}
+
+.favorite-movie-btn {
+  color: #fff;
+  cursor: pointer;
+  background-color: #ff8c00;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 16px;
+}
+
+.favorite-movie-btn:hover {
+  background-color: #ff4500;
 }
 
 :root, [data-bs-theme="light"] {
