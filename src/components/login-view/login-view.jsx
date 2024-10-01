@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
-import { Form, Button, Container, InputGroup } from 'react-bootstrap';
+import { Form, Button, Card } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
-import { Link, useNavigate } from 'react-router-dom';
-import '../auth.scss'; // Importing the auth.scss styles
+import './auth.scss'; // Import the authentication styling
 
 export const LoginView = ({ onLoggedIn }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [passwordShown, setPasswordShown] = useState(false);
-  const navigate = useNavigate();
 
   const togglePasswordVisibility = () => {
     setPasswordShown(!passwordShown);
@@ -16,70 +15,71 @@ export const LoginView = ({ onLoggedIn }) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    const data = { Username: username, Password: password };
+
     fetch('https://da-flix-1a4fa4a29dcc.herokuapp.com/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ Username: username, Password: password }),
+      body: JSON.stringify(data)
     })
       .then((response) => response.json())
       .then((data) => {
         if (data.user) {
-          localStorage.setItem('user', JSON.stringify(data.user));
-          localStorage.setItem('token', data.token);
-          onLoggedIn(data.user, data.token);  // Successful login
-          navigate('/profile'); // Navigate to profile only after successful login
+          onLoggedIn(data.user, data.token);
         } else {
-          alert('No such user');
+          alert('Login failed');
         }
       })
       .catch((e) => {
-        console.error('Login error:', e);
         alert('Something went wrong');
+        console.error('Login error:', e);
       });
   };
 
   return (
-    <Container>
-      <div className="d-flex justify-content-center align-items-center" style={{ minHeight: '100vh' }}>
-        <div className="card">
-          <div className="card-body">
-            <h2>Log In</h2>
-            <Form onSubmit={handleSubmit}>
-              <Form.Group controlId="formUsername">
-                <Form.Label>Username</Form.Label>
+    <div className="auth-container">
+      <Card className="card">
+        <Card.Body>
+          <Card.Title className="text-center mb-4">Login to MyFlix</Card.Title>
+          <Form onSubmit={handleSubmit}>
+            <Form.Group controlId="formUsername" className="mb-3">
+              <Form.Label>Username</Form.Label>
+              <Form.Control
+                type="text"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                required
+                placeholder="Enter username"
+              />
+            </Form.Group>
+
+            <Form.Group controlId="formPassword" className="mb-3">
+              <Form.Label>Password</Form.Label>
+              <div className="password-input">
                 <Form.Control
-                  type="text"
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
+                  type={passwordShown ? 'text' : 'password'}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                   required
-                  placeholder="Enter your username"
+                  placeholder="Enter password"
                 />
-              </Form.Group>
-              <Form.Group controlId="formPassword">
-                <Form.Label>Password</Form.Label>
-                <InputGroup>
-                  <Form.Control
-                    type={passwordShown ? 'text' : 'password'}
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    required
-                    placeholder="Enter your password"
-                  />
-                  <InputGroup.Text onClick={togglePasswordVisibility}>
-                    {passwordShown ? <FaEyeSlash /> : <FaEye />}
-                  </InputGroup.Text>
-                </InputGroup>
-              </Form.Group>
-              <div className="text-center">
-                <Button type="submit" className="btn-primary w-100">Log In</Button>
+                <span onClick={togglePasswordVisibility} className="password-toggle-icon">
+                  {passwordShown ? <FaEyeSlash /> : <FaEye />}
+                </span>
               </div>
-            </Form>
-            <div className="text-center mt-3">
-              <Link to="/signup">Don't have an account? Sign up!</Link>
-            </div>
-          </div>
-        </div>
-      </div>
-    </Container>
+            </Form.Group>
+
+            <Button variant="primary" type="submit" className="w-100">
+              Login
+            </Button>
+          </Form>
+        </Card.Body>
+        <Card.Footer className="text-center">
+          <p>
+            Don't have an account? <Link to="/signup">Sign up!</Link>
+          </p>
+        </Card.Footer>
+      </Card>
+    </div>
   );
 };
