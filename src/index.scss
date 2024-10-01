@@ -92,7 +92,7 @@ form {
 .movie-card,
 .book-card,
 .favorite-card {
-  width: 250px;
+  width: 100%; // Changed to 100% for responsiveness within Col
   padding: 15px;
   text-align: center;
   background-color: white;
@@ -139,7 +139,8 @@ form {
 
 // Similar movies and book card layout styling
 .similar-movies,
-.similar-books {
+.similar-books,
+.favorite-movies-container {
   display: flex;
   flex-wrap: wrap;
   gap: 16px;
@@ -210,7 +211,7 @@ button {
 }
 
 // Favorites layout
-.favorite-movies {
+.favorite-movies-container {
   display: flex;
   flex-wrap: wrap;
   gap: 16px;
@@ -218,8 +219,8 @@ button {
   padding: 20px;
 }
 
-.favorite-card {
-  width: 200px;
+.favorite-movie-card {
+  width: 100%; // Ensures responsiveness within Col
   padding: 10px;
   text-align: center;
   background-color: white;

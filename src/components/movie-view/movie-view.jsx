@@ -1,14 +1,33 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { MovieCard } from '../movie-card/movie-card';
-import { Container, Row, Col, Button } from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom';
-import { FaHeart, FaRegHeart } from 'react-icons/fa'; // Add favorite icons
+import { Container, Row, Col, Button, Spinner } from 'react-bootstrap';
+import { useNavigate, useParams } from 'react-router-dom';
+import { FaHeart, FaRegHeart } from 'react-icons/fa';
 
-export const MovieView = ({ movie, similarMovies, isFavorite, toggleFavorite }) => {
+export const MovieView = ({ movies, toggleFavorite, favoriteMovies }) => {
   const navigate = useNavigate();
+  const { movieId } = useParams();
 
-  if (!movie) return null;
+  const movie = movies.find((m) => m._id === movieId);
+
+  if (!movie) {
+    return (
+      <Container className="movie-view-container mt-4 text-center">
+        <h2>Movie not found</h2>
+        <Button onClick={() => navigate(-1)} variant="primary" className="mt-3">
+          Go Back
+        </Button>
+      </Container>
+    );
+  }
+
+  // Find similar movies based on Genre
+  const similarMovies = movies.filter(
+    (m) => m.Genre === movie.Genre && m._id !== movie._id
+  );
+
+  const isFavorite = favoriteMovies.includes(movie._id);
 
   return (
     <Container className="movie-view-container mt-4">
@@ -79,11 +98,17 @@ export const MovieView = ({ movie, similarMovies, isFavorite, toggleFavorite }) 
           <h2 className="text-center mb-4">Similar Movies</h2>
           <Row className="justify-content-md-center">
             {similarMovies.length === 0 ? (
-              <div className="text-center">No similar movies available</div>
+              <Col>
+                <div className="text-center">No similar movies available</div>
+              </Col>
             ) : (
               similarMovies.map((similarMovie) => (
                 <Col md={3} key={similarMovie._id} className="mb-4">
-                  <MovieCard movie={similarMovie} />
+                  <MovieCard
+                    movie={similarMovie}
+                    isFavorite={favoriteMovies.includes(similarMovie._id)}
+                    toggleFavorite={toggleFavorite}
+                  />
                 </Col>
               ))
             )}
@@ -95,25 +120,7 @@ export const MovieView = ({ movie, similarMovies, isFavorite, toggleFavorite }) 
 };
 
 MovieView.propTypes = {
-  movie: PropTypes.shape({
-    _id: PropTypes.string.isRequired,
-    Title: PropTypes.string.isRequired,
-    Description: PropTypes.string.isRequired,
-    Genre: PropTypes.string,
-    Director: PropTypes.string,
-    DirectorBio: PropTypes.string,
-    DirectorBirth: PropTypes.string,
-    DirectorDeath: PropTypes.string,
-    ImagePath: PropTypes.string.isRequired,
-    Featured: PropTypes.bool,
-  }).isRequired,
-  similarMovies: PropTypes.arrayOf(
-    PropTypes.shape({
-      _id: PropTypes.string.isRequired,
-      Title: PropTypes.string.isRequired,
-      ImagePath: PropTypes.string.isRequired,
-    })
-  ).isRequired,
-  isFavorite: PropTypes.bool.isRequired, // For the favorite icon state
-  toggleFavorite: PropTypes.func.isRequired, // For toggling the favorite status
+  movies: PropTypes.array.isRequired,          // Array of all movies
+  toggleFavorite: PropTypes.func.isRequired,   // Function to toggle favorite status
+  favoriteMovies: PropTypes.array.isRequired,  // Array of favorite movie IDs
 };

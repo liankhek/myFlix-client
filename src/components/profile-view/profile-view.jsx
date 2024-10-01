@@ -7,12 +7,12 @@ import { UserInfo } from './user-info'; // Reuse the UserInfo component
 
 export const ProfileView = ({ user, token, onLoggedOut }) => {
   const [currentUser, setCurrentUser] = useState(user);
-  const [isLoading, setIsLoading] = useState(false); // Loading state for account deletion
+  const [isDeleting, setIsDeleting] = useState(false); // Loading state for account deletion
 
   const handleDeleteAccount = () => {
     if (!window.confirm('Are you sure you want to delete your account?')) return;
 
-    setIsLoading(true); // Show loading spinner
+    setIsDeleting(true); // Start loading
     fetch(`https://da-flix-1a4fa4a29dcc.herokuapp.com/users/${user.Username}`, {
       method: 'DELETE',
       headers: {
@@ -33,12 +33,19 @@ export const ProfileView = ({ user, token, onLoggedOut }) => {
         alert('An error occurred. Please try again.');
       })
       .finally(() => {
-        setIsLoading(false); // Stop loading spinner
+        setIsDeleting(false); // Stop loading
       });
   };
 
   const handleUpdateUser = (updatedUser) => {
     setCurrentUser(updatedUser);
+  };
+
+  const handleRemoveFavorite = (movieId) => {
+    // Optionally, call toggleFavorite here if you want to remove from local state as well
+    // toggleFavorite(movieId);
+    // For now, assuming onLoggedOut handles everything
+    alert('Feature not implemented yet.');
   };
 
   return (
@@ -55,7 +62,7 @@ export const ProfileView = ({ user, token, onLoggedOut }) => {
               </p>
             </Card.Body>
           </Card>
-          
+
           {/* Update Profile Section */}
           <Card className="mt-4">
             <Card.Body>
@@ -67,9 +74,9 @@ export const ProfileView = ({ user, token, onLoggedOut }) => {
             variant="danger"
             className="mt-3 w-100"
             onClick={handleDeleteAccount}
-            disabled={isLoading}
+            disabled={isDeleting}
           >
-            {isLoading ? <Spinner animation="border" size="sm" /> : 'Delete Account'}
+            {isDeleting ? <Spinner animation="border" size="sm" /> : 'Delete Account'}
           </Button>
         </Col>
 
@@ -78,7 +85,7 @@ export const ProfileView = ({ user, token, onLoggedOut }) => {
           <Card className="favorite-movies-card">
             <Card.Header className="text-center">Favorite Movies</Card.Header>
             <Card.Body>
-              <FavoriteMovies favMovies={currentUser.FavoriteMovies || []} />
+              <FavoriteMovies favMovies={currentUser.FavoriteMovies || []} onRemoveFavorite={handleRemoveFavorite} />
             </Card.Body>
           </Card>
         </Col>

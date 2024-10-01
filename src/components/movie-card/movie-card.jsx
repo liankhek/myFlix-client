@@ -61,6 +61,6 @@ MovieCard.propTypes = {
     ImagePath: PropTypes.string.isRequired,
     Featured: PropTypes.bool,
   }).isRequired,
-  isFavorite: PropTypes.bool.isRequired, // New prop to handle favorite state
-  toggleFavorite: PropTypes.func.isRequired, // New prop for toggling favorites
+  isFavorite: PropTypes.bool.isRequired, // Indicates if the movie is a favorite
+  toggleFavorite: PropTypes.func.isRequired, // Function to toggle favorite status
 };
