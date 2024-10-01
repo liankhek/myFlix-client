@@ -13270,7 +13270,7 @@ form button:hover {
   background-color: #fff;
   border: 1px solid #ccc;
   border-radius: 8px;
-  width: 250px;
+  width: 100%;
   padding: 15px;
   transition: transform .2s;
   box-shadow: 0 4px 8px #0000001a;
@@ -13311,7 +13311,7 @@ form button:hover {
   background-color: #38678f;
 }
 
-.similar-movies, .similar-books {
+.similar-movies, .similar-books, .favorite-movies-container {
   flex-wrap: wrap;
   justify-content: center;
   gap: 16px;
@@ -13377,7 +13377,7 @@ button:hover {
   margin-top: 10px;
 }
 
-.favorite-movies {
+.favorite-movies-container {
   flex-wrap: wrap;
   justify-content: center;
   gap: 16px;
@@ -13385,22 +13385,22 @@ button:hover {
   display: flex;
 }
 
-.favorite-card {
+.favorite-movie-card {
   text-align: center;
   background-color: #fff;
   border: 1px solid #ccc;
   border-radius: 8px;
-  width: 200px;
+  width: 100%;
   padding: 10px;
   transition: transform .2s;
   box-shadow: 0 4px 8px #0000001a;
 }
 
-.favorite-card:hover {
+.favorite-movie-card:hover {
   transform: scale(1.05);
 }
 
-.favorite-card img {
+.favorite-movie-card img {
   object-fit: cover;
   border-radius: 5px;
   width: 100%;
