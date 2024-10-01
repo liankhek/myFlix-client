@@ -1,43 +1,62 @@
 import React from 'react';
-import { Navbar, Nav, Form, Button, FormControl } from 'react-bootstrap';
-import { Link, useNavigate } from 'react-router-dom';
+import { Navbar, Nav, Container } from 'react-bootstrap';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 
-export const NavigationBar = ({ user, onLoggedOut, searchTerm, onSearch }) => {
+export const NavigationBar = ({ user, onLoggedOut, onSearch }) => {
   const navigate = useNavigate();
+  const location = useLocation();
 
-  const handleSearch = () => {
-    navigate('/');
+  const handleSearch = (e) => {
+    e.preventDefault();
+    onSearch(e.target.search.value);
   };
 
   return (
-    <Navbar bg="dark" variant="dark" expand="lg">
-      <Navbar.Brand as={Link} to="/">MyFlix</Navbar.Brand>
-      <Navbar.Toggle aria-controls="basic-navbar-nav" />
-      <Navbar.Collapse id="basic-navbar-nav">
-        <Nav className="me-auto">
-          {user && <Nav.Link as={Link} to="/">Movies</Nav.Link>}
-          {user && <Nav.Link as={Link} to="/profile">Profile</Nav.Link>}
-        </Nav>
-        <Form className="d-flex">
-          <FormControl
-            type="search"
-            placeholder="Search Movies"
-            className="me-2"
-            aria-label="Search"
-            value={searchTerm}
-            onChange={(e) => onSearch(e.target.value)} // Update searchTerm state
-          />
-          <Button variant="outline-success" onClick={() => handleSearch()}>Search</Button>
-        </Form>
-        {user && (
-          <Nav className="ml-auto">
-            <Nav.Link onClick={() => {
-              onLoggedOut();
-              navigate('/login');
-            }}>Log Out</Nav.Link>
-          </Nav>
-        )}
-      </Navbar.Collapse>
+    <Navbar bg="dark" variant="dark" expand="lg" className="py-3">
+      <Container>
+        <Navbar.Brand as={Link} to="/" className="fw-bold" style={{ color: 'orange' }}>
+          MyFlix
+        </Navbar.Brand>
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Collapse id="basic-navbar-nav" className="justify-content-between">
+          {user && (
+            <Nav className="me-auto">
+              <Nav.Link as={Link} to="/" className="text-light">Movies</Nav.Link>
+              <Nav.Link as={Link} to="/profile" className="text-light">Profile</Nav.Link>
+            </Nav>
+          )}
+
+          {/* Conditionally remove search bar if on login or signup page */}
+          {!['/login', '/signup'].includes(location.pathname) && user && (
+            <form className="d-flex" onSubmit={handleSearch}>
+              <input
+                type="search"
+                name="search"
+                placeholder="Search Movies"
+                className="form-control me-2"
+                aria-label="Search"
+              />
+              <button variant="outline-success" className="btn btn-outline-success">
+                Search
+              </button>
+            </form>
+          )}
+
+          {user && (
+            <Nav>
+              <Nav.Link
+                onClick={() => {
+                  onLoggedOut();
+                  navigate('/login');
+                }}
+                className="text-light"
+              >
+                Log Out
+              </Nav.Link>
+            </Nav>
+          )}
+        </Navbar.Collapse>
+      </Container>
     </Navbar>
   );
 };
