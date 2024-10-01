@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import { LoginView } from '../login-view/login-view';
 import { SignupView } from '../signup-view/signup-view';
 import { MovieView } from '../movie-view/movie-view';
@@ -16,8 +16,7 @@ export const MainView = () => {
   const [user, setUser] = useState(storedUser || null);
   const [token, setToken] = useState(storedToken || null);
   const [favoriteMovies, setFavoriteMovies] = useState([]);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [filteredMovies, setFilteredMovies] = useState([]);
+  const [searchTerm, setSearchTerm] = useState(''); // Add searchTerm state
 
   useEffect(() => {
     if (!token) return;
@@ -36,12 +35,18 @@ export const MainView = () => {
           ImagePath: movie.ImagePath,
         }));
         setMovies(moviesFromApi);
-        setFilteredMovies(moviesFromApi); // Initialize the full movie list
       })
       .catch((error) => console.error('Error fetching movies:', error));
   }, [token]);
 
-  // Handle user login and saving user/token to localStorage
+  const onSearch = (term) => {
+    setSearchTerm(term);
+  };
+
+  const filteredMovies = movies.filter((movie) =>
+    movie.Title.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   const onLoggedIn = (user, token) => {
     setUser(user);
     setToken(token);
@@ -49,14 +54,12 @@ export const MainView = () => {
     localStorage.setItem('token', token);
   };
 
-  // Handle user logout and clearing localStorage
   const onLoggedOut = () => {
     setUser(null);
     setToken(null);
     localStorage.clear();
   };
 
-  // Add or Remove favorite movies
   const toggleFavorite = (movieId) => {
     const isFavorite = favoriteMovies.includes(movieId);
     if (isFavorite) {
@@ -66,26 +69,13 @@ export const MainView = () => {
     }
   };
 
-  // Handle search logic
-  const handleSearch = () => {
-    if (!searchTerm) {
-      setFilteredMovies(movies);
-    } else {
-      const filtered = movies.filter((movie) =>
-        movie.Title.toLowerCase().includes(searchTerm.toLowerCase())
-      );
-      setFilteredMovies(filtered);
-    }
-  };
-
   return (
     <div>
       <NavigationBar
         user={user}
         onLoggedOut={onLoggedOut}
-        onSearch={handleSearch}
-        searchTerm={searchTerm}
-        setSearchTerm={setSearchTerm}
+        searchTerm={searchTerm} // Pass searchTerm as a prop
+        onSearch={onSearch} // Pass onSearch as a prop
       />
       <Container fluid className="app-container">
         <Routes>
@@ -99,15 +89,17 @@ export const MainView = () => {
           />
           <Route
             path="/movies/:movieId"
-            element={user ? (
-              <MovieView
-                movies={movies}
-                toggleFavorite={toggleFavorite}
-                favoriteMovies={favoriteMovies}
-              />
-            ) : (
-              <Navigate to="/login" />
-            )}
+            element={
+              user ? (
+                <MovieView
+                  movies={movies}
+                  toggleFavorite={toggleFavorite}
+                  favoriteMovies={favoriteMovies}
+                />
+              ) : (
+                <Navigate to="/login" />
+              )
+            }
           />
           <Route
             path="/profile"
@@ -129,21 +121,23 @@ export const MainView = () => {
             path="/"
             element={
               user ? (
-                <Row className="movie-list">
-                  {filteredMovies.length > 0 ? (
-                    filteredMovies.map((movie) => (
-                      <Col md={4} key={movie._id} className="mb-4">
-                        <MovieCard
-                          movie={movie}
-                          isFavorite={favoriteMovies.includes(movie._id)}
-                          toggleFavorite={toggleFavorite}
-                        />
-                      </Col>
-                    ))
-                  ) : (
-                    <div>No movies found</div>
-                  )}
-                </Row>
+                <>
+                  <Row className="movie-list">
+                    {filteredMovies.length > 0 ? (
+                      filteredMovies.map((movie) => (
+                        <Col md={4} key={movie._id} className="mb-4">
+                          <MovieCard
+                            movie={movie}
+                            isFavorite={favoriteMovies.includes(movie._id)}
+                            toggleFavorite={toggleFavorite}
+                          />
+                        </Col>
+                      ))
+                    ) : (
+                      <div>No movies found</div>
+                    )}
+                  </Row>
+                </>
               ) : (
                 <Navigate to="/login" />
               )
