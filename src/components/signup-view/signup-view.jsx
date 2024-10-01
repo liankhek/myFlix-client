@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
-import { Form, Button, Container, Row, Col } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Form, Button, Container } from 'react-bootstrap';
+import { Link, useNavigate } from 'react-router-dom';
 
-export const SignupView = ({ onSignedUp }) => {
+export const SignupView = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
   const [birthday, setBirthday] = useState('');
+  const [passwordShown, setPasswordShown] = useState(false);
+  const navigate = useNavigate();
   
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -21,7 +23,7 @@ export const SignupView = ({ onSignedUp }) => {
       .then((data) => {
         if (data) {
           alert('Signup successful! Please log in.');
-          onSignedUp();
+          navigate('/login'); // Redirect to login after successful signup
         } else {
           alert('Signup failed');
         }
@@ -33,68 +35,50 @@ export const SignupView = ({ onSignedUp }) => {
   };
 
   return (
-    <Container className="auth-container">
-      <div className="auth-box">
-        {/* Signup Section */}
-        <div className="left-section">
-          <h2>Signup</h2>
-          <Form onSubmit={handleSubmit}>
+    <Container>
+        <h1>Welcome to myFlix</h1>
+        <Form onSubmit={handleSubmit}>
             <Form.Group controlId="formUsername">
-              <Form.Label>Username</Form.Label>
-              <Form.Control
-                type="text"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                required
-                placeholder="Enter username"
-              />
-            </Form.Group>
-            <Form.Group controlId="formPassword">
-              <Form.Label>Password</Form.Label>
-              <Form.Control
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-                placeholder="Enter password"
-              />
+                <Form.Label>Username</Form.Label>
+                <Form.Control
+                    type="text"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                    required
+                />
             </Form.Group>
             <Form.Group controlId="formEmail">
-              <Form.Label>Email</Form.Label>
-              <Form.Control
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-                placeholder="Enter email"
-              />
+                <Form.Label>Email</Form.Label>
+                <Form.Control
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                />
+            </Form.Group>
+            <Form.Group controlId="formPassword">
+                <Form.Label>Password</Form.Label>
+                <Form.Control
+                    type={passwordShown ? "text" : "password"}
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                />
+                <Button variant="secondary" onClick={() => setPasswordShown(!passwordShown)}>
+                    {passwordShown ? 'Hide' : 'Show'}
+                </Button>
             </Form.Group>
             <Form.Group controlId="formBirthday">
-              <Form.Label>Birthday</Form.Label>
-              <Form.Control
-                type="date"
-                value={birthday}
-                onChange={(e) => setBirthday(e.target.value)}
-                required
-              />
+                <Form.Label>Birthday</Form.Label>
+                <Form.Control
+                    type="date"
+                    value={birthday}
+                    onChange={(e) => setBirthday(e.target.value)}
+                />
             </Form.Group>
-            <Button variant="warning" type="submit" block>
-              Signup
-            </Button>
-          </Form>
-        </div>
-
-        {/* Login Redirect Section */}
-        <div className="right-section">
-          <h2>Welcome!</h2>
-          <p>Already have an account?</p>
-          <Link to="/login">
-            <Button variant="warning" block>
-              Login
-            </Button>
-          </Link>
-        </div>
-      </div>
+            <Button type="submit">Signup</Button>
+        </Form>
+        <Link to="/login">Already have an account? Login!</Link>
     </Container>
-  );
+);
 };
