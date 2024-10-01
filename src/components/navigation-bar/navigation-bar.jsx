@@ -10,16 +10,27 @@ export const NavigationBar = ({ user, onLoggedOut }) => {
       <Navbar.Brand as={Link} to="/">MyFlixDB</Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
-        {user && (
-          <Nav className="ml-auto">
-            <Nav.Link as={Link} to="/">Movies</Nav.Link>
-            <Nav.Link as={Link} to="/profile">Profile</Nav.Link>
-            <Nav.Link onClick={() => {
-              onLoggedOut();
-              navigate('/login'); // Navigate to login after logout
-            }}>Log Out</Nav.Link>
-          </Nav>
-        )}
+        <Nav className="ms-auto"> {/* Updated for Bootstrap 5 */}
+          {user ? (
+            <>
+              <Nav.Link as={Link} to="/">Movies</Nav.Link>
+              <Nav.Link as={Link} to="/profile">Profile</Nav.Link>
+              <Nav.Link
+                onClick={() => {
+                  onLoggedOut();
+                  navigate('/login'); // Navigate to login after logout
+                }}
+              >
+                Log Out
+              </Nav.Link>
+            </>
+          ) : (
+            <>
+              <Nav.Link as={Link} to="/login">Login</Nav.Link>
+              <Nav.Link as={Link} to="/signup">Sign Up</Nav.Link>
+            </>
+          )}
+        </Nav>
       </Navbar.Collapse>
     </Navbar>
   );
