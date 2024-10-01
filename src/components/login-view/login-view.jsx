@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Form, Button, Card } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
-import './auth.scss'; // Import the authentication styling
+import '../auth.scss'; // Import the authentication styling
 
 export const LoginView = ({ onLoggedIn }) => {
   const [username, setUsername] = useState('');
