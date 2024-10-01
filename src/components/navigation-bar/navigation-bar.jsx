@@ -1,15 +1,12 @@
 import React from 'react';
-import { Navbar, Nav, Form, FormControl, Button } from 'react-bootstrap';
+import { Navbar, Nav, Form, Button, FormControl } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 
-export const NavigationBar = ({ user, onLoggedOut, onSearch }) => {
+export const NavigationBar = ({ user, onLoggedOut, searchTerm, onSearch }) => {
   const navigate = useNavigate();
 
-  const handleSearchSubmit = (e) => {
-    e.preventDefault();
-    const searchTerm = e.target.elements.search.value;
-    onSearch(searchTerm);
-    e.target.elements.search.value = ''; // Clear the search input
+  const handleSearch = () => {
+    navigate('/');
   };
 
   return (
@@ -18,19 +15,8 @@ export const NavigationBar = ({ user, onLoggedOut, onSearch }) => {
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="me-auto">
-          {user && (
-            <>
-              <Nav.Link
-                as={Link}
-                to="/"
-                onClick={() => setSearchTerm('')}
-              >
-                Movies
-              </Nav.Link>
-              
-              <Nav.Link as={Link} to="/profile">Profile</Nav.Link>
-            </>
-          )}
+          {user && <Nav.Link as={Link} to="/">Movies</Nav.Link>}
+          {user && <Nav.Link as={Link} to="/profile">Profile</Nav.Link>}
         </Nav>
         <Form className="d-flex">
           <FormControl
@@ -39,13 +25,16 @@ export const NavigationBar = ({ user, onLoggedOut, onSearch }) => {
             className="me-2"
             aria-label="Search"
             value={searchTerm}
-            onChange={(e) => onSearch(e.target.value)}
+            onChange={(e) => onSearch(e.target.value)} // Update searchTerm state
           />
           <Button variant="outline-success" onClick={() => handleSearch()}>Search</Button>
         </Form>
         {user && (
-          <Nav className="ms-auto">
-            <Nav.Link onClick={() => { onLoggedOut(); navigate('/login'); }}>Log Out</Nav.Link>
+          <Nav className="ml-auto">
+            <Nav.Link onClick={() => {
+              onLoggedOut();
+              navigate('/login');
+            }}>Log Out</Nav.Link>
           </Nav>
         )}
       </Navbar.Collapse>
