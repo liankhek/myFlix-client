@@ -16,6 +16,8 @@ export const MainView = () => {
   const [movies, setMovies] = useState([]);
   const [user, setUser] = useState(storedUser || null);
   const [token, setToken] = useState(storedToken || null);
+  const [favoriteMovies, setFavoriteMovies] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
     if (!token) return;
@@ -38,6 +40,7 @@ export const MainView = () => {
       .catch((error) => console.error('Error fetching movies:', error));
   }, [token]);
 
+  // Handle user login and saving user/token to localStorage
   const onLoggedIn = (user, token) => {
     setUser(user);
     setToken(token);
@@ -45,15 +48,31 @@ export const MainView = () => {
     localStorage.setItem('token', token);
   };
 
+  // Handle user logout and clearing localStorage
   const onLoggedOut = () => {
     setUser(null);
     setToken(null);
     localStorage.clear();
   };
 
+  // Add or Remove favorite movies
+  const toggleFavorite = (movieId) => {
+    const isFavorite = favoriteMovies.includes(movieId);
+    if (isFavorite) {
+      setFavoriteMovies(favoriteMovies.filter((id) => id !== movieId));
+    } else {
+      setFavoriteMovies([...favoriteMovies, movieId]);
+    }
+  };
+
+  // Filter movies based on search term
+  const filteredMovies = movies.filter((movie) =>
+    movie.Title.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
     <Router>
-      <NavigationBar user={user} onLoggedOut={onLoggedOut} />
+      <NavigationBar user={user} onLoggedOut={onLoggedOut} onSearch={(term) => setSearchTerm(term)} />
       <Container fluid className="app-container">
         <Routes>
           {/* Login Route */}
@@ -69,13 +88,13 @@ export const MainView = () => {
           {/* Movie Details Route */}
           <Route
             path="/movies/:movieId"
-            element={user ? <MovieView movies={movies} /> : <Navigate to="/login" />}
+            element={user ? <MovieView movies={movies} toggleFavorite={toggleFavorite} favoriteMovies={favoriteMovies} /> : <Navigate to="/login" />}
           />
           {/* Profile Route */}
           <Route
             path="/profile"
             element={
-              user ? <ProfileView user={user} token={token} onLoggedOut={onLoggedOut} /> : <Navigate to="/login" />
+              user ? <ProfileView user={user} token={token} favoriteMovies={favoriteMovies} movies={movies} onLoggedOut={onLoggedOut} /> : <Navigate to="/login" />
             }
           />
           {/* Home Route */}
@@ -83,13 +102,23 @@ export const MainView = () => {
             path="/"
             element={
               user ? (
-                <Row className="movie-list">
-                  {movies.map((movie) => (
-                    <Col md={4} key={movie._id} className="mb-4">
-                      <MovieCard movie={movie} />
-                    </Col>
-                  ))}
-                </Row>
+                <>
+                  <Row className="movie-list">
+                    {filteredMovies.length > 0 ? (
+                      filteredMovies.map((movie) => (
+                        <Col md={4} key={movie._id} className="mb-4">
+                          <MovieCard
+                            movie={movie}
+                            isFavorite={favoriteMovies.includes(movie._id)}
+                            toggleFavorite={toggleFavorite}
+                          />
+                        </Col>
+                      ))
+                    ) : (
+                      <div>No movies found</div>
+                    )}
+                  </Row>
+                </>
               ) : (
                 <Navigate to="/login" />
               )
