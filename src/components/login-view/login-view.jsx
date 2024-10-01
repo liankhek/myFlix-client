@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Form, Button, Container, InputGroup } from 'react-bootstrap';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { Link, useNavigate } from 'react-router-dom';
-import './auth.scss'; // Importing the auth.scss styles
+import '../auth.scss'; // Importing the auth.scss styles
 
 export const LoginView = ({ onLoggedIn }) => {
   const [username, setUsername] = useState('');
