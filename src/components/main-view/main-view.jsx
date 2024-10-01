@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { LoginView } from '../login-view/login-view';
@@ -16,7 +15,7 @@ export const MainView = () => {
   const [movies, setMovies] = useState([]);
   const [user, setUser] = useState(storedUser || null);
   const [token, setToken] = useState(storedToken || null);
-  const [favoriteMovies, setFavoriteMovies] = useState([]);
+  const [favoriteMovies, setFavoriteMovies] = useState([]); // Favorite movies
   const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
@@ -55,14 +54,29 @@ export const MainView = () => {
     localStorage.clear();
   };
 
-  // Add or Remove favorite movies
+  // Add or Remove favorite movies and persist to server
   const toggleFavorite = (movieId) => {
     const isFavorite = favoriteMovies.includes(movieId);
-    if (isFavorite) {
-      setFavoriteMovies(favoriteMovies.filter((id) => id !== movieId));
-    } else {
-      setFavoriteMovies([...favoriteMovies, movieId]);
-    }
+    const updatedFavorites = isFavorite
+      ? favoriteMovies.filter((id) => id !== movieId)
+      : [...favoriteMovies, movieId];
+
+    setFavoriteMovies(updatedFavorites);
+
+    // Optionally, persist the updated favorites to the backend
+    fetch(`https://da-flix-1a4fa4a29dcc.herokuapp.com/users/${user.Username}/favorites/${movieId}`, {
+      method: isFavorite ? 'DELETE' : 'POST',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((response) => {
+        if (!response.ok) {
+          console.error('Error updating favorites');
+        }
+      })
+      .catch((error) => console.error('Error updating favorites:', error));
   };
 
   // Filter movies based on search term
@@ -88,13 +102,33 @@ export const MainView = () => {
           {/* Movie Details Route */}
           <Route
             path="/movies/:movieId"
-            element={user ? <MovieView movies={movies} toggleFavorite={toggleFavorite} favoriteMovies={favoriteMovies} /> : <Navigate to="/login" />}
+            element={
+              user ? (
+                <MovieView
+                  movies={movies}
+                  toggleFavorite={toggleFavorite}
+                  favoriteMovies={favoriteMovies}
+                />
+              ) : (
+                <Navigate to="/login" />
+              )
+            }
           />
           {/* Profile Route */}
           <Route
             path="/profile"
             element={
-              user ? <ProfileView user={user} token={token} favoriteMovies={favoriteMovies} movies={movies} onLoggedOut={onLoggedOut} /> : <Navigate to="/login" />
+              user ? (
+                <ProfileView
+                  user={user}
+                  token={token}
+                  favoriteMovies={favoriteMovies}
+                  movies={movies}
+                  onLoggedOut={onLoggedOut}
+                />
+              ) : (
+                <Navigate to="/login" />
+              )
             }
           />
           {/* Home Route */}
