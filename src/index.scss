@@ -239,3 +239,23 @@ button {
     border-radius: 5px;
   }
 }
+
+// Favorite icon in movie cards
+.favorite-icon {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+  color: red;
+
+  svg {
+    width: 24px;
+    height: 24px;
+  }
+}
+
+// Back button styling
+.back-button {
+  padding: 10px 20px;
+  font-size: 14px;
+}
