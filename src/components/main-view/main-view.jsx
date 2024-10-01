@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route, Navigate, useParams } from 'react-router-dom';
 import { LoginView } from '../login-view/login-view';
 import { SignupView } from '../signup-view/signup-view';
 import { MovieView } from '../movie-view/movie-view';
@@ -7,7 +7,7 @@ import { ProfileView } from '../profile-view/profile-view';
 import { NavigationBar } from '../navigation-bar/navigation-bar';
 import { MovieCard } from '../movie-card/movie-card';
 import { Container, Row, Col } from 'react-bootstrap';
-import '../../index.scss'; // Import the global styles
+import '../../index.scss'; // Import global styles
 
 export const MainView = () => {
   const storedUser = JSON.parse(localStorage.getItem('user'));
@@ -54,14 +54,32 @@ export const MainView = () => {
     localStorage.clear();
   };
 
-  // Add or Remove favorite movies
+  // Add or Remove favorite movies and persist to server
   const toggleFavorite = (movieId) => {
     const isFavorite = favoriteMovies.includes(movieId);
-    if (isFavorite) {
-      setFavoriteMovies(favoriteMovies.filter((id) => id !== movieId));
-    } else {
-      setFavoriteMovies([...favoriteMovies, movieId]);
-    }
+    const updatedFavorites = isFavorite
+      ? favoriteMovies.filter((id) => id !== movieId)
+      : [...favoriteMovies, movieId];
+
+    setFavoriteMovies(updatedFavorites);
+
+    // Persist the updated favorites to the backend
+    fetch(`https://da-flix-1a4fa4a29dcc.herokuapp.com/users/${user.Username}/favorites/${movieId}`, {
+      method: isFavorite ? 'DELETE' : 'POST',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('Failed to update favorites');
+        }
+      })
+      .catch((error) => {
+        console.error('Error updating favorites:', error);
+        alert('Failed to update favorites. Please try again.');
+      });
   };
 
   // Filter movies based on search term
@@ -70,8 +88,7 @@ export const MainView = () => {
   );
 
   return (
-    // Wrap the app in BrowserRouter once here in MainView
-    <Router>
+    <>
       <NavigationBar user={user} onLoggedOut={onLoggedOut} onSearch={(term) => setSearchTerm(term)} />
       <Container fluid className="app-container">
         <Routes>
@@ -83,18 +100,38 @@ export const MainView = () => {
           {/* Signup Route */}
           <Route
             path="/signup"
-            element={!user ? <SignupView onSignedUp={onLoggedIn} /> : <Navigate to="/" />}
+            element={!user ? <SignupView onLoggedIn={onLoggedIn} /> : <Navigate to="/" />}
           />
           {/* Movie Details Route */}
           <Route
             path="/movies/:movieId"
-            element={user ? <MovieView movies={movies} toggleFavorite={toggleFavorite} favoriteMovies={favoriteMovies} /> : <Navigate to="/login" />}
+            element={
+              user ? (
+                <MovieView
+                  movies={movies}
+                  toggleFavorite={toggleFavorite}
+                  favoriteMovies={favoriteMovies}
+                />
+              ) : (
+                <Navigate to="/login" />
+              )
+            }
           />
           {/* Profile Route */}
           <Route
             path="/profile"
             element={
-              user ? <ProfileView user={user} token={token} favoriteMovies={favoriteMovies} movies={movies} onLoggedOut={onLoggedOut} /> : <Navigate to="/login" />
+              user ? (
+                <ProfileView
+                  user={user}
+                  token={token}
+                  favoriteMovies={favoriteMovies}
+                  movies={movies}
+                  onLoggedOut={onLoggedOut}
+                />
+              ) : (
+                <Navigate to="/login" />
+              )
             }
           />
           {/* Home Route */}
@@ -102,23 +139,23 @@ export const MainView = () => {
             path="/"
             element={
               user ? (
-                <>
-                  <Row className="movie-list">
-                    {filteredMovies.length > 0 ? (
-                      filteredMovies.map((movie) => (
-                        <Col md={4} key={movie._id} className="mb-4">
-                          <MovieCard
-                            movie={movie}
-                            isFavorite={favoriteMovies.includes(movie._id)}
-                            toggleFavorite={toggleFavorite}
-                          />
-                        </Col>
-                      ))
-                    ) : (
-                      <div>No movies found</div>
-                    )}
-                  </Row>
-                </>
+                <Row className="movie-list">
+                  {filteredMovies.length > 0 ? (
+                    filteredMovies.map((movie) => (
+                      <Col md={4} key={movie._id} className="mb-4">
+                        <MovieCard
+                          movie={movie}
+                          isFavorite={favoriteMovies.includes(movie._id)}
+                          toggleFavorite={toggleFavorite}
+                        />
+                      </Col>
+                    ))
+                  ) : (
+                    <Col>
+                      <div className="text-center">No movies found</div>
+                    </Col>
+                  )}
+                </Row>
               ) : (
                 <Navigate to="/login" />
               )
@@ -128,6 +165,6 @@ export const MainView = () => {
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </Container>
-    </Router>
+    </>
   );
 };

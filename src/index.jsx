@@ -1,13 +1,14 @@
+
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { MainView } from './components/main-view/main-view';
-import './index.scss'; // Ensure global styles are applied
+import './index.scss'; // Import global styles
 
 const App = () => {
   return (
     <Router>
-      <MainView /> {/* Keep all routing logic inside MainView */}
+      <MainView /> {/* All routing is handled inside MainView */}
     </Router>
   );
 };
