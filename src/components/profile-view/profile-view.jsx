@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Container, Row, Col, Card, Button } from 'react-bootstrap';
+import { Container, Row, Col, Card, Button, Spinner } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import { FavoriteMovies } from './favorite-movies';
 import { ProfileUpdate } from './profile-update';
@@ -7,8 +7,12 @@ import { UserInfo } from './user-info'; // Reuse the UserInfo component
 
 export const ProfileView = ({ user, token, onLoggedOut }) => {
   const [currentUser, setCurrentUser] = useState(user);
+  const [isLoading, setIsLoading] = useState(false); // Loading state for account deletion
 
   const handleDeleteAccount = () => {
+    if (!window.confirm('Are you sure you want to delete your account?')) return;
+
+    setIsLoading(true); // Show loading spinner
     fetch(`https://da-flix-1a4fa4a29dcc.herokuapp.com/users/${user.Username}`, {
       method: 'DELETE',
       headers: {
@@ -27,6 +31,9 @@ export const ProfileView = ({ user, token, onLoggedOut }) => {
       .catch((error) => {
         console.error('Error deleting account:', error);
         alert('An error occurred. Please try again.');
+      })
+      .finally(() => {
+        setIsLoading(false); // Stop loading spinner
       });
   };
 
@@ -56,8 +63,13 @@ export const ProfileView = ({ user, token, onLoggedOut }) => {
             </Card.Body>
           </Card>
 
-          <Button variant="danger" className="mt-3 w-100" onClick={handleDeleteAccount}>
-            Delete Account
+          <Button
+            variant="danger"
+            className="mt-3 w-100"
+            onClick={handleDeleteAccount}
+            disabled={isLoading}
+          >
+            {isLoading ? <Spinner animation="border" size="sm" /> : 'Delete Account'}
           </Button>
         </Col>
 
