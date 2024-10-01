@@ -2,13 +2,11 @@
 @import "~bootstrap/scss/bootstrap";
 
 // Define custom variables
-$primary-color: #ff6f00;
-$secondary-color: #f8f9fa; // Updated to a lighter gray for contrast
+$primary-color: #ff6600;
+$secondary-color: #f8f9fa;
 $font-family: 'Arial', sans-serif;
 $button-hover-darken: 10%;
 $card-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-$navbar-background-color: #343a40;
-$navbar-text-color: #ffffff;
 
 // Global body styling
 body {
@@ -21,23 +19,23 @@ body {
 
 // Navigation Bar styling
 .navbar {
-  background-color: $navbar-background-color;
+  background-color: #333;
+  color: white;
   padding: 15px;
-  border-bottom: 2px solid lighten($primary-color, 20%);
-  
+
   .navbar-brand {
-    font-size: 28px;
+    font-size: 24px;
     font-weight: bold;
     color: $primary-color;
   }
 
   .nav-link {
-    color: $navbar-text-color;
-    font-size: 18px;
+    color: white;
+    font-size: 16px;
     margin-left: 15px;
 
     &:hover {
-      color: lighten($primary-color, 10%);
+      color: lighten(white, 10%);
     }
   }
 
@@ -48,34 +46,6 @@ body {
     &:hover {
       background-color: red;
       color: white;
-    }
-  }
-}
-
-// Styling for the search bar
-.search-bar-container {
-  display: flex;
-  align-items: center;
-  margin-left: auto;
-
-  input[type='text'] {
-    padding: 5px 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    width: 250px;
-    margin-right: 10px;
-  }
-
-  button {
-    background-color: $primary-color;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    padding: 6px 12px;
-    cursor: pointer;
-
-    &:hover {
-      background-color: darken($primary-color, $button-hover-darken);
     }
   }
 }
@@ -99,7 +69,7 @@ form {
   input {
     padding: 10px;
     margin-bottom: 20px;
-    border: 1px solid $primary-color;
+    border: 1px solid #ddd;
     border-radius: 4px;
   }
 
@@ -116,108 +86,45 @@ form {
       background-color: darken($primary-color, $button-hover-darken);
     }
   }
-
-  .password-group {
-    position: relative;
-
-    .password-toggle {
-      position: absolute;
-      top: 35px;
-      right: 10px;
-      cursor: pointer;
-    }
-  }
 }
 
-// Card component styling for movies and favorites
-.movie-card,
-.favorite-movie-card {
-  width: 250px;
-  padding: 15px;
-  text-align: center;
-  background-color: white;
-  border: 1px solid #ccc;
+// Card styling for login/signup
+.card {
+  border-radius: 12px;
   box-shadow: $card-shadow;
-  border-radius: 8px;
-  transition: transform 0.2s;
-
-  &:hover {
-    transform: scale(1.05);
-  }
-
-  img {
-    width: 100%;
-    height: 300px;
-    object-fit: cover;
-    border-radius: 5px;
-  }
-
-  h3 {
-    margin-top: 10px;
-    margin-bottom: 10px;
-    font-size: 1.2rem;
-  }
-
-  p {
-    font-size: 0.9rem;
-    color: gray;
-  }
-
-  button {
-    background-color: $primary-color;
-    border: none;
-    padding: 10px 15px;
-    color: white;
-    border-radius: 4px;
-    cursor: pointer;
-
-    &:hover {
-      background-color: darken($primary-color, $button-hover-darken);
-    }
-
-    &.danger {
-      background-color: red;
-
-      &:hover {
-        background-color: darken(red, 10%);
-      }
-    }
-  }
-}
-
-// Similar movies and book card layout styling
-.similar-movies,
-.similar-books {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
-  justify-content: center;
-}
-
-// Movie details page styling
-.movie-details {
-  margin: 20px auto;
-  max-width: 900px;
-
-  img {
-    width: 100%;
-    height: auto;
-    object-fit: contain;
-    margin-bottom: 20px;
-  }
-
-  .details {
-    margin-bottom: 15px;
-  }
-}
-
-// Movie list styling for the home view
-.movie-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  justify-content: center;
+  background-color: #ffffff;
   padding: 20px;
+  border: none;
+}
+
+// Password toggle button
+.input-group-text {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #0069d9;
+  font-size: 20px;
+  padding-left: 10px;
+}
+
+// Additional Styling for Form Spacing
+.form-group {
+  margin-bottom: 20px;
+}
+
+.text-center {
+  font-size: 14px;
+  margin-top: 10px;
+}
+
+.text-center a {
+  font-weight: 500;
+  color: $primary-color;
+}
+
+/* Container Padding */
+.card-body {
+  padding: 30px;
 }
 
 // Global button styling
@@ -232,94 +139,5 @@ button {
 
   &:hover {
     background-color: darken($primary-color, $button-hover-darken);
-  }
-}
-
-// Profile view layout styling
-.profile-info {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  margin-bottom: 20px;
-
-  h2 {
-    font-size: 24px;
-    margin-bottom: 10px;
-  }
-
-  p {
-    font-size: 16px;
-    margin-bottom: 5px;
-  }
-
-  button {
-    margin-top: 10px;
-  }
-}
-
-// Favorites layout
-.favorite-movies-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
-  justify-content: center;
-  padding: 20px;
-
-  .favorite-movie-card {
-    width: 200px;
-    padding: 10px;
-    text-align: center;
-    background-color: white;
-    border: 1px solid #ccc;
-    box-shadow: $card-shadow;
-    border-radius: 8px;
-    transition: transform 0.2s;
-
-    &:hover {
-      transform: scale(1.05);
-    }
-
-    img {
-      width: 100%;
-      height: auto;
-      object-fit: cover;
-      border-radius: 5px;
-    }
-
-    button {
-      margin-top: 10px;
-      width: 100%;
-    }
-  }
-}
-
-// General text styles
-h1,
-h2,
-h3,
-h4 {
-  color: $primary-color;
-}
-
-p {
-  color: #333;
-}
-
-// Centered message for no movies found
-.no-movies-found {
-  text-align: center;
-  font-size: 18px;
-  color: $primary-color;
-}
-
-// Movie not found page styling
-.movie-not-found {
-  text-align: center;
-  font-size: 24px;
-  color: $primary-color;
-  margin-top: 50px;
-
-  button {
-    margin-top: 20px;
   }
 }
