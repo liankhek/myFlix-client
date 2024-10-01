@@ -11,26 +11,20 @@ export const FavoriteMovies = ({ favMovies, onRemoveFavorite }) => {
   return (
     <Row className="favorite-movies-container">
       {favMovies.map((movie) => (
-        <Col md={4} key={movie._id} className="mb-4">
-          <Card className="favorite-movie-card h-100">
-            <Card.Img
-              variant="top"
-              src={movie.ImagePath}
-              alt={movie.Title}
-              className="favorite-movie-img"
-              style={{ height: '300px', objectFit: 'cover' }}
-            />
-            <Card.Body>
-              <Card.Title>{movie.Title}</Card.Title>
-              <Link to={`/movies/${movie._id}`}>
-                <Button variant="primary" className="me-2">Movie Info</Button>
-              </Link>
-              <Button variant="danger" onClick={() => onRemoveFavorite(movie._id)}>
-                Remove
-              </Button>
-            </Card.Body>
-          </Card>
-        </Col>
+        <Card key={movie._id} className="favorite-movie-card">
+          {movie.ImagePath ? (
+            <Card.Img variant="top" src={movie.ImagePath} alt={movie.Title} />
+          ) : (
+            <Card.Img variant="top" src="/path/to/default-image.jpg" alt="No Image" />
+          )}
+          <Card.Body>
+            <Card.Title>{movie.Title}</Card.Title>
+            <Link to={`/movies/${movie._id}`}>
+              <Button variant="primary" className="me-2">Movie Info</Button>
+            </Link>
+            <Button variant="danger" onClick={() => onRemoveFavorite(movie._id)}>Remove</Button>
+          </Card.Body>
+        </Card>
       ))}
     </Row>
   );
