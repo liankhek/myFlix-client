@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Form, Button } from 'react-bootstrap';
@@ -7,14 +6,14 @@ export const ProfileUpdate = ({ user, token, updatedUser }) => {
   const [username, setUsername] = useState(user.Username);
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState(user.Email);
-  const [birthday, setBirthday] = useState(user.Birthday ? new Date(user.Birthday).toISOString().substr(0,10) : '');
+  const [birthday, setBirthday] = useState(user.Birthday ? new Date(user.Birthday).toISOString().substr(0, 10) : '');
 
   const handleSubmit = (event) => {
     event.preventDefault();
 
     const data = {
       Username: username,
-      Password: password,
+      ...(password && { Password: password }),  // Only update password if provided
       Email: email,
       Birthday: birthday,
     };
@@ -39,10 +38,10 @@ export const ProfileUpdate = ({ user, token, updatedUser }) => {
   };
 
   return (
-    <Form onSubmit={handleSubmit} className="profile-update">
-      <h2>Update Info</h2>
+    <Form onSubmit={handleSubmit} className="profile-update-form">
+      <h2 className="text-center">Update Account Information</h2>
       <Form.Group controlId="formUsername">
-        <Form.Label>Username:</Form.Label>
+        <Form.Label>Username</Form.Label>
         <Form.Control
           type="text"
           value={username}
@@ -51,8 +50,8 @@ export const ProfileUpdate = ({ user, token, updatedUser }) => {
         />
       </Form.Group>
 
-      <Form.Group controlId="formPassword">
-        <Form.Label>Password:</Form.Label>
+      <Form.Group controlId="formPassword" className="mt-3">
+        <Form.Label>Password</Form.Label>
         <Form.Control
           type="password"
           value={password}
@@ -61,8 +60,8 @@ export const ProfileUpdate = ({ user, token, updatedUser }) => {
         />
       </Form.Group>
 
-      <Form.Group controlId="formEmail">
-        <Form.Label>Email:</Form.Label>
+      <Form.Group controlId="formEmail" className="mt-3">
+        <Form.Label>Email</Form.Label>
         <Form.Control
           type="email"
           value={email}
@@ -71,8 +70,8 @@ export const ProfileUpdate = ({ user, token, updatedUser }) => {
         />
       </Form.Group>
 
-      <Form.Group controlId="formBirthday">
-        <Form.Label>Birthday:</Form.Label>
+      <Form.Group controlId="formBirthday" className="mt-3">
+        <Form.Label>Birthday</Form.Label>
         <Form.Control
           type="date"
           value={birthday}
@@ -80,7 +79,7 @@ export const ProfileUpdate = ({ user, token, updatedUser }) => {
         />
       </Form.Group>
 
-      <Button variant="primary" type="submit" className="mt-3">
+      <Button variant="primary" type="submit" className="mt-4">
         Update Profile
       </Button>
     </Form>

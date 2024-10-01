@@ -3,9 +3,8 @@ import PropTypes from 'prop-types';
 
 export const UserInfo = ({ name, email }) => {
   return (
-    <div>
-      <h2>Account Information</h2>
-      <p>Username: {name}</p>
+    <div className="user-info">
+      <h3>Username: {name}</h3>
       <p>Email: {email}</p>
     </div>
   );
@@ -13,5 +12,5 @@ export const UserInfo = ({ name, email }) => {
 
 UserInfo.propTypes = {
   name: PropTypes.string.isRequired,
-  email: PropTypes.string.isRequired
+  email: PropTypes.string.isRequired,
 };

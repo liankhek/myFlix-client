@@ -1,9 +1,9 @@
-
 import React, { useState } from 'react';
 import { Container, Row, Col, Card, Button } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import { FavoriteMovies } from './favorite-movies';
 import { ProfileUpdate } from './profile-update';
+import { UserInfo } from './user-info'; // Reuse the UserInfo component
 
 export const ProfileView = ({ user, token, onLoggedOut }) => {
   const [currentUser, setCurrentUser] = useState(user);
@@ -13,8 +13,8 @@ export const ProfileView = ({ user, token, onLoggedOut }) => {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`
-      }
+        Authorization: `Bearer ${token}`,
+      },
     })
       .then((response) => {
         if (response.ok) {
@@ -35,32 +35,36 @@ export const ProfileView = ({ user, token, onLoggedOut }) => {
   };
 
   return (
-    <Container className="profile-view">
+    <Container className="profile-view mt-4">
       <Row>
-        {/* User Info */}
-        <Col md={6}>
-          <Card>
-            <Card.Header>Your Info</Card.Header>
+        {/* User Info Section */}
+        <Col md={6} className="mb-4">
+          <Card className="user-info-card">
+            <Card.Header className="text-center">Account Information</Card.Header>
             <Card.Body>
-              <p><strong>Username:</strong> {currentUser.Username}</p>
-              <p><strong>Email:</strong> {currentUser.Email}</p>
-              <p><strong>Birthday:</strong> {currentUser.Birthday ? new Date(currentUser.Birthday).toLocaleDateString() : 'N/A'}</p>
+              <UserInfo name={currentUser.Username} email={currentUser.Email} />
+              <p>
+                <strong>Birthday:</strong> {currentUser.Birthday ? new Date(currentUser.Birthday).toLocaleDateString() : 'N/A'}
+              </p>
             </Card.Body>
           </Card>
-          <Card>
+          
+          {/* Update Profile Section */}
+          <Card className="mt-4">
             <Card.Body>
               <ProfileUpdate user={currentUser} token={token} updatedUser={handleUpdateUser} />
             </Card.Body>
           </Card>
-          <Button variant="danger" onClick={handleDeleteAccount}>
+
+          <Button variant="danger" className="mt-3 w-100" onClick={handleDeleteAccount}>
             Delete Account
           </Button>
         </Col>
 
-        {/* Favorite Movies */}
+        {/* Favorite Movies Section */}
         <Col md={6}>
-          <Card>
-            <Card.Header>Favorite Movies</Card.Header>
+          <Card className="favorite-movies-card">
+            <Card.Header className="text-center">Favorite Movies</Card.Header>
             <Card.Body>
               <FavoriteMovies favMovies={currentUser.FavoriteMovies || []} />
             </Card.Body>
