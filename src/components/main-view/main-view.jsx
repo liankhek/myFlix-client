@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Routes, Route, Navigate, useParams } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { LoginView } from '../login-view/login-view';
 import { SignupView } from '../signup-view/signup-view';
 import { MovieView } from '../movie-view/movie-view';
@@ -7,7 +7,7 @@ import { ProfileView } from '../profile-view/profile-view';
 import { NavigationBar } from '../navigation-bar/navigation-bar';
 import { MovieCard } from '../movie-card/movie-card';
 import { Container, Row, Col } from 'react-bootstrap';
-import '../../index.scss'; // Import global styles
+import '../../index.scss'; // Import the global styles
 
 export const MainView = () => {
   const storedUser = JSON.parse(localStorage.getItem('user'));
@@ -17,6 +17,7 @@ export const MainView = () => {
   const [token, setToken] = useState(storedToken || null);
   const [favoriteMovies, setFavoriteMovies] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
+  const [filteredMovies, setFilteredMovies] = useState([]);
 
   useEffect(() => {
     if (!token) return;
@@ -35,6 +36,7 @@ export const MainView = () => {
           ImagePath: movie.ImagePath,
         }));
         setMovies(moviesFromApi);
+        setFilteredMovies(moviesFromApi); // Initialize the full movie list
       })
       .catch((error) => console.error('Error fetching movies:', error));
   }, [token]);
@@ -54,70 +56,59 @@ export const MainView = () => {
     localStorage.clear();
   };
 
-  // Add or Remove favorite movies and persist to server
+  // Add or Remove favorite movies
   const toggleFavorite = (movieId) => {
     const isFavorite = favoriteMovies.includes(movieId);
-    const updatedFavorites = isFavorite
-      ? favoriteMovies.filter((id) => id !== movieId)
-      : [...favoriteMovies, movieId];
-
-    setFavoriteMovies(updatedFavorites);
-
-    // Persist the updated favorites to the backend
-    fetch(`https://da-flix-1a4fa4a29dcc.herokuapp.com/users/${user.Username}/favorites/${movieId}`, {
-      method: isFavorite ? 'DELETE' : 'POST',
-      headers: {
-        Authorization: `Bearer ${token}`,
-        'Content-Type': 'application/json',
-      },
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error('Failed to update favorites');
-        }
-      })
-      .catch((error) => {
-        console.error('Error updating favorites:', error);
-        alert('Failed to update favorites. Please try again.');
-      });
+    if (isFavorite) {
+      setFavoriteMovies(favoriteMovies.filter((id) => id !== movieId));
+    } else {
+      setFavoriteMovies([...favoriteMovies, movieId]);
+    }
   };
 
-  // Filter movies based on search term
-  const filteredMovies = movies.filter((movie) =>
-    movie.Title.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  // Handle search logic
+  const handleSearch = () => {
+    if (!searchTerm) {
+      setFilteredMovies(movies);
+    } else {
+      const filtered = movies.filter((movie) =>
+        movie.Title.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+      setFilteredMovies(filtered);
+    }
+  };
 
   return (
-    <>
-      <NavigationBar user={user} onLoggedOut={onLoggedOut} onSearch={(term) => setSearchTerm(term)} />
+    <div>
+      <NavigationBar
+        user={user}
+        onLoggedOut={onLoggedOut}
+        onSearch={handleSearch}
+        searchTerm={searchTerm}
+        setSearchTerm={setSearchTerm}
+      />
       <Container fluid className="app-container">
         <Routes>
-          {/* Login Route */}
           <Route
             path="/login"
             element={!user ? <LoginView onLoggedIn={onLoggedIn} /> : <Navigate to="/" />}
           />
-          {/* Signup Route */}
           <Route
             path="/signup"
-            element={!user ? <SignupView onLoggedIn={onLoggedIn} /> : <Navigate to="/" />}
+            element={!user ? <SignupView onSignedUp={onLoggedIn} /> : <Navigate to="/" />}
           />
-          {/* Movie Details Route */}
           <Route
             path="/movies/:movieId"
-            element={
-              user ? (
-                <MovieView
-                  movies={movies}
-                  toggleFavorite={toggleFavorite}
-                  favoriteMovies={favoriteMovies}
-                />
-              ) : (
-                <Navigate to="/login" />
-              )
-            }
+            element={user ? (
+              <MovieView
+                movies={movies}
+                toggleFavorite={toggleFavorite}
+                favoriteMovies={favoriteMovies}
+              />
+            ) : (
+              <Navigate to="/login" />
+            )}
           />
-          {/* Profile Route */}
           <Route
             path="/profile"
             element={
@@ -134,7 +125,6 @@ export const MainView = () => {
               )
             }
           />
-          {/* Home Route */}
           <Route
             path="/"
             element={
@@ -151,9 +141,7 @@ export const MainView = () => {
                       </Col>
                     ))
                   ) : (
-                    <Col>
-                      <div className="text-center">No movies found</div>
-                    </Col>
+                    <div>No movies found</div>
                   )}
                 </Row>
               ) : (
@@ -161,10 +149,9 @@ export const MainView = () => {
               )
             }
           />
-          {/* Catch-all Route */}
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </Container>
-    </>
+    </div>
   );
 };
