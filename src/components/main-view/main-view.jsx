@@ -16,7 +16,7 @@ export const MainView = () => {
   const [user, setUser] = useState(storedUser || null);
   const [token, setToken] = useState(storedToken || null);
   const [favoriteMovies, setFavoriteMovies] = useState([]);
-  const [searchTerm, setSearchTerm] = useState(''); // Add searchTerm state
+  const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
     if (!token) return;
@@ -60,23 +60,17 @@ export const MainView = () => {
     localStorage.clear();
   };
 
-  const toggleFavorite = (movieId) => {
-    const isFavorite = favoriteMovies.includes(movieId);
-    if (isFavorite) {
-      setFavoriteMovies(favoriteMovies.filter((id) => id !== movieId));
-    } else {
-      setFavoriteMovies([...favoriteMovies, movieId]);
-    }
-  };
-
+  // This logic should control access to pages based on authentication
   return (
     <div>
-      <NavigationBar
-        user={user}
-        onLoggedOut={onLoggedOut}
-        searchTerm={searchTerm} // Pass searchTerm as a prop
-        onSearch={onSearch} // Pass onSearch as a prop
-      />
+      {user && (
+        <NavigationBar
+          user={user}
+          onLoggedOut={onLoggedOut}
+          searchTerm={searchTerm}
+          onSearch={onSearch}
+        />
+      )}
       <Container fluid className="app-container">
         <Routes>
           <Route
@@ -143,6 +137,7 @@ export const MainView = () => {
               )
             }
           />
+          {/* Catch-all route to redirect non-existent routes */}
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </Container>
