@@ -141,3 +141,10 @@ button {
     background-color: darken($primary-color, $button-hover-darken);
   }
 }
+
+.movie-card img {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+}
+

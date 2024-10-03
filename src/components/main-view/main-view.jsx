@@ -69,9 +69,9 @@ export const MainView = () => {
     }
   };
 
-  // This logic should control access to pages based on authentication
   return (
     <div>
+      {/* Navigation Bar */}
       {user && (
         <NavigationBar
           user={user}
@@ -82,14 +82,17 @@ export const MainView = () => {
       )}
       <Container fluid className="app-container">
         <Routes>
+          {/* Route for Login */}
           <Route
             path="/login"
             element={!user ? <LoginView onLoggedIn={onLoggedIn} /> : <Navigate to="/" />}
           />
+          {/* Route for Signup */}
           <Route
             path="/signup"
             element={!user ? <SignupView onSignedUp={onLoggedIn} /> : <Navigate to="/" />}
           />
+          {/* Route for Single Movie View */}
           <Route
             path="/movies/:movieId"
             element={
@@ -104,6 +107,7 @@ export const MainView = () => {
               )
             }
           />
+          {/* Route for Profile View */}
           <Route
             path="/profile"
             element={
@@ -120,33 +124,32 @@ export const MainView = () => {
               )
             }
           />
+          {/* Home Route */}
           <Route
             path="/"
             element={
               user ? (
-                <>
-                  <Row className="movie-list">
-                    {filteredMovies.length > 0 ? (
-                      filteredMovies.map((movie) => (
-                        <Col md={4} key={movie._id} className="mb-4">
-                          <MovieCard
-                            movie={movie}
-                            isFavorite={favoriteMovies.includes(movie._id)}
-                            toggleFavorite={toggleFavorite}
-                          />
-                        </Col>
-                      ))
-                    ) : (
-                      <div>No movies found</div>
-                    )}
-                  </Row>
-                </>
+                <Row className="movie-list">
+                  {filteredMovies.length > 0 ? (
+                    filteredMovies.map((movie) => (
+                      <Col md={4} key={movie._id} className="mb-4">
+                        <MovieCard
+                          movie={movie}
+                          isFavorite={favoriteMovies.includes(movie._id)}
+                          toggleFavorite={toggleFavorite}
+                        />
+                      </Col>
+                    ))
+                  ) : (
+                    <div>No movies found</div>
+                  )}
+                </Row>
               ) : (
                 <Navigate to="/login" />
               )
             }
           />
-          {/* Catch-all route to redirect non-existent routes */}
+          {/* Catch-all Route */}
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </Container>

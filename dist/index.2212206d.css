@@ -13373,4 +13373,10 @@ button {
 button:hover {
   background-color: #cc5200;
 }
+
+.movie-card img {
+  object-fit: cover;
+  width: 100%;
+  height: 300px;
+}
 /*# sourceMappingURL=index.2212206d.css.map */

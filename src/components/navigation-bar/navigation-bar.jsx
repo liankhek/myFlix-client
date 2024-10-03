@@ -20,10 +20,12 @@ export const NavigationBar = ({ user, onLoggedOut, onSearch }) => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav" className="justify-content-between">
           {user && (
-            <Nav className="me-auto">
-              <Nav.Link as={Link} to="/" className="text-light">Movies</Nav.Link>
-              <Nav.Link as={Link} to="/profile" className="text-light">Profile</Nav.Link>
-            </Nav>
+            <NavigationBar
+              user={user}
+              onLoggedOut={onLoggedOut}
+              searchTerm={searchTerm}
+              onSearch={onSearch}
+            />
           )}
 
           {/* Conditionally remove search bar if on login or signup page */}
