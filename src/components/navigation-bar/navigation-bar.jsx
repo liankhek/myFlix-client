@@ -12,21 +12,17 @@ export const NavigationBar = ({ user, onLoggedOut, onSearch }) => {
   };
 
   return (
-    <Navbar bg="dark" variant="dark" expand="lg" className="py-3">
+    <Navbar bg="dark" variant="dark" expand="lg" className="py-2"> {/* Reduced padding */}
       <Container>
         <Navbar.Brand as={Link} to="/" className="fw-bold" style={{ color: 'orange' }}>
           MyFlix
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav" className="justify-content-between">
-          {user && (
-            <NavigationBar
-              user={user}
-              onLoggedOut={onLoggedOut}
-              searchTerm={searchTerm}
-              onSearch={onSearch}
-            />
-          )}
+          <Nav className="me-auto">
+            <Nav.Link as={Link} to="/" className="text-light">Movies</Nav.Link>
+            <Nav.Link as={Link} to="/profile" className="text-light">Profile</Nav.Link>
+          </Nav>
 
           {/* Conditionally remove search bar if on login or signup page */}
           {!['/login', '/signup'].includes(location.pathname) && user && (
@@ -35,12 +31,10 @@ export const NavigationBar = ({ user, onLoggedOut, onSearch }) => {
                 type="search"
                 name="search"
                 placeholder="Search Movies"
-                className="form-control me-2"
+                className="form-control me-2" // Keeps the input and button on the same line
                 aria-label="Search"
               />
-              <button variant="outline-success" className="btn btn-outline-success">
-                Search
-              </button>
+              <button className="btn btn-outline-success">Search</button>
             </form>
           )}
 
