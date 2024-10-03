@@ -14,4 +14,3 @@ UserInfo.propTypes = {
   name: PropTypes.string.isRequired,
   email: PropTypes.string.isRequired,
 };
-

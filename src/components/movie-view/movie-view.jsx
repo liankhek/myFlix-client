@@ -39,6 +39,7 @@ export const MovieView = ({ movies, toggleFavorite, favoriteMovies }) => {
               alt={movie.Title}
               style={{ width: '100%', maxWidth: '700px', height: 'auto', marginBottom: '20px' }}
             />
+
             {/* Favorite Button */}
             <div className="favorite-icon mt-2">
               {isFavorite ? (

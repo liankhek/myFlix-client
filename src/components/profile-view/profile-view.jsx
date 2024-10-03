@@ -20,87 +20,86 @@ export const ProfileView = ({ user, token, onLoggedOut }) => {
         Authorization: `Bearer ${token}`,
       },
     })
-      .then((response) => {
-        if (response.ok) {
-          alert('Account deleted successfully!');
-          onLoggedOut();
-        } else {
-          alert('Account deletion failed.');
-        }
-      })
-      .catch((error) => {
-        console.error('Error deleting account:', error);
-        alert('An error occurred. Please try again.');
-      })
-      .finally(() => {
-        setIsDeleting(false); // Stop loading
-      });
-  };
+    .then((response) => {
+      if (response.ok) {
+        alert('Account deleted successfully!');
+        onLoggedOut();
+      } else {
+        alert('Account deletion failed.');
+      }
+    })
+    .catch((error) => {
+      console.error('Error deleting account:', error);
+      alert('An error occurred. Please try again.');
+    })
+    .finally(() => {
+      setIsDeleting(false); // Stop loading
+    });
+};
 
-  const handleUpdateUser = (updatedUser) => {
-    setCurrentUser(updatedUser);
-  };
+const handleUpdateUser = (updatedUser) => {
+  setCurrentUser(updatedUser);
+};
 
-  const handleRemoveFavorite = (movieId) => {
-    // Optionally, call toggleFavorite here if you want to remove from local state as well
-    // toggleFavorite(movieId);
-    // For now, assuming onLoggedOut handles everything
-    alert('Feature not implemented yet.');
-  };
+const handleRemoveFavorite = (movieId) => {
+  alert('Feature not implemented yet.');
+};
 
-  return (
-    <Container className="profile-view mt-4">
-      <Row>
-        {/* User Info Section */}
-        <Col md={6} className="mb-4">
-          <Card className="user-info-card">
-            <Card.Header className="text-center">Account Information</Card.Header>
-            <Card.Body>
-              <UserInfo name={currentUser.Username} email={currentUser.Email} />
-              <p>
-                <strong>Birthday:</strong> {currentUser.Birthday ? new Date(currentUser.Birthday).toLocaleDateString() : 'N/A'}
-              </p>
-            </Card.Body>
-          </Card>
+return (
+  <Container className="profile-view mt-4">
+    <Row>
+      {/* User Info Section */}
+      <Col md={6} className="mb-4">
+        <Card className="user-info-card">
+          <Card.Header className="text-center">Account Information</Card.Header>
+          <Card.Body>
+            <UserInfo name={currentUser.Username} email={currentUser.Email} />
+            <p>
+              <strong>Birthday:</strong> {currentUser.Birthday ? new Date(currentUser.Birthday).toLocaleDateString() : 'N/A'}
+            </p>
+          </Card.Body>
+        </Card>
 
-          {/* Update Profile Section */}
-          <Card className="mt-4">
-            <Card.Body>
-              <ProfileUpdate user={currentUser} token={token} updatedUser={handleUpdateUser} />
-            </Card.Body>
-          </Card>
+        {/* Update Profile Section */}
+        <Card className="mt-4">
+          <Card.Body>
+            <ProfileUpdate user={currentUser} token={token} updatedUser={handleUpdateUser} />
+          </Card.Body>
+        </Card>
 
-          <Button
-            variant="danger"
-            className="mt-3 w-100"
-            onClick={handleDeleteAccount}
-            disabled={isDeleting}
-          >
-            {isDeleting ? <Spinner animation="border" size="sm" /> : 'Delete Account'}
-          </Button>
-        </Col>
+        <Button
+          variant="danger"
+          className="mt-3 w-100"
+          onClick={handleDeleteAccount}
+          disabled={isDeleting}
+        >
+          {isDeleting ? <Spinner animation="border" size="sm" /> : 'Delete Account'}
+        </Button>
+      </Col>
 
-        {/* Favorite Movies Section */}
-        <Col md={6}>
-          <Card className="favorite-movies-card">
-            <Card.Header className="text-center">Favorite Movies</Card.Header>
-            <Card.Body>
-              <FavoriteMovies favMovies={currentUser.FavoriteMovies || []} onRemoveFavorite={handleRemoveFavorite} />
-            </Card.Body>
-          </Card>
-        </Col>
-      </Row>
-    </Container>
-  );
+      {/* Favorite Movies Section */}
+      <Col md={6}>
+        <Card className="favorite-movies-card">
+          <Card.Header className="text-center">Favorite Movies</Card.Header>
+          <Card.Body>
+            <FavoriteMovies favMovies={currentUser.FavoriteMovies || []} onRemoveFavorite={handleRemoveFavorite} />
+          </Card.Body>
+        </Card>
+      </Col>
+    </Row>
+  </Container>
+);
 };
 
 ProfileView.propTypes = {
-  user: PropTypes.shape({
-    Username: PropTypes.string.isRequired,
-    Email: PropTypes.string.isRequired,
-    Birthday: PropTypes.string,
-    FavoriteMovies: PropTypes.array,
-  }).isRequired,
-  token: PropTypes.string.isRequired,
-  onLoggedOut: PropTypes.func.isRequired,
+user: PropTypes.shape({
+  Username: PropTypes.string.isRequired,
+  Email: PropTypes.string.isRequired,
+  Birthday: PropTypes.string,
+  FavoriteMovies: PropTypes.array,
+}).isRequired,
+token: PropTypes.string.isRequired,
+onLoggedOut: PropTypes.func.isRequired,
 };
+
+

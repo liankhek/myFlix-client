@@ -60,7 +60,6 @@ export const MainView = () => {
     localStorage.clear();
   };
 
-  // This logic should control access to pages based on authentication
   return (
     <div>
       {user && (
@@ -137,7 +136,6 @@ export const MainView = () => {
               )
             }
           />
-          {/* Catch-all route to redirect non-existent routes */}
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </Container>
