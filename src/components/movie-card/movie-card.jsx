@@ -14,6 +14,7 @@ export const MovieCard = ({ movie, isFavorite, toggleFavorite }) => {
           alt={movie.Title}
           style={{ height: '300px', objectFit: 'cover' }}
         />
+
         {/* Favorite Button */}
         <div className="favorite-icon position-absolute top-0 end-0 p-2">
           {isFavorite ? (
