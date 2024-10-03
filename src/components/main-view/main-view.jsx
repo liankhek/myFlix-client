@@ -60,6 +60,16 @@ export const MainView = () => {
     localStorage.clear();
   };
 
+  // Function to toggle favorites
+  const toggleFavorite = (movieId) => {
+    if (favoriteMovies.includes(movieId)) {
+      setFavoriteMovies(favoriteMovies.filter((id) => id !== movieId));
+    } else {
+      setFavoriteMovies([...favoriteMovies, movieId]);
+    }
+  };
+
+  // This logic should control access to pages based on authentication
   return (
     <div>
       {user && (
@@ -136,6 +146,7 @@ export const MainView = () => {
               )
             }
           />
+          {/* Catch-all route to redirect non-existent routes */}
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </Container>
