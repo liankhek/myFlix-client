@@ -66,7 +66,7 @@ export const LoginView = ({ onLoggedIn }) => {
                   placeholder="Enter password"
                 />
                 <InputGroup.Text onClick={togglePasswordVisibility}>
-                  {passwordShown ? <FaEyeSlash /> : <FaEye />}
+                  {showPassword ? <FaEyeSlash /> : <FaEye />}
                 </InputGroup.Text>
               </InputGroup>
             </Form.Group>
