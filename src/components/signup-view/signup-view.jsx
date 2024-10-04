@@ -95,7 +95,7 @@ export const SignupView = ({ onSignedUp }) => {
               </InputGroup>
             </Form.Group>
 
-            <Button variant="primary" type="submit" className="mt-3 w-100">
+            <Button variant="primary" type="submit" className="mt-3">
               Sign Up
             </Button>
           </Form>

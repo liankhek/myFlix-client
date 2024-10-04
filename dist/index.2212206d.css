@@ -13213,6 +13213,10 @@ body {
   color: #fff;
 }
 
+.navbar .navbar-nav {
+  margin-left: auto;
+}
+
 .navbar .btn-outline-danger {
   color: #fff;
   border-color: #fff;
@@ -13244,6 +13248,10 @@ body {
   border-radius: 8px;
   padding: 12px;
   font-size: 16px;
+}
+
+.form-inline {
+  margin-right: 15px;
 }
 
 input::placeholder {
