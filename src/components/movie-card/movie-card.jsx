@@ -6,7 +6,7 @@ import { FaHeart, FaRegHeart } from 'react-icons/fa'; // Import heart icons for 
 
 export const MovieCard = ({ movie, isFavorite, toggleFavorite }) => {
   return (
-    <Card className="movie-card h-100">
+    <Card className="movie-card h-100" style={{ maxWidth: '250px' }}>
       <div className="position-relative">
         <Card.Img
           variant="top"
@@ -38,9 +38,7 @@ export const MovieCard = ({ movie, isFavorite, toggleFavorite }) => {
       <Card.Body>
         <Card.Title className="text-truncate">{movie.Title}</Card.Title>
         <Card.Text className="movie-description">
-          {movie.Description.length > 120
-            ? `${movie.Description.substring(0, 117)}...`
-            : movie.Description}
+          {movie.Description.substring(0, 100)}...`
         </Card.Text>
         <Link to={`/movies/${movie._id}`}>
           <Button variant="primary" className="w-100">

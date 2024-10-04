@@ -84,7 +84,7 @@ export const SignupView = ({ onSignedUp }) => {
 
             <Form.Group controlId="formPassword" className="mb-3">
               <Form.Label>Password</Form.Label>
-              <div className="password-input">
+              <div className="password-input-with-icon">
                 <Form.Control
                   type={passwordShown ? 'text' : 'password'}
                   value={password}

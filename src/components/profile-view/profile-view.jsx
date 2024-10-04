@@ -82,7 +82,7 @@ return (
         <Card className="favorite-movies-card">
           <Card.Header className="text-center">Favorite Movies</Card.Header>
           <Card.Body>
-            <FavoriteMovies favMovies={currentUser.FavoriteMovies || []} onRemoveFavorite={handleRemoveFavorite} />
+            <FavoriteMovies favMovies={favoriteMovies} toggleFavorite={toggleFavorite} />
           </Card.Body>
         </Card>
       </Col>

@@ -39,8 +39,49 @@ export const MainView = () => {
       .catch((error) => console.error('Error fetching movies:', error));
   }, [token]);
 
+  useEffect(() => {
+    if (!user) return;
+
+    // Fetch favorite movies for the logged-in user
+    fetch(`https://da-flix-1a4fa4a29dcc.herokuapp.com/users/${user.Username}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+      .then((response) => response.json())
+      .then((data) => setFavoriteMovies(data.FavoriteMovies || []))
+      .catch((error) => console.error('Error fetching favorite movies:', error));
+  }, [token, user]);
+
   const onSearch = (term) => {
     setSearchTerm(term);
+  };
+
+  const resetSearch = () => {
+    setSearchTerm('');
+  };
+
+  const toggleFavorite = (movieId) => {
+    const isFavorite = favoriteMovies.includes(movieId);
+    const method = isFavorite ? 'DELETE' : 'POST';
+
+    fetch(
+      `https://da-flix-1a4fa4a29dcc.herokuapp.com/users/${user.Username}/movies/${movieId}`,
+      {
+        method: method,
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    )
+      .then((response) => {
+        if (response.ok) {
+          if (isFavorite) {
+            setFavoriteMovies(favoriteMovies.filter((id) => id !== movieId));
+          } else {
+            setFavoriteMovies([...favoriteMovies, movieId]);
+          }
+        } else {
+          alert('Failed to update favorites');
+        }
+      })
+      .catch((error) => console.error('Error updating favorite movies:', error));
   };
 
   const filteredMovies = movies.filter((movie) =>
@@ -60,7 +101,6 @@ export const MainView = () => {
     localStorage.clear();
   };
 
-  // Control access to pages based on authentication
   return (
     <div>
       {user && (
@@ -69,6 +109,7 @@ export const MainView = () => {
           onLoggedOut={onLoggedOut}
           searchTerm={searchTerm}
           onSearch={onSearch}
+          resetSearch={resetSearch}
         />
       )}
       <Container fluid className="app-container">
@@ -88,6 +129,7 @@ export const MainView = () => {
                 <MovieView
                   movies={movies}
                   favoriteMovies={favoriteMovies}
+                  toggleFavorite={toggleFavorite}
                 />
               ) : (
                 <Navigate to="/login" />
@@ -104,6 +146,7 @@ export const MainView = () => {
                   favoriteMovies={favoriteMovies}
                   movies={movies}
                   onLoggedOut={onLoggedOut}
+                  toggleFavorite={toggleFavorite}
                 />
               ) : (
                 <Navigate to="/login" />
@@ -120,6 +163,8 @@ export const MainView = () => {
                       <Col md={4} key={movie._id} className="mb-4">
                         <MovieCard
                           movie={movie}
+                          isFavorite={favoriteMovies.includes(movie._id)}
+                          toggleFavorite={toggleFavorite}
                         />
                       </Col>
                     ))
