@@ -13194,7 +13194,7 @@ body {
 .navbar {
   color: #fff;
   background-color: #333;
-  padding: 15px;
+  padding: 10px 20px;
 }
 
 .navbar .navbar-brand {
@@ -13221,6 +13221,15 @@ body {
 .navbar .btn-outline-danger:hover {
   color: #fff;
   background-color: red;
+}
+
+.navbar form {
+  align-items: center;
+  display: flex;
+}
+
+.navbar form input {
+  margin-right: 10px;
 }
 
 .auth-container {
@@ -13314,6 +13323,18 @@ input::placeholder {
   transform: scale(1.05);
 }
 
+.card-img-top {
+  object-fit: cover;
+  height: 300px;
+  max-height: 300px;
+}
+
+.movie-description {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
 button {
   color: #fff;
   cursor: pointer;
@@ -13346,5 +13367,25 @@ a:hover {
 
 .card-body {
   padding: 30px;
+}
+
+.favorite-icon {
+  cursor: pointer;
+  z-index: 1;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+.favorite-icon:hover {
+  transform: scale(1.2);
+}
+
+.favorite-icon .fa-heart {
+  color: red;
+}
+
+.favorite-icon .fa-reg-heart {
+  color: gray;
 }
 /*# sourceMappingURL=index.2212206d.css.map */
