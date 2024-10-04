@@ -12,28 +12,37 @@ export const NavigationBar = ({ user, onLoggedOut, onSearch }) => {
   };
 
   return (
-    <Navbar bg="dark" variant="dark" expand="lg" className="py-2">
+    <Navbar bg="dark" variant="dark" expand="lg" className="py-3">
       <Container>
         <Navbar.Brand as={Link} to="/" className="fw-bold" style={{ color: 'orange' }}>
           MyFlix
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav" className="justify-content-between">
-          <Nav className="me-auto">
-            <Nav.Link as={Link} to="/" className="text-light">Movies</Nav.Link>
-            <Nav.Link as={Link} to="/profile" className="text-light">Profile</Nav.Link>
-          </Nav>
+          {user && (
+            <Nav className="me-auto">
+              <Nav.Link as={Link} to="/" className="text-light">
+                Movies
+              </Nav.Link>
+              <Nav.Link as={Link} to="/profile" className="text-light">
+                Profile
+              </Nav.Link>
+            </Nav>
+          )}
 
+          {/* Conditionally remove search bar if on login or signup page */}
           {!['/login', '/signup'].includes(location.pathname) && user && (
             <form className="d-flex" onSubmit={handleSearch}>
               <input
                 type="search"
                 name="search"
                 placeholder="Search Movies"
-                className="form-control me-2" 
+                className="form-control me-2"
                 aria-label="Search"
               />
-              <button className="btn btn-outline-success">Search</button>
+              <button type="submit" className="btn btn-outline-success">
+                Search
+              </button>
             </form>
           )}
 
