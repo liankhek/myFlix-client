@@ -5,7 +5,7 @@ import { FavoriteMovies } from './favorite-movies';
 import { ProfileUpdate } from './profile-update';
 import { UserInfo } from './user-info'; // Reuse the UserInfo component
 
-export const ProfileView = ({ user, token, favoriteMovies, toggleFavorite, onLoggedOut }) => {
+export const ProfileView = ({ user, token, favoriteMovies, toggleFavorite }) => {
   const [currentUser, setCurrentUser] = useState(user);
   const [isDeleting, setIsDeleting] = useState(false); 
 
@@ -82,7 +82,11 @@ return (
           <Card className="favorite-movies-card">
             <Card.Header className="text-center">Favorite Movies</Card.Header>
             <Card.Body>
-              <FavoriteMovies favMovies={favoriteMovies} toggleFavorite={toggleFavorite} />
+              {favoriteMovies.length ? (
+                <FavoriteMovies favMovies={favoriteMovies} toggleFavorite={toggleFavorite} />
+              ) : (
+                <p>No favorite movies yet</p>
+              )}
             </Card.Body>
           </Card>
         </Col>
@@ -99,9 +103,8 @@ ProfileView.propTypes = {
     FavoriteMovies: PropTypes.array,
   }).isRequired,
   token: PropTypes.string.isRequired,
+  onLoggedOut: PropTypes.func.isRequired,
   favoriteMovies: PropTypes.array.isRequired,
   toggleFavorite: PropTypes.func.isRequired,
-  onLoggedOut: PropTypes.func.isRequired,
 };
-
 
