@@ -83,7 +83,7 @@ export const SignupView = ({ onSignedUp }) => {
               <Form.Label>Password</Form.Label>
               <InputGroup>
                 <Form.Control
-                  type={passwordShown ? 'text' : 'password'}
+                  type={showPassword ? 'text' : 'password'}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
