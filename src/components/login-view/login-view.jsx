@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Form, Button, Card, InputGroup, Container } from 'react-bootstrap';
+import { Form, Button, Card, InputGroup } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import '../../index.scss';
@@ -7,10 +7,10 @@ import '../../index.scss';
 export const LoginView = ({ onLoggedIn }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [passwordShown, setPasswordShown] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const togglePasswordVisibility = () => {
-    setPasswordShown(!passwordShown);
+    setShowPassword(!showPassword);
   };
 
   const handleSubmit = (event) => {
@@ -37,7 +37,7 @@ export const LoginView = ({ onLoggedIn }) => {
   };
 
   return (
-    <Container className="d-flex justify-content-center align-items-center min-vh-100">
+    <div className="d-flex justify-content-center align-items-center min-vh-100">
       <Card className="p-4" style={{ maxWidth: '400px', width: '100%' }}>
         <Card.Body>
           <Card.Title className="text-center mb-4" style={{ fontSize: '32px', fontWeight: 'bold' }}>
@@ -82,6 +82,6 @@ export const LoginView = ({ onLoggedIn }) => {
           </p>
         </Card.Footer>
       </Card>
-    </Container>
+    </div>
   );
 };
