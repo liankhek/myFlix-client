@@ -40,7 +40,7 @@ export const LoginView = ({ onLoggedIn }) => {
     <div className="auth-container">
       <Card className="card">
         <Card.Body>
-          <Card.Title className="text-center mb-4">Login to MyFlix</Card.Title>
+          <Card.Title className="text-center mb-4">Welcome to MyFlix</Card.Title>
           <Form onSubmit={handleSubmit}>
             <Form.Group controlId="formUsername" className="mb-3">
               <Form.Label>Username</Form.Label>
@@ -55,7 +55,7 @@ export const LoginView = ({ onLoggedIn }) => {
 
             <Form.Group controlId="formPassword" className="mb-3">
               <Form.Label>Password</Form.Label>
-              <div className="password-input">
+              <div className="password-input-with-icon">
                 <Form.Control
                   type={passwordShown ? 'text' : 'password'}
                   value={password}

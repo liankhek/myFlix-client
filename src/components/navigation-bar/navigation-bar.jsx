@@ -21,10 +21,19 @@ export const NavigationBar = ({ user, onLoggedOut, onSearch }) => {
         <Navbar.Collapse id="basic-navbar-nav" className="justify-content-between">
           {user && (
             <Nav className="me-auto">
-              <Nav.Link as={Link} to="/" className="text-light">
+              <Nav.Link 
+                as={Link}
+                to="/"
+                className="text-light"
+                onClick={resetSearch} // Reset search when clicking the Movies or MyFlix link
+              >
                 Movies
               </Nav.Link>
-              <Nav.Link as={Link} to="/profile" className="text-light">
+              <Nav.Link 
+                as={Link} 
+                to="/profile" 
+                className="text-light"
+              >
                 Profile
               </Nav.Link>
             </Nav>

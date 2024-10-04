@@ -21,7 +21,7 @@ body {
 .navbar {
   background-color: #333;
   color: white;
-  padding: 15px;
+  padding: 10px 20px;
 
   .navbar-brand {
     font-size: 24px;
@@ -46,6 +46,14 @@ body {
     &:hover {
       background-color: red;
       color: white;
+    }
+  }
+
+  form {
+    display: flex;
+    align-items: center;
+    input {
+      margin-right: 10px;
     }
   }
 }
@@ -148,6 +156,19 @@ input::placeholder {
   }
 }
 
+.card-img-top {
+  height: 300px;
+  object-fit: cover;
+  max-height: 300px;
+}
+
+// Movie description truncation
+.movie-description {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
 // Additional global button styling
 button {
   background-color: $primary-color;
@@ -184,4 +205,25 @@ a:hover {
 // Card-body Padding
 .card-body {
   padding: 30px;
+}
+
+// Favorite Icon Styling
+.favorite-icon {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+  z-index: 1;
+  &:hover {
+    transform: scale(1.2);
+  }
+}
+
+// Favorite Icon Color
+.favorite-icon .fa-heart {
+  color: red;
+}
+
+.favorite-icon .fa-reg-heart {
+  color: gray;
 }
