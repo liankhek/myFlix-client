@@ -7,7 +7,7 @@ import { ProfileView } from '../profile-view/profile-view';
 import { NavigationBar } from '../navigation-bar/navigation-bar';
 import { MovieCard } from '../movie-card/movie-card';
 import { Container, Row, Col } from 'react-bootstrap';
-import '../../index.scss'; // Import the global styles
+import '../../index.scss';
 
 export const MainView = () => {
   const storedUser = JSON.parse(localStorage.getItem('user'));
@@ -60,18 +60,9 @@ export const MainView = () => {
     localStorage.clear();
   };
 
-  // Function to toggle favorites
-  const toggleFavorite = (movieId) => {
-    if (favoriteMovies.includes(movieId)) {
-      setFavoriteMovies(favoriteMovies.filter((id) => id !== movieId));
-    } else {
-      setFavoriteMovies([...favoriteMovies, movieId]);
-    }
-  };
-
+  // Control access to pages based on authentication
   return (
     <div>
-      {/* Navigation Bar */}
       {user && (
         <NavigationBar
           user={user}
@@ -82,24 +73,20 @@ export const MainView = () => {
       )}
       <Container fluid className="app-container">
         <Routes>
-          {/* Route for Login */}
           <Route
             path="/login"
             element={!user ? <LoginView onLoggedIn={onLoggedIn} /> : <Navigate to="/" />}
           />
-          {/* Route for Signup */}
           <Route
             path="/signup"
             element={!user ? <SignupView onSignedUp={onLoggedIn} /> : <Navigate to="/" />}
           />
-          {/* Route for Single Movie View */}
           <Route
             path="/movies/:movieId"
             element={
               user ? (
                 <MovieView
                   movies={movies}
-                  toggleFavorite={toggleFavorite}
                   favoriteMovies={favoriteMovies}
                 />
               ) : (
@@ -107,7 +94,6 @@ export const MainView = () => {
               )
             }
           />
-          {/* Route for Profile View */}
           <Route
             path="/profile"
             element={
@@ -124,7 +110,6 @@ export const MainView = () => {
               )
             }
           />
-          {/* Home Route */}
           <Route
             path="/"
             element={
@@ -135,8 +120,6 @@ export const MainView = () => {
                       <Col md={4} key={movie._id} className="mb-4">
                         <MovieCard
                           movie={movie}
-                          isFavorite={favoriteMovies.includes(movie._id)}
-                          toggleFavorite={toggleFavorite}
                         />
                       </Col>
                     ))
@@ -149,7 +132,7 @@ export const MainView = () => {
               )
             }
           />
-          {/* Catch-all Route */}
+          {/* Catch-all route to redirect non-existent routes */}
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </Container>
