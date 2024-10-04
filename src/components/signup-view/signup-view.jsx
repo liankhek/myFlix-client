@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
-import { Form, Button, Card } from 'react-bootstrap';
+import { Form, Button, Card, InputGroup, Container } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import '../../index.scss';
 
 export const SignupView = ({ onSignedUp }) => {
   const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
   const [birthday, setBirthday] = useState('');
+  const [password, setPassword] = useState('');
   const [passwordShown, setPasswordShown] = useState(false);
 
   const togglePasswordVisibility = () => {
@@ -17,25 +17,19 @@ export const SignupView = ({ onSignedUp }) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const data = {
-      Username: username,
-      Password: password,
-      Email: email,
-      Birthday: birthday
-    };
+    const data = { Username: username, Password: password, Email: email, Birthday: birthday };
 
     fetch('https://da-flix-1a4fa4a29dcc.herokuapp.com/users', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data)
+      body: JSON.stringify(data),
     })
       .then((response) => response.json())
       .then((data) => {
         if (data) {
-          alert('Signup successful!');
-          onSignedUp(data);
+          onSignedUp(data.user, data.token);
         } else {
-          alert('Signup failed');
+          alert('Sign-up failed');
         }
       })
       .catch((e) => {
@@ -45,11 +39,11 @@ export const SignupView = ({ onSignedUp }) => {
   };
 
   return (
-    <div className="auth-container">
-      <Card className="auth-card">
+    <Container className="d-flex justify-content-center align-items-center min-vh-100">
+      <Card className="p-4" style={{ maxWidth: '400px', width: '100%' }}>
         <Card.Body>
           <Card.Title className="text-center mb-4" style={{ fontSize: '32px', fontWeight: 'bold' }}>
-            Login for MyFlix
+            Sign Up for MyFlix
           </Card.Title>
           <Form onSubmit={handleSubmit}>
             <Form.Group controlId="formUsername" className="mt-3">
@@ -81,6 +75,7 @@ export const SignupView = ({ onSignedUp }) => {
                 value={birthday}
                 onChange={(e) => setBirthday(e.target.value)}
                 required
+                placeholder="MM/DD/YYYY"
               />
             </Form.Group>
 
@@ -88,29 +83,29 @@ export const SignupView = ({ onSignedUp }) => {
               <Form.Label>Password</Form.Label>
               <InputGroup>
                 <Form.Control
-                  type={showPassword ? 'text' : 'password'}
+                  type={passwordShown ? 'text' : 'password'}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
                   placeholder="Enter password"
                 />
                 <InputGroup.Text onClick={togglePasswordVisibility}>
-                  {showPassword ? <FaEyeSlash /> : <FaEye />}
+                  {passwordShown ? <FaEyeSlash /> : <FaEye />}
                 </InputGroup.Text>
               </InputGroup>
             </Form.Group>
 
-            <Button variant="primary" type="submit" className="w-100">
+            <Button variant="primary" type="submit" className="mt-3 w-100">
               Sign Up
             </Button>
           </Form>
         </Card.Body>
-        <Card.Footer className="text-center">
+        <Card.Footer className="text-center mt-3">
           <p>
             Already have an account? <Link to="/login">Login here</Link>
           </p>
         </Card.Footer>
       </Card>
-    </div>
+    </Container>
   );
 };

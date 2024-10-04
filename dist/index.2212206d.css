@@ -333,11 +333,6 @@ sup {
   top: -.5em;
 }
 
-a {
-  color: rgba(var(--bs-link-color-rgb), var(--bs-link-opacity, 1));
-  text-decoration: underline;
-}
-
 a:hover {
   --bs-link-color-rgb: var(--bs-link-hover-color-rgb);
 }
@@ -13228,35 +13223,6 @@ body {
   background-color: red;
 }
 
-.navbar .btn-outline-success {
-  margin-left: 10px;
-}
-
-.movie-list {
-  flex-wrap: wrap;
-  justify-content: space-between;
-  padding: 20px;
-  display: flex;
-}
-
-.movie-card {
-  border-radius: 12px;
-  flex: 22%;
-  max-width: 22%;
-  margin: 10px;
-  transition: transform .3s;
-  box-shadow: 0 4px 8px #0000001a;
-}
-
-.movie-card:hover {
-  transform: scale(1.05);
-}
-
-.card-img-top {
-  object-fit: contain;
-  height: 300px;
-}
-
 .auth-container {
   background-color: #f5f5f5;
   justify-content: center;
@@ -13265,11 +13231,23 @@ body {
   display: flex;
 }
 
+.card {
+  background-color: #fff;
+  border: none;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 8px #0000001a;
+}
+
 .form-control {
   border: 1px solid #ddd;
   border-radius: 8px;
   padding: 12px;
   font-size: 16px;
+}
+
+input::placeholder {
+  color: #aaa;
 }
 
 .btn {
@@ -13311,6 +13289,36 @@ body {
   font-size: 20px;
 }
 
+.form-group {
+  margin-bottom: 20px;
+}
+
+.text-center {
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+.movie-list {
+  flex-wrap: wrap;
+  padding: 20px;
+  display: flex;
+}
+
+.movie-card {
+  border-radius: 12px;
+  transition: transform .2s;
+  box-shadow: 0 4px 8px #0000001a;
+}
+
+.movie-card:hover {
+  transform: scale(1.05);
+}
+
+.card-img-top {
+  object-fit: contain;
+  height: 300px;
+}
+
 button {
   color: #fff;
   cursor: pointer;
@@ -13325,18 +13333,16 @@ button:hover {
   background-color: #cc5200;
 }
 
-.profile-container {
-  padding: 20px;
+a {
+  color: #f60;
+  text-decoration: none;
 }
 
-.favorite-movies-card {
-  margin-top: 20px;
+a:hover {
+  text-decoration: underline;
 }
 
-.favorite-icon {
-  cursor: pointer;
-  position: absolute;
-  top: 10px;
-  right: 10px;
+.card-body {
+  padding: 30px;
 }
 /*# sourceMappingURL=index.2212206d.css.map */

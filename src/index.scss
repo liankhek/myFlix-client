@@ -48,36 +48,6 @@ body {
       color: white;
     }
   }
-
-  .btn-outline-success {
-    margin-left: 10px;
-  }
-}
-
-// Movie grid layout
-.movie-list {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  padding: 20px;
-}
-
-.movie-card {
-  border-radius: 12px;
-  flex: 1 1 22%;
-  max-width: 22%;
-  margin: 10px;
-  box-shadow: $card-shadow;
-  transition: transform 0.3s ease;
-  
-  &:hover {
-    transform: scale(1.05);
-  }
-}
-
-.card-img-top {
-  height: 300px;
-  object-fit: contain;
 }
 
 // Container styling for login/signup forms
@@ -89,12 +59,25 @@ body {
   background-color: #f5f5f5;
 }
 
+// General card styling for login and signup forms
+.card {
+  border-radius: 12px;
+  box-shadow: $card-shadow;
+  background-color: #ffffff;
+  padding: 20px;
+  border: none;
+}
+
 // Form control styling for input fields
 .form-control {
   border-radius: 8px;
   padding: 12px;
   border: 1px solid #ddd;
   font-size: 16px;
+}
+
+input::placeholder {
+  color: #aaa;
 }
 
 // Button styling
@@ -138,6 +121,38 @@ body {
   padding-left: 10px;
 }
 
+// Additional styling for form spacing
+.form-group {
+  margin-bottom: 20px;
+}
+
+.text-center {
+  font-size: 14px;
+  margin-top: 10px;
+}
+
+// Container for movie list
+.movie-list {
+  padding: 20px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+// Movie card styling
+.movie-card {
+  border-radius: 12px;
+  box-shadow: $card-shadow;
+  transition: transform 0.2s ease;
+  &:hover {
+    transform: scale(1.05);
+  }
+}
+
+.card-img-top {
+  height: 300px;
+  object-fit: contain;
+}
+
 // Additional global button styling
 button {
   background-color: $primary-color;
@@ -153,18 +168,17 @@ button {
   }
 }
 
-// Profile view and card styling
-.profile-container {
-  padding: 20px;
+// Link Styling
+a {
+  color: $primary-color;
+  text-decoration: none;
 }
 
-.favorite-movies-card {
-  margin-top: 20px;
+a:hover {
+  text-decoration: underline;
 }
 
-.favorite-icon {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  cursor: pointer;
+// Card-body Padding
+.card-body {
+  padding: 30px;
 }
