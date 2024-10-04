@@ -5,14 +5,14 @@ import { FavoriteMovies } from './favorite-movies';
 import { ProfileUpdate } from './profile-update';
 import { UserInfo } from './user-info'; // Reuse the UserInfo component
 
-export const ProfileView = ({ user, token, onLoggedOut }) => {
+export const ProfileView = ({ user, token, favoriteMovies, toggleFavorite, onLoggedOut }) => {
   const [currentUser, setCurrentUser] = useState(user);
-  const [isDeleting, setIsDeleting] = useState(false); // Loading state for account deletion
+  const [isDeleting, setIsDeleting] = useState(false); 
 
   const handleDeleteAccount = () => {
     if (!window.confirm('Are you sure you want to delete your account?')) return;
 
-    setIsDeleting(true); // Start loading
+    setIsDeleting(true); 
     fetch(`https://da-flix-1a4fa4a29dcc.herokuapp.com/users/${user.Username}`, {
       method: 'DELETE',
       headers: {
@@ -33,13 +33,13 @@ export const ProfileView = ({ user, token, onLoggedOut }) => {
       alert('An error occurred. Please try again.');
     })
     .finally(() => {
-      setIsDeleting(false); // Stop loading
+      setIsDeleting(false); 
     });
-};
+  };
 
-const handleUpdateUser = (updatedUser) => {
-  setCurrentUser(updatedUser);
-};
+  const handleUpdateUser = (updatedUser) => {
+    setCurrentUser(updatedUser);
+  };
 
 const handleRemoveFavorite = (movieId) => {
   alert('Feature not implemented yet.');
@@ -79,27 +79,29 @@ return (
 
       {/* Favorite Movies Section */}
       <Col md={6}>
-        <Card className="favorite-movies-card">
-          <Card.Header className="text-center">Favorite Movies</Card.Header>
-          <Card.Body>
-            <FavoriteMovies favMovies={favoriteMovies} toggleFavorite={toggleFavorite} />
-          </Card.Body>
-        </Card>
-      </Col>
-    </Row>
-  </Container>
-);
+          <Card className="favorite-movies-card">
+            <Card.Header className="text-center">Favorite Movies</Card.Header>
+            <Card.Body>
+              <FavoriteMovies favMovies={favoriteMovies} toggleFavorite={toggleFavorite} />
+            </Card.Body>
+          </Card>
+        </Col>
+      </Row>
+    </Container>
+  );
 };
 
 ProfileView.propTypes = {
-user: PropTypes.shape({
-  Username: PropTypes.string.isRequired,
-  Email: PropTypes.string.isRequired,
-  Birthday: PropTypes.string,
-  FavoriteMovies: PropTypes.array,
-}).isRequired,
-token: PropTypes.string.isRequired,
-onLoggedOut: PropTypes.func.isRequired,
+  user: PropTypes.shape({
+    Username: PropTypes.string.isRequired,
+    Email: PropTypes.string.isRequired,
+    Birthday: PropTypes.string,
+    FavoriteMovies: PropTypes.array,
+  }).isRequired,
+  token: PropTypes.string.isRequired,
+  favoriteMovies: PropTypes.array.isRequired,
+  toggleFavorite: PropTypes.func.isRequired,
+  onLoggedOut: PropTypes.func.isRequired,
 };
 
 

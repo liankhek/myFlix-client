@@ -143,7 +143,6 @@ export const MainView = () => {
                   user={user}
                   token={token}
                   favoriteMovies={favoriteMovies}
-                  movies={movies}
                   onLoggedOut={onLoggedOut}
                   toggleFavorite={toggleFavorite}
                 />
@@ -159,7 +158,7 @@ export const MainView = () => {
                 <Row className="movie-list">
                   {filteredMovies.length > 0 ? (
                     filteredMovies.map((movie) => (
-                      <Col md={4} key={movie._id} className="mb-4">
+                      <Col md={3} key={movie._id} className="mb-4">
                         <MovieCard
                           movie={movie}
                           isFavorite={favoriteMovies.includes(movie._id)}
@@ -176,7 +175,6 @@ export const MainView = () => {
               )
             }
           />
-          {/* Catch-all route to redirect non-existent routes */}
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </Container>

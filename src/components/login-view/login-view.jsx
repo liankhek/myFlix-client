@@ -10,7 +10,7 @@ export const LoginView = ({ onLoggedIn }) => {
   const [passwordShown, setPasswordShown] = useState(false);
 
   const togglePasswordVisibility = () => {
-    setPasswordShown(!passwordShown);
+    setPasswordShown(!showPassword);
   };
 
   const handleSubmit = (event) => {
@@ -27,7 +27,7 @@ export const LoginView = ({ onLoggedIn }) => {
         if (data.user) {
           onLoggedIn(data.user, data.token);
         } else {
-          alert('Login failed');
+          alert('No such user');
         }
       })
       .catch((e) => {
@@ -40,9 +40,11 @@ export const LoginView = ({ onLoggedIn }) => {
     <div className="auth-container">
       <Card className="card">
         <Card.Body>
-          <Card.Title className="text-center mb-4">Welcome to MyFlix</Card.Title>
+          <Card.Title className="text-center mb-4" style={{ fontSize: '32px', fontWeight: 'bold' }}>
+            Login for MyFlix
+          </Card.Title>          
           <Form onSubmit={handleSubmit}>
-            <Form.Group controlId="formUsername" className="mb-3">
+            <Form.Group controlId="formUsername" className="mt-3">
               <Form.Label>Username</Form.Label>
               <Form.Control
                 type="text"
@@ -53,28 +55,28 @@ export const LoginView = ({ onLoggedIn }) => {
               />
             </Form.Group>
 
-            <Form.Group controlId="formPassword" className="mb-3">
+            <Form.Group controlId="formPassword" className="mt-3">
               <Form.Label>Password</Form.Label>
-              <div className="password-input-with-icon">
+              <InputGroup>
                 <Form.Control
-                  type={passwordShown ? 'text' : 'password'}
+                  type={showPassword ? 'text' : 'password'}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
                   placeholder="Enter password"
                 />
-                <span onClick={togglePasswordVisibility} className="password-toggle-icon">
-                  {passwordShown ? <FaEyeSlash /> : <FaEye />}
-                </span>
-              </div>
+                <InputGroup.Text onClick={togglePasswordVisibility}>
+                  {showPassword ? <FaEyeSlash /> : <FaEye />}
+                </InputGroup.Text>
+              </InputGroup>
             </Form.Group>
 
-            <Button variant="primary" type="submit" className="w-100">
+            <Button variant="primary" type="submit" className="mt-3">
               Login
             </Button>
           </Form>
         </Card.Body>
-        <Card.Footer className="text-center">
+        <Card.Footer className="text-center mt-3">
           <p>
             Don't have an account? <Link to="/signup">Sign up!</Link>
           </p>
