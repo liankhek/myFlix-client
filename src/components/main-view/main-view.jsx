@@ -107,7 +107,6 @@ export const MainView = () => {
         <NavigationBar
           user={user}
           onLoggedOut={onLoggedOut}
-          searchTerm={searchTerm}
           onSearch={onSearch}
           resetSearch={resetSearch}
         />
