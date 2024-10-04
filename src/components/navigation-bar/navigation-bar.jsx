@@ -2,7 +2,7 @@ import React from 'react';
 import { Navbar, Nav, Container } from 'react-bootstrap';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 
-export const NavigationBar = ({ user, onLoggedOut, onSearch }) => {
+export const NavigationBar = ({ user, onLoggedOut, onSearch, resetSearch }) => {
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -33,6 +33,7 @@ export const NavigationBar = ({ user, onLoggedOut, onSearch }) => {
                 as={Link} 
                 to="/profile" 
                 className="text-light"
+                onClick={resetSearch} // Reset search when navigating to profile
               >
                 Profile
               </Nav.Link>
