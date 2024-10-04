@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Form, Button, Card } from 'react-bootstrap';
+import { Form, Button, Card, InputGroup, Container } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import '../../index.scss';
@@ -10,7 +10,7 @@ export const LoginView = ({ onLoggedIn }) => {
   const [passwordShown, setPasswordShown] = useState(false);
 
   const togglePasswordVisibility = () => {
-    setPasswordShown(!showPassword);
+    setPasswordShown(!passwordShown);
   };
 
   const handleSubmit = (event) => {
@@ -20,7 +20,7 @@ export const LoginView = ({ onLoggedIn }) => {
     fetch('https://da-flix-1a4fa4a29dcc.herokuapp.com/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data)
+      body: JSON.stringify(data),
     })
       .then((response) => response.json())
       .then((data) => {
@@ -37,12 +37,12 @@ export const LoginView = ({ onLoggedIn }) => {
   };
 
   return (
-    <div className="auth-container">
-      <Card className="card">
+    <Container className="d-flex justify-content-center align-items-center min-vh-100">
+      <Card className="p-4" style={{ maxWidth: '400px', width: '100%' }}>
         <Card.Body>
           <Card.Title className="text-center mb-4" style={{ fontSize: '32px', fontWeight: 'bold' }}>
             Login for MyFlix
-          </Card.Title>          
+          </Card.Title>
           <Form onSubmit={handleSubmit}>
             <Form.Group controlId="formUsername" className="mt-3">
               <Form.Label>Username</Form.Label>
@@ -59,19 +59,19 @@ export const LoginView = ({ onLoggedIn }) => {
               <Form.Label>Password</Form.Label>
               <InputGroup>
                 <Form.Control
-                  type={showPassword ? 'text' : 'password'}
+                  type={passwordShown ? 'text' : 'password'}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
                   placeholder="Enter password"
                 />
                 <InputGroup.Text onClick={togglePasswordVisibility}>
-                  {showPassword ? <FaEyeSlash /> : <FaEye />}
+                  {passwordShown ? <FaEyeSlash /> : <FaEye />}
                 </InputGroup.Text>
               </InputGroup>
             </Form.Group>
 
-            <Button variant="primary" type="submit" className="mt-3">
+            <Button variant="primary" type="submit" className="mt-3 w-100">
               Login
             </Button>
           </Form>
@@ -82,6 +82,6 @@ export const LoginView = ({ onLoggedIn }) => {
           </p>
         </Card.Footer>
       </Card>
-    </div>
+    </Container>
   );
 };
