@@ -9,10 +9,10 @@ export const SignupView = ({ onSignedUp }) => {
   const [email, setEmail] = useState('');
   const [birthday, setBirthday] = useState('');
   const [password, setPassword] = useState('');
-  const [passwordShown, setPasswordShown] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const togglePasswordVisibility = () => {
-    setPasswordShown(!passwordShown);
+    setShowPassword(!showPassword);
   };
 
   const handleSubmit = (event) => {
@@ -39,7 +39,7 @@ export const SignupView = ({ onSignedUp }) => {
   };
 
   return (
-    <Container className="d-flex justify-content-center align-items-center min-vh-100">
+    <div className="d-flex justify-content-center align-items-center min-vh-100">
       <Card className="p-4" style={{ maxWidth: '400px', width: '100%' }}>
         <Card.Body>
           <Card.Title className="text-center mb-4" style={{ fontSize: '32px', fontWeight: 'bold' }}>
@@ -106,6 +106,6 @@ export const SignupView = ({ onSignedUp }) => {
           </p>
         </Card.Footer>
       </Card>
-    </Container>
+    </div>
   );
 };
