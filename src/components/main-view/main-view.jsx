@@ -67,7 +67,7 @@ export const MainView = () => {
       `https://da-flix-1a4fa4a29dcc.herokuapp.com/users/${user.Username}/movies/${movieId}`,
       {
         method: method,
-        headers: { Authorization: `Bearer ${token}` },
+        headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json'},
       }
     )
       .then((response) => {
@@ -77,11 +77,14 @@ export const MainView = () => {
           } else {
             setFavoriteMovies([...favoriteMovies, movieId]);
           }
-        } else {
-          alert('Failed to update favorites');
+        }  else {
+          throw new Error('Failed to update favorites');
         }
       })
-      .catch((error) => console.error('Error updating favorite movies:', error));
+      .catch((error) => {
+        console.error('Error updating favorite movies:', error);
+        alert('Failed to update favorites');
+      });
   };
 
   const filteredMovies = movies.filter((movie) =>

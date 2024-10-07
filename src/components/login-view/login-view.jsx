@@ -65,13 +65,13 @@ export const LoginView = ({ onLoggedIn }) => {
                   required
                   placeholder="Enter password"
                 />
-                <InputGroup.Text onClick={togglePasswordVisibility}>
+                <InputGroup.Text onClick={togglePasswordVisibility} style={{ cursor: 'pointer' }}>
                   {showPassword ? <FaEyeSlash /> : <FaEye />}
                 </InputGroup.Text>
               </InputGroup>
             </Form.Group>
 
-            <Button variant="primary" type="submit" className="mt-3">
+            <Button variant="primary" type="submit" className="mt-3 w-100">
               Login
             </Button>
           </Form>
