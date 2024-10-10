@@ -104,7 +104,7 @@ input::placeholder {
 }
 
 .btn-primary:hover {
-  background-color: color.channel(#0069d9, 'red', 10%);
+  background-color: darken(#0069d9, 10%);
 }
 
 .btn-outline-secondary {
@@ -172,7 +172,7 @@ button {
   transition: background-color 0.3s ease;
 
   &:hover {
-    background-color: color.channel($primary-color, 'red', $button-hover-darken);
+    background-color: darken($primary-color, $button-hover-darken);
   }
 }
 
