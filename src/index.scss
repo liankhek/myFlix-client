@@ -80,6 +80,10 @@ body {
   font-size: 16px;
 }
 
+.form-inline {
+  margin-right: 15px; 
+}
+
 input::placeholder {
   color: #aaa;
 }
@@ -100,7 +104,46 @@ input::placeholder {
 }
 
 .btn-primary:hover {
-  background-color: darken(#0069d9, 10%);
+  background-color: color.channel(#0069d9, 'red', 10%);
+}
+
+.btn-outline-secondary {
+  border: 1px solid #ccc;
+}
+
+.btn-outline-secondary:hover {
+  background-color: #e0e0e0;
+}
+
+// Password visibility button styling
+.input-group .btn-outline-secondary {
+  border-radius: 0 8px 8px 0;
+}
+
+.input-group-text {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #0069d9;
+  font-size: 20px;
+  padding-left: 10px;
+}
+
+// Additional styling for form spacing
+.form-group {
+  margin-bottom: 20px;
+}
+
+.text-center {
+  font-size: 14px;
+  margin-top: 10px;
+}
+
+// Container for movie list
+.movie-list {
+  padding: 20px;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 // Movie card styling
@@ -108,7 +151,6 @@ input::placeholder {
   border-radius: 12px;
   box-shadow: $card-shadow;
   transition: transform 0.2s ease;
-
   &:hover {
     transform: scale(1.05);
   }
@@ -119,14 +161,29 @@ input::placeholder {
   object-fit: contain;
 }
 
+// Additional global button styling
+button {
+  background-color: $primary-color;
+  border: none;
+  padding: 10px 20px;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: color.channel($primary-color, 'red', $button-hover-darken);
+  }
+}
+
 // Link Styling
 a {
   color: $primary-color;
   text-decoration: none;
+}
 
-  &:hover {
-    text-decoration: underline;
-  }
+a:hover {
+  text-decoration: underline;
 }
 
 // Card-body Padding
