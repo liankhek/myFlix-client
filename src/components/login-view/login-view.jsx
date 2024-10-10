@@ -9,7 +9,9 @@ export const LoginView = ({ onLoggedIn }) => {
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
 
-  const togglePasswordVisibility = () => setShowPassword(!showPassword);
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -35,7 +37,7 @@ export const LoginView = ({ onLoggedIn }) => {
   };
 
   return (
-    <div className="d-flex justify-content-center align-items-center min-vh-100 auth-container">
+    <div className="d-flex justify-content-center align-items-center min-vh-100">
       <Card className="p-4" style={{ maxWidth: '400px', width: '100%' }}>
         <Card.Body>
           <Card.Title className="text-center mb-4" style={{ fontSize: '32px', fontWeight: 'bold' }}>
@@ -69,16 +71,14 @@ export const LoginView = ({ onLoggedIn }) => {
               </InputGroup>
             </Form.Group>
 
-            <Button variant="primary" type="submit" className="mt-3 w-100">
-              Login
+            <Button variant="primary" type="submit" className="mt-4 w-100">
+              LOGIN
             </Button>
           </Form>
-        </Card.Body>
-        <Card.Footer className="text-center mt-3">
-          <p>
+          <div className="text-center mt-3">
             Don't have an account? <Link to="/signup">Sign up!</Link>
-          </p>
-        </Card.Footer>
+          </div>
+        </Card.Body>
       </Card>
     </div>
   );
