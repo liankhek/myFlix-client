@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Form, Button, Card, InputGroup, Container } from 'react-bootstrap';
+import { Form, Button, Card, InputGroup } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import '../../index.scss';
@@ -11,9 +11,7 @@ export const SignupView = ({ onSignedUp }) => {
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
 
-  const togglePasswordVisibility = () => {
-    setShowPassword(!showPassword);
-  };
+  const togglePasswordVisibility = () => setShowPassword(!showPassword);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -39,7 +37,7 @@ export const SignupView = ({ onSignedUp }) => {
   };
 
   return (
-    <div className="d-flex justify-content-center align-items-center min-vh-100">
+    <div className="d-flex justify-content-center align-items-center min-vh-100 auth-container">
       <Card className="p-4" style={{ maxWidth: '400px', width: '100%' }}>
         <Card.Body>
           <Card.Title className="text-center mb-4" style={{ fontSize: '32px', fontWeight: 'bold' }}>
@@ -75,7 +73,6 @@ export const SignupView = ({ onSignedUp }) => {
                 value={birthday}
                 onChange={(e) => setBirthday(e.target.value)}
                 required
-                placeholder="MM/DD/YYYY"
               />
             </Form.Group>
 
@@ -89,13 +86,13 @@ export const SignupView = ({ onSignedUp }) => {
                   required
                   placeholder="Enter password"
                 />
-                <InputGroup.Text onClick={togglePasswordVisibility}>
+                <InputGroup.Text onClick={togglePasswordVisibility} style={{ cursor: 'pointer' }}>
                   {showPassword ? <FaEyeSlash /> : <FaEye />}
                 </InputGroup.Text>
               </InputGroup>
             </Form.Group>
 
-            <Button variant="primary" type="submit" className="mt-3">
+            <Button variant="primary" type="submit" className="mt-3 w-100">
               Sign Up
             </Button>
           </Form>

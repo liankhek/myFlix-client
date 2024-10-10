@@ -6,14 +6,16 @@ export const ProfileUpdate = ({ user, token, updatedUser }) => {
   const [username, setUsername] = useState(user.Username);
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState(user.Email);
-  const [birthday, setBirthday] = useState(user.Birthday ? new Date(user.Birthday).toISOString().substr(0, 10) : '');
+  const [birthday, setBirthday] = useState(
+    user.Birthday ? new Date(user.Birthday).toISOString().substr(0, 10) : ''
+  );
 
   const handleSubmit = (event) => {
     event.preventDefault();
 
     const data = {
       Username: username,
-      ...(password && { Password: password }),  // Only update password if provided
+      ...(password && { Password: password }), // Only update password if provided
       Email: email,
       Birthday: birthday,
     };

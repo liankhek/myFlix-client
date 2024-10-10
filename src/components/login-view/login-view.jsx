@@ -9,9 +9,7 @@ export const LoginView = ({ onLoggedIn }) => {
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
 
-  const togglePasswordVisibility = () => {
-    setShowPassword(!showPassword);
-  };
+  const togglePasswordVisibility = () => setShowPassword(!showPassword);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -37,7 +35,7 @@ export const LoginView = ({ onLoggedIn }) => {
   };
 
   return (
-    <div className="d-flex justify-content-center align-items-center min-vh-100">
+    <div className="d-flex justify-content-center align-items-center min-vh-100 auth-container">
       <Card className="p-4" style={{ maxWidth: '400px', width: '100%' }}>
         <Card.Body>
           <Card.Title className="text-center mb-4" style={{ fontSize: '32px', fontWeight: 'bold' }}>

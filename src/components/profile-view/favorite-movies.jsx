@@ -23,7 +23,7 @@ export const FavoriteMovies = ({ favMovies, toggleFavorite }) => {
               <Link to={`/movies/${movie._id}`}>
                 <Button variant="primary" className="me-2">Movie Info</Button>
               </Link>
-              <Button variant="danger" onClick={() => onRemoveFavorite(movie._id)}>Remove</Button>
+              <Button variant="danger" onClick={() => toggleFavorite(movie._id)}>Remove</Button>
             </Card.Body>
           </Card>
         </Col>
@@ -37,8 +37,8 @@ FavoriteMovies.propTypes = {
     PropTypes.shape({
       _id: PropTypes.string.isRequired,
       Title: PropTypes.string.isRequired,
-      ImagePath: PropTypes.string
+      ImagePath: PropTypes.string,
     })
   ).isRequired,
-  onRemoveFavorite: PropTypes.func.isRequired, // Function to handle removal
+  toggleFavorite: PropTypes.func.isRequired, // Function to handle removing favorites
 };

@@ -38,7 +38,7 @@ export const MovieCard = ({ movie, isFavorite, toggleFavorite }) => {
       <Card.Body>
         <Card.Title className="text-truncate">{movie.Title}</Card.Title>
         <Card.Text className="movie-description">
-          {movie.Description.substring(0, 100)}...`
+          {movie.Description.substring(0, 100)}...
         </Card.Text>
         <Link to={`/movies/${movie._id}`}>
           <Button variant="primary" className="w-100">
