@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { MovieCard } from '../movie-card/movie-card';
-import { Container, Row, Col, Button, Spinner } from 'react-bootstrap';
+import { Container, Row, Col, Button } from 'react-bootstrap';
 import { useNavigate, useParams } from 'react-router-dom';
 import { FaHeart, FaRegHeart } from 'react-icons/fa';
 
@@ -83,9 +83,7 @@ export const MovieView = ({ movies, toggleFavorite, favoriteMovies }) => {
               )}
             </div>
 
-            <p className="movie-description mb-4">
-              {movie.Description}
-            </p>
+            <p className="movie-description mb-4">{movie.Description}</p>
 
             <div className="text-center mb-4">
               <Button onClick={() => navigate(-1)} variant="primary" className="back-button">
@@ -121,7 +119,7 @@ export const MovieView = ({ movies, toggleFavorite, favoriteMovies }) => {
 };
 
 MovieView.propTypes = {
-  movies: PropTypes.array.isRequired,          // Array of all movies
-  toggleFavorite: PropTypes.func.isRequired,   // Function to toggle favorite status
-  favoriteMovies: PropTypes.array.isRequired,  // Array of favorite movie IDs
+  movies: PropTypes.array.isRequired, // Array of all movies
+  toggleFavorite: PropTypes.func.isRequired, // Function to toggle favorite status
+  favoriteMovies: PropTypes.array.isRequired, // Array of favorite movie IDs
 };
