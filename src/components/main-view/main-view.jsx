@@ -10,13 +10,7 @@ import { Container, Row, Col } from 'react-bootstrap';
 import '../../index.scss';
 
 export const MainView = () => {
-  let storedUser;
-  try {
-    storedUser = JSON.parse(localStorage.getItem('user')) || {}; // Safely parse JSON
-  } catch (error) {
-    storedUser = {}; // Assign empty object if JSON parsing fails
-  }
-
+  const storedUser = JSON.parse(localStorage.getItem('user') || '{}');
   const storedToken = localStorage.getItem('token');
   const [movies, setMovies] = useState([]);
   const [user, setUser] = useState(Object.keys(storedUser).length > 0 ? storedUser : null);
@@ -80,8 +74,10 @@ export const MainView = () => {
         if (response.ok) {
           if (isFavorite) {
             setFavoriteMovies(favoriteMovies.filter((id) => id !== movieId));
+            alert('Movie removed from favorites');
           } else {
             setFavoriteMovies([...favoriteMovies, movieId]);
+            alert('Movie added to favorites');
           }
         } else {
           throw new Error('Failed to update favorites');
