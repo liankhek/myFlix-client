@@ -21,14 +21,14 @@ export const MovieCard = ({ movie, isFavorite, toggleFavorite }) => {
             <FaHeart
               size={24}
               color="red"
-              onClick={() => toggleFavorite(movie._id)}
+              onClick={() => toggleFavorite(movie.Title)} // Use movie title to toggle favorite
               style={{ cursor: 'pointer' }}
             />
           ) : (
             <FaRegHeart
               size={24}
               color="gray"
-              onClick={() => toggleFavorite(movie._id)}
+              onClick={() => toggleFavorite(movie.Title)} // Use movie title to toggle favorite
               style={{ cursor: 'pointer' }}
             />
           )}
@@ -60,6 +60,6 @@ MovieCard.propTypes = {
     ImagePath: PropTypes.string.isRequired,
     Featured: PropTypes.bool,
   }).isRequired,
-  isFavorite: PropTypes.bool.isRequired, // Indicates if the movie is a favorite
-  toggleFavorite: PropTypes.func.isRequired, // Function to toggle favorite status
+  isFavorite: PropTypes.bool.isRequired,
+  toggleFavorite: PropTypes.func.isRequired,
 };

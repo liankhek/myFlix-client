@@ -11,19 +11,17 @@ export const FavoriteMovies = ({ favMovies, toggleFavorite }) => {
   return (
     <Row className="favorite-movies-container">
       {favMovies.map((movie) => (
-        <Col md={6} key={movie._id} className="mb-4">
+        <Col md={6} key={movie.Title} className="mb-4">
           <Card className="favorite-movie-card">
-            {movie.ImagePath ? (
-              <Card.Img variant="top" src={movie.ImagePath} alt={movie.Title} />
-            ) : (
-              <Card.Img variant="top" src="/path/to/default-image.jpg" alt="No Image" />
-            )}
+            <Card.Img variant="top" src={movie.ImagePath} alt={movie.Title} />
             <Card.Body>
               <Card.Title>{movie.Title}</Card.Title>
               <Link to={`/movies/${movie._id}`}>
                 <Button variant="primary" className="me-2">Movie Info</Button>
               </Link>
-              <Button variant="danger" onClick={() => toggleFavorite(movie._id)}>Remove</Button>
+              <Button variant="danger" onClick={() => toggleFavorite(movie.Title)}>
+                Remove from Favorites
+              </Button>
             </Card.Body>
           </Card>
         </Col>
@@ -35,10 +33,10 @@ export const FavoriteMovies = ({ favMovies, toggleFavorite }) => {
 FavoriteMovies.propTypes = {
   favMovies: PropTypes.arrayOf(
     PropTypes.shape({
-      _id: PropTypes.string.isRequired,
       Title: PropTypes.string.isRequired,
       ImagePath: PropTypes.string,
+      _id: PropTypes.string.isRequired,
     })
   ).isRequired,
-  toggleFavorite: PropTypes.func.isRequired, // Function to handle removing favorites
+  toggleFavorite: PropTypes.func.isRequired,
 };
