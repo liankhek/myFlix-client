@@ -10,7 +10,13 @@ import { Container, Row, Col } from 'react-bootstrap';
 import '../../index.scss';
 
 export const MainView = () => {
-  const storedUser = JSON.parse(localStorage.getItem('user') || '{}'); 
+  let storedUser;
+  try {
+    storedUser = JSON.parse(localStorage.getItem('user')) || {}; // Safely parse JSON
+  } catch (error) {
+    storedUser = {}; // Assign empty object if JSON parsing fails
+  }
+
   const storedToken = localStorage.getItem('token');
   const [movies, setMovies] = useState([]);
   const [user, setUser] = useState(Object.keys(storedUser).length > 0 ? storedUser : null);
@@ -67,7 +73,7 @@ export const MainView = () => {
       `https://da-flix-1a4fa4a29dcc.herokuapp.com/users/${user.Username}/movies/${movieId}`,
       {
         method: method,
-        headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json'},
+        headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
       }
     )
       .then((response) => {
@@ -77,7 +83,7 @@ export const MainView = () => {
           } else {
             setFavoriteMovies([...favoriteMovies, movieId]);
           }
-        }  else {
+        } else {
           throw new Error('Failed to update favorites');
         }
       })
