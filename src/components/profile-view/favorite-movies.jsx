@@ -20,7 +20,7 @@ export const FavoriteMovies = ({ favMovies, toggleFavorite }) => {
                 <Button variant="primary" className="me-2">Movie Info</Button>
               </Link>
               <Button variant="danger" onClick={() => toggleFavorite(movie.Title)}>
-                Remove from Favorites
+                Remove
               </Button>
             </Card.Body>
           </Card>
