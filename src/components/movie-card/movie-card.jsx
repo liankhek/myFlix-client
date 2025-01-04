@@ -5,32 +5,30 @@ import { Link } from 'react-router-dom';
 import { FaHeart, FaRegHeart } from 'react-icons/fa';
 
 export const MovieCard = ({ movie, isFavorite, toggleFavorite }) => {
+
+  // Function to handle click event on the favorite icon
+  const handleFavoriteClick = (e) => {
+    e.preventDefault(); // Prevent navigation
+    toggleFavorite(movie._id);
+  };
+
   return (
     <Card className="movie-card h-100" style={{ maxWidth: '250px' }}>
       <div className="position-relative">
         <Card.Img
           variant="top"
           src={movie.ImagePath}
-          alt={movie.Title}
+          alt={`Poster of ${movie.Title}`}
           style={{ height: '300px', objectFit: 'cover' }}
         />
-        <div className="favorite-icon position-absolute top-0 end-0 p-2">
-          {isFavorite ? (
-            <FaHeart
-              size={24}
-              color="red"
-              onClick={() => toggleFavorite(movie._id)}
-              style={{ cursor: 'pointer' }}
-            />
-          ) : (
-            <FaRegHeart
-              size={24}
-              color="gray"
-              onClick={() => toggleFavorite(movie._id)}
-              style={{ cursor: 'pointer' }}
-            />
-          )}
-        </div>
+        <Button 
+          className="favorite-icon position-absolute top-0 end-0 p-2"
+          onClick={handleFavoriteClick}
+          aria-label={isFavorite ? "Remove from favorites" : "Add to favorites"}
+          style={{ background: 'none', border: 'none', color: isFavorite ? 'red' : 'gray' }}
+        >
+          {isFavorite ? <FaHeart size={24} /> : <FaRegHeart size={24} />}
+        </Button>
       </div>
 
       <Card.Body>
