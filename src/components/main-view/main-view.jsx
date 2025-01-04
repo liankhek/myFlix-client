@@ -26,6 +26,15 @@ export const MainView = () => {
     }
   }, [token, user.Username]);
 
+  const toggleFavorite = (movieId) => {
+    const isAdd = !favoriteMovies.includes(movieId);
+    updateFavoriteMovie(user.Username, movieId, token, isAdd)
+      .then(() => {
+        setFavoriteMovies(prev => isAdd ? [...prev, movieId] : prev.filter(id => id !== movieId));
+      })
+      .catch(console.error);
+  };
+
   const filteredMovies = movies.filter(movie => movie.Title.toLowerCase().includes(searchTerm.toLowerCase()));
 
   return (
