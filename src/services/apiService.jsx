@@ -1,6 +1,33 @@
 
 const API_URL = 'https://da-flix-1a4fa4a29dcc.herokuapp.com';
 
+// Login
+export const loginUser = async (username, password) => {
+    const response = await fetch(`${API_URL}/login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ Username: username, Password: password })
+    });
+    if (!response.ok) {
+        throw new Error('Failed to login');
+    }
+    return response.json();
+};
+
+// Register
+export const registerUser = async (userData) => {
+    const response = await fetch(`${API_URL}/users`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(userData)
+    });
+    if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Could not register user.');
+    }
+    return response.json();
+};
+
 // Fetch all movies
 export const fetchMovies = async (token) => {
     const response = await fetch(`${API_URL}/movies`, {
