@@ -12,21 +12,22 @@ import '../../index.scss';
 
 export const MainView = () => {
   const [movies, setMovies] = useState([]);
-  const [user, setUser] = useState(JSON.parse(localStorage.getItem('user') || '{}'));
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem('user') || 'null'));
   const [token, setToken] = useState(localStorage.getItem('token'));
   const [favoriteMovies, setFavoriteMovies] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
-    if (token) {
+    if (token && user && user.Username) { // Ensures that user and token are not null before fetching
       fetchMovies(token).then(setMovies).catch(console.error);
-      if (user.Username) {
-        fetchFavoriteMovies(user.Username, token).then(data => setFavoriteMovies(data.FavoriteMovies || [])).catch(console.error);
-      }
+      fetchFavoriteMovies(user.Username, token)
+        .then(data => setFavoriteMovies(data.FavoriteMovies || []))
+        .catch(console.error);
     }
-  }, [token, user.Username]);
+  }, [token, user.Username]); // user.Username needs to be checked for validity before running this effect
 
   const toggleFavorite = (movieId) => {
+    if (!user || !user.Username) return; // Additional check before proceeding to toggle favorite
     const isAdd = !favoriteMovies.includes(movieId);
     updateFavoriteMovie(user.Username, movieId, token, isAdd)
       .then(() => {
