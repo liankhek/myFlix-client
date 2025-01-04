@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
-import { LoginView, SignupView, MovieView, ProfileView, NavigationBar, MovieCard } from '../components';
+import { LoginView } from '../login-view/login-view';
+import { SignupView } from '../signup-view/signup-view';
+import { MovieView } from '../movie-view/movie-view';
+import { ProfileView } from '../profile-view/profile-view';
+import { NavigationBar } from '../navigation-bar/navigation-bar';
+import { MovieCard } from '../movie-card/movie-card';
 import { Container, Row, Col } from 'react-bootstrap';
 import { fetchMovies, fetchFavoriteMovies } from '../../services/apiService';
 import '../../index.scss';
