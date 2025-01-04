@@ -1,45 +1,31 @@
 import React, { useState } from 'react';
 import { Form, Button, Card, InputGroup } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
+import { registerUser } from '../../services/apiService'; // Import the service
 import '../../index.scss';
 
-export const SignupView = ({ onSignedUp }) => {
+export const SignupView = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
   const [birthday, setBirthday] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
-  const [successMessage, setSuccessMessage] = useState('');
   const navigate = useNavigate();
 
   const togglePasswordVisibility = () => setShowPassword(!showPassword);
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    const data = { Username: username, Password: password, Email: email, Birthday: birthday };
-
-    fetch('https://da-flix-1a4fa4a29dcc.herokuapp.com/users', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data),
-    })
-      .then((response) => {
-        if (response.ok) {
-          setSuccessMessage('Sign-up successful! Redirecting to login...');
-          setTimeout(() => {
-            navigate('/login');
-          }, 2000); // Redirect after 2 seconds
-        } else {
-          return response.json().then((data) => {
-            setErrorMessage(data.message || 'Sign-up failed. Please try again.');
-          });
-        }
-      })
-      .catch((e) => {
-        setErrorMessage('An error occurred. Please try again.');
-        console.error('Signup error:', e);
-      });
+    setErrorMessage('');
+    try {
+      const userData = { Username: username, Password: password, Email: email, Birthday: birthday };
+      await registerUser(userData);
+      navigate('/login', { replace: true }); // Redirect to login after successful signup
+    } catch (error) {
+      console.error('Signup error:', error);
+      setErrorMessage(error.message || 'An error occurred. Please try again.');
+    }
   };
 
   return (
@@ -49,7 +35,6 @@ export const SignupView = ({ onSignedUp }) => {
           <Card.Title className="text-center mb-4" style={{ fontSize: '32px', fontWeight: 'bold' }}>
             Sign Up for MyFlix
           </Card.Title>
-          {successMessage && <div className="alert alert-success">{successMessage}</div>}
           {errorMessage && <div className="alert alert-danger">{errorMessage}</div>}
           <Form onSubmit={handleSubmit}>
             <Form.Group controlId="formUsername" className="mt-3">
@@ -95,6 +80,7 @@ export const SignupView = ({ onSignedUp }) => {
                   placeholder="Enter password"
                 />
                 <InputGroup.Text onClick={togglePasswordVisibility} style={{ cursor: 'pointer' }}>
+                  {showPassword ? 'Hide' : 'Show'}
                 </InputGroup.Text>
               </InputGroup>
             </Form.Group>
@@ -103,12 +89,10 @@ export const SignupView = ({ onSignedUp }) => {
               Sign Up
             </Button>
           </Form>
-        </Card.Body>
-        <Card.Footer className="text-center mt-3">
-          <p>
+          <Card.Footer className="text-center mt-3">
             Already have an account? <Link to="/login">Login here</Link>
-          </p>
-        </Card.Footer>
+          </Card.Footer>
+        </Card.Body>
       </Card>
     </div>
   );

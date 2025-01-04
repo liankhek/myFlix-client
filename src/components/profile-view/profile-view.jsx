@@ -3,82 +3,53 @@ import { Container, Row, Col, Card, Button, Spinner } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import { FavoriteMovies } from './favorite-movies';
 import { ProfileUpdate } from './profile-update';
-import { UserInfo } from './user-info'; // Reuse the UserInfo component
+import { UserInfo } from './user-info';
+import { deleteUser } from '../../services/apiService';
 
 export const ProfileView = ({ user, token, favoriteMovies, toggleFavorite, onLoggedOut }) => {
-  const [currentUser, setCurrentUser] = useState(user);
   const [isDeleting, setIsDeleting] = useState(false); 
 
-  const handleDeleteAccount = () => {
+  const handleDeleteAccount = async () => {
     if (!window.confirm('Are you sure you want to delete your account?')) return;
-
-    setIsDeleting(true); 
-    fetch(`https://da-flix-1a4fa4a29dcc.herokuapp.com/users/${user.Username}`, {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
-    })
-    .then((response) => {
-      if (response.ok) {
-        alert('Account deleted successfully!');
-        onLoggedOut();
-      } else {
-        alert('Account deletion failed.');
-      }
-    })
-    .catch((error) => {
+    setIsDeleting(true);
+    try {
+      await deleteUser(user.Username, token);
+      alert('Account deleted successfully!');
+      onLoggedOut();
+    } catch (error) {
       console.error('Error deleting account:', error);
-      alert('An error occurred. Please try again.');
-    })
-    .finally(() => {
-      setIsDeleting(false); 
-    });
+      alert('An error occurred: ' + error.message);
+    } finally {
+      setIsDeleting(false);
+    }
   };
 
   const handleUpdateUser = (updatedUser) => {
-    setCurrentUser(updatedUser);
+    // Assuming updatedUser contains the whole updated user object
+    localStorage.setItem('user', JSON.stringify(updatedUser));
   };
 
-/*const handleRemoveFavorite = (movieId) => {
-  alert('Feature not implemented yet.');
-};*/
-
-return (
-  <Container className="profile-view mt-4">
-    <Row>
-      {/* User Info Section */}
-      <Col md={6} className="mb-4">
-        <Card className="user-info-card">
-          <Card.Header className="text-center">Account Information</Card.Header>
-          <Card.Body>
-            <UserInfo name={currentUser.Username} email={currentUser.Email} />
-            <p>
-              <strong>Birthday:</strong> {currentUser.Birthday ? new Date(currentUser.Birthday).toLocaleDateString() : 'N/A'}
-            </p>
-          </Card.Body>
-        </Card>
-
-        {/* Update Profile Section */}
-        <Card className="mt-4">
-          <Card.Body>
-            <ProfileUpdate user={currentUser} token={token} updatedUser={handleUpdateUser} />
-          </Card.Body>
-        </Card>
-
-        <Button
-          variant="danger"
-          className="mt-3 w-100"
-          onClick={handleDeleteAccount}
-          disabled={isDeleting}
-        >
-          {isDeleting ? <Spinner animation="border" size="sm" /> : 'Delete Account'}
-        </Button>
-      </Col>
-
-      {/* Favorite Movies Section */}
-      <Col md={6}>
+  return (
+    <Container className="profile-view mt-4">
+      <Row>
+        <Col md={6} className="mb-4">
+          <Card className="user-info-card">
+            <Card.Header className="text-center">Account Information</Card.Header>
+            <Card.Body>
+              <UserInfo name={user.Username} email={user.Email} />
+              <p><strong>Birthday:</strong> {user.Birthday ? new Date(user.Birthday).toLocaleDateString() : 'N/A'}</p>
+            </Card.Body>
+          </Card>
+          <Card className="mt-4">
+            <Card.Body>
+              <ProfileUpdate user={user} token={token} updatedUser={handleUpdateUser} />
+            </Card.Body>
+          </Card>
+          <Button variant="danger" className="mt-3 w-100" onClick={handleDeleteAccount} disabled={isDeleting}>
+            {isDeleting ? <Spinner animation="border" size="sm" /> : 'Delete Account'}
+          </Button>
+        </Col>
+        <Col md={6}>
           <Card className="favorite-movies-card">
             <Card.Header className="text-center">Favorite Movies</Card.Header>
             <Card.Body>
@@ -102,4 +73,3 @@ ProfileView.propTypes = {
   favoriteMovies: PropTypes.array.isRequired,
   toggleFavorite: PropTypes.func.isRequired,
 };
-

@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "A simple React App",
   "scripts": {
-    "start": "parcel src/index.html",
+    "start": "parcel src/index.html --open",
     "build": "parcel build src/index.html",
     "clean": "rimraf .parcel-cache dist",
     "test": "echo \"Error: no test specified\" && exit 1"

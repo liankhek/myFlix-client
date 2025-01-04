@@ -25,7 +25,7 @@ export const NavigationBar = ({ user, onLoggedOut, onSearch, resetSearch }) => {
                 as={Link}
                 to="/"
                 className="text-light"
-                onClick={resetSearch} // Reset search when clicking the Movies or MyFlix link
+                onClick={resetSearch}
               >
                 Movies
               </Nav.Link>
@@ -33,14 +33,13 @@ export const NavigationBar = ({ user, onLoggedOut, onSearch, resetSearch }) => {
                 as={Link}
                 to="/profile"
                 className="text-light"
-                onClick={resetSearch} // Reset search when navigating to profile
+                onClick={resetSearch}
               >
                 Profile
               </Nav.Link>
             </Nav>
           )}
 
-          {/* Conditionally remove search bar if on login or signup page */}
           {!['/login', '/signup'].includes(location.pathname) && user && (
             <form className="d-flex" onSubmit={handleSearch}>
               <input

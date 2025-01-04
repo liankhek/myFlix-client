@@ -8,10 +8,14 @@ export const FavoriteMovies = ({ favMovies, toggleFavorite }) => {
     return <p className="text-center">You have no favorite movies.</p>;
   }
 
+  const handleRemoveFavorite = (movieId) => {
+    toggleFavorite(movieId);
+  };
+
   return (
     <Row className="favorite-movies-container">
       {favMovies.map((movie) => (
-        <Col md={6} key={movie.Title} className="mb-4">
+        <Col md={6} key={movie._id} className="mb-4">
           <Card className="favorite-movie-card">
             <Card.Img variant="top" src={movie.ImagePath} alt={movie.Title} />
             <Card.Body>
@@ -19,7 +23,7 @@ export const FavoriteMovies = ({ favMovies, toggleFavorite }) => {
               <Link to={`/movies/${movie._id}`}>
                 <Button variant="primary" className="me-2">Movie Info</Button>
               </Link>
-              <Button variant="danger" onClick={() => toggleFavorite(movie.Title)}>
+              <Button variant="danger" onClick={() => handleRemoveFavorite(movie._id)} aria-label={`Remove ${movie.Title} from favorites`}>
                 Remove
               </Button>
             </Card.Body>

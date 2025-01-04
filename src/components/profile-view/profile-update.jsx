@@ -1,42 +1,33 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Form, Button } from 'react-bootstrap';
+import { updateUserProfile } from '../../services/apiService';
 
 export const ProfileUpdate = ({ user, token, updatedUser }) => {
   const [username, setUsername] = useState(user.Username);
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState(user.Email);
   const [birthday, setBirthday] = useState(
-    user.Birthday ? new Date(user.Birthday).toISOString().substr(0, 10) : ''
+    user.Birthday ? new Date(user.Birthday).toISOString().substring(0, 10) : ''
   );
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-
-    const data = {
+    const updateData = {
       Username: username,
-      ...(password && { Password: password }), // Only update password if provided
+      Password: password,
       Email: email,
       Birthday: birthday,
     };
 
-    fetch(`https://da-flix-1a4fa4a29dcc.herokuapp.com/users/${user.Username}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify(data),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        alert('Profile updated successfully!');
-        updatedUser(data);
-      })
-      .catch((error) => {
-        console.error('Error updating profile:', error);
-        alert('Profile update failed. Please try again.');
-      });
+    try {
+      const updatedUserData = await updateUserProfile(user.Username, token, updateData);
+      alert('Profile updated successfully!');
+      updatedUser(updatedUserData);
+    } catch (error) {
+      console.error('Error updating profile:', error);
+      alert('Profile update failed: ' + error.message);
+    }
   };
 
   return (

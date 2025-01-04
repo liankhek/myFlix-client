@@ -1,34 +1,24 @@
 import React, { useState } from 'react';
 import { Button, Spinner } from 'react-bootstrap';
 import PropTypes from 'prop-types';
+import { deleteUser } from '../../services/apiService';
 
 export const DeleteAccountButton = ({ user, token, onAccountDeleted }) => {
   const [isDeleting, setIsDeleting] = useState(false);
 
-  const handleDeleteAccount = () => {
+  const handleDeleteAccount = async () => {
     if (!window.confirm('Are you sure you want to delete your account?')) return;
-
     setIsDeleting(true);
-    fetch(`https://da-flix-1a4fa4a29dcc.herokuapp.com/users/${user.Username}`, {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then((response) => {
-        if (response.ok) {
-          alert('Account deleted successfully!');
-          onAccountDeleted();
-        } else {
-          alert('Account deletion failed.');
-        }
-      })
-      .catch((error) => {
-        console.error('Error deleting account:', error);
-        alert('An error occurred. Please try again.');
-      })
-      .finally(() => setIsDeleting(false));
+    try {
+      await deleteUser(user.Username, token);
+      alert('Account deleted successfully!');
+      onAccountDeleted();
+    } catch (error) {
+      console.error('Error deleting account:', error);
+      alert('An error occurred. Please try again.');
+    } finally {
+      setIsDeleting(false);
+    }
   };
 
   return (
