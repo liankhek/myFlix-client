@@ -7,47 +7,49 @@ import { ProfileView } from '../profile-view/profile-view';
 import { NavigationBar } from '../navigation-bar/navigation-bar';
 import { MovieCard } from '../movie-card/movie-card';
 import { Container, Row, Col } from 'react-bootstrap';
-import { fetchMovies, fetchFavoriteMovies } from '../../services/apiService';
+import { fetchMovies, fetchFavoriteMovies, updateFavoriteMovie } from '../../services/apiService';
 import '../../index.scss';
 
 export const MainView = () => {
+  const storedUser = localStorage.getItem('user');
   const [movies, setMovies] = useState([]);
-  const [user, setUser] = useState(JSON.parse(localStorage.getItem('user') || 'null'));
+  const [user, setUser] = useState(storedUser ? JSON.parse(storedUser) : null);
   const [token, setToken] = useState(localStorage.getItem('token'));
   const [favoriteMovies, setFavoriteMovies] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
-    if (token && user && user.Username) { // Ensures that user and token are not null before fetching
+    if (token && user) {
       fetchMovies(token).then(setMovies).catch(console.error);
       fetchFavoriteMovies(user.Username, token)
         .then(data => setFavoriteMovies(data.FavoriteMovies || []))
         .catch(console.error);
     }
-  }, [token, user.Username]); // user.Username needs to be checked for validity before running this effect
+  }, [token, user]);
 
-  const toggleFavorite = (movieId) => {
-    if (!user || !user.Username) return; // Additional check before proceeding to toggle favorite
-    const isAdd = !favoriteMovies.includes(movieId);
-    updateFavoriteMovie(user.Username, movieId, token, isAdd)
-      .then(() => {
-        setFavoriteMovies(prev => isAdd ? [...prev, movieId] : prev.filter(id => id !== movieId));
-      })
-      .catch(console.error);
+  const onLoggedIn = (loggedInUser, authToken) => {
+    localStorage.setItem('user', JSON.stringify(loggedInUser));
+    localStorage.setItem('token', authToken);
+    setUser(loggedInUser);
+    setToken(authToken);
   };
 
-  const filteredMovies = movies.filter(movie => movie.Title.toLowerCase().includes(searchTerm.toLowerCase()));
+  const onLoggedOut = () => {
+    localStorage.removeItem('user');
+    localStorage.removeItem('token');
+    setUser(null);
+    setToken(null);
+  };
 
   return (
     <Container fluid className="app-container">
-      <NavigationBar user={user} onLoggedOut={() => { setUser(null); setToken(null); localStorage.clear(); }} onSearch={setSearchTerm} />
+      <NavigationBar user={user} onLoggedOut={onLoggedOut} />
       <Routes>
-        <Route path="/login" element={!user ? <LoginView onLoggedIn={(user, token) => { setUser(user); setToken(token); localStorage.setItem('user', JSON.stringify(user)); localStorage.setItem('token', token); }} /> : <Navigate to="/" />} />
-        <Route path="/signup" element={!user ? <SignupView onSignedUp={(user, token) => { setUser(user); setToken(token); localStorage.setItem('user', JSON.stringify(user)); localStorage.setItem('token', token); }} /> : <Navigate to="/" />} />
-        <Route path="/movies/:movieId" element={user ? <MovieView movies={movies} favoriteMovies={favoriteMovies} toggleFavorite={toggleFavorite} /> : <Navigate to="/login" />} />
-        <Route path="/profile" element={user ? <ProfileView user={user} token={token} favoriteMovies={favoriteMovies} onLoggedOut={() => { setUser(null); setToken(null); localStorage.clear(); }} toggleFavorite={toggleFavorite} /> : <Navigate to="/login" />} />
-        <Route path="/" element={user ? <Row className="movie-list">{filteredMovies.length > 0 ? filteredMovies.map(movie => <Col md={3} key={movie._id}><MovieCard movie={movie} isFavorite={favoriteMovies.includes(movie._id)} toggleFavorite={() => toggleFavorite(movie._id)} /></Col>) : <div>No movies found</div>}</Row> : <Navigate to="/login" />} />
-        <Route path="*" element={<Navigate to="/" />} />
+        <Route path="/login" element={!user ? <LoginView onLoggedIn={onLoggedIn} /> : <Navigate to="/" />} />
+        <Route path="/signup" element={!user ? <SignupView onSignedUp={onLoggedIn} /> : <Navigate to="/" />} />
+        <Route path="/movies/:movieId" element={user ? <MovieView movies={movies} toggleFavorite={updateFavoriteMovie} /> : <Navigate to="/login" />} />
+        <Route path="/profile" element={user ? <ProfileView user={user} toggleFavorite={updateFavoriteMovie} /> : <Navigate to="/login" />} />
+        <Route path="/" element={user ? movies.map(movie => <MovieCard key={movie._id} movie={movie} toggleFavorite={updateFavoriteMovie} />) : <Navigate to="/login" />} />
       </Routes>
     </Container>
   );

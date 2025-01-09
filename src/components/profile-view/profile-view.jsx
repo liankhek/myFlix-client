@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { Container, Row, Col, Card, Button, Spinner } from 'react-bootstrap';
 import PropTypes from 'prop-types';
-import { FavoriteMovies } from './favorite-movies';
-import { ProfileUpdate } from './profile-update';
-import { UserInfo } from './user-info';
+import FavoriteMovies from './favorite-movies';  // Assuming default export
+import ProfileUpdate from './profile-update';  // Importing as default since exported as default
+import UserInfo from './user-info';            // Assuming default export
 import { deleteUser } from '../../services/apiService';
 
 export const ProfileView = ({ user, token, favoriteMovies, toggleFavorite, onLoggedOut }) => {
-  const [isDeleting, setIsDeleting] = useState(false); 
+  const [isDeleting, setIsDeleting] = useState(false);
 
   const handleDeleteAccount = async () => {
     if (!window.confirm('Are you sure you want to delete your account?')) return;
@@ -24,11 +24,6 @@ export const ProfileView = ({ user, token, favoriteMovies, toggleFavorite, onLog
     }
   };
 
-  const handleUpdateUser = (updatedUser) => {
-    // Assuming updatedUser contains the whole updated user object
-    localStorage.setItem('user', JSON.stringify(updatedUser));
-  };
-
   return (
     <Container className="profile-view mt-4">
       <Row>
@@ -38,11 +33,7 @@ export const ProfileView = ({ user, token, favoriteMovies, toggleFavorite, onLog
             <Card.Body>
               <UserInfo name={user.Username} email={user.Email} />
               <p><strong>Birthday:</strong> {user.Birthday ? new Date(user.Birthday).toLocaleDateString() : 'N/A'}</p>
-            </Card.Body>
-          </Card>
-          <Card className="mt-4">
-            <Card.Body>
-              <ProfileUpdate user={user} token={token} updatedUser={handleUpdateUser} />
+              <ProfileUpdate user={user} token={token} updatedUser={() => { /* handle user updates */ }} />
             </Card.Body>
           </Card>
           <Button variant="danger" className="mt-3 w-100" onClick={handleDeleteAccount} disabled={isDeleting}>
